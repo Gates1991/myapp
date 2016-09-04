@@ -24,6 +24,7 @@ public class HomePageActivity extends Activity {
         ButterKnife.bind(this);
         initData();
 
+
     }
 
     private void initData() {
