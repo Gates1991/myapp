@@ -1,11 +1,11 @@
-package com.hfkj.redchildsupermarket;
+package com.hfkj.redchildsupermarket.activity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.hfkj.redchildsupermarket.activity.HomePageActivity;
+import com.hfkj.redchildsupermarket.R;
 
 public class SplashActivity extends Activity {
 
