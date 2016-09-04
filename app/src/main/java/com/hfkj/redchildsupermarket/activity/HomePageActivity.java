@@ -32,7 +32,7 @@ public class HomePageActivity extends Activity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.menu:
-                    Toast.makeText(HomePageActivity.this, "你好", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HomePageActivity.this, "你好吗", Toast.LENGTH_SHORT).show();
                     break;
                 }
             }
