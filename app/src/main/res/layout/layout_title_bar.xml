@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:background="@drawable/id_head_bg"
+    android:background="@drawable/head_bg"
     android:gravity="center_vertical"
     android:layout_height="55dp">
 
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/id_head_back_normal"
+        android:background="@drawable/selector_title_left_btn"
         android:scaleType="centerInside"
         android:visibility="invisible"
         />
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:background="@drawable/id_head_button_normal"
+        android:background="@drawable/selector_title_right_btn"
         android:scaleType="centerInside"
         android:visibility="invisible"
         />
