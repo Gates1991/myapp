@@ -11,9 +11,8 @@
     <RadioGroup
         android:id="@+id/main_radio"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="bottom"
-        android:paddingTop="0dp"
+        android:layout_height="46dp"
+        android:paddingTop="2dp"
         android:gravity="center_vertical"
         android:background="@mipmap/bar_bg"
         android:orientation="horizontal">
