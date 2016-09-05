@@ -12,7 +12,7 @@ import android.support.v4.app.Fragment;
  */
 abstract class BaseFragment extends Fragment {
 
-	private Context mContext;
+	public Context mContext;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
