@@ -5,13 +5,11 @@
     android:background="@color/bg_white"
     android:orientation="vertical" >
 
-    <include layout="@layout/title_bar"/>
-      <TextView
-        android:id="@+id/textView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.11"
-        android:text="更多"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <include
+        android:id="@+id/title_bar"
+        layout="@layout/layout_title_bar"/>
+
+
+
 
 </LinearLayout>
