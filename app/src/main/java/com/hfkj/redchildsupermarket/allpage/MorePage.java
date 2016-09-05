@@ -23,7 +23,13 @@ public class MorePage extends BasePage {
     protected View initView() {
 
         View view = View.inflate(mContext, R.layout.more_frame, null);
+        initTitleBar();
         return view;
+    }
+
+    private void initTitleBar() {
+
+
     }
 
     @Override
