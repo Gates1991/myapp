@@ -3,7 +3,6 @@ package com.hfkj.redchildsupermarket.allpage;
 import android.content.Context;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
@@ -31,7 +30,6 @@ public class ShoppingPage extends BasePage {
         mIv_shop_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "随便看看被点击了", Toast.LENGTH_SHORT).show();
                 //跳转到品牌页面
                 ((MainActivity) mContext).getRadioButton().setChecked(true);
             }

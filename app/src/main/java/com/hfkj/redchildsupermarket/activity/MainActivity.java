@@ -8,10 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.allpage.BasePage;
+import com.hfkj.redchildsupermarket.allpage.BrandPage;
+import com.hfkj.redchildsupermarket.allpage.HomePage;
+import com.hfkj.redchildsupermarket.allpage.MorePage;
+import com.hfkj.redchildsupermarket.allpage.SearchPage;
 import com.hfkj.redchildsupermarket.allpage.ShoppingPage;
 import com.hfkj.redchildsupermarket.view.NoScrollViewPager;
 
@@ -50,11 +53,11 @@ public class MainActivity extends Activity {
     }
 
     private void initData() {
+        mAllPagesList.add(new HomePage(MainActivity.this));
+        mAllPagesList.add(new SearchPage(MainActivity.this));
+        mAllPagesList.add(new BrandPage(MainActivity.this));
         mAllPagesList.add(new ShoppingPage(MainActivity.this));
-        mAllPagesList.add(new ShoppingPage(MainActivity.this));
-        mAllPagesList.add(new ShoppingPage(MainActivity.this));
-        mAllPagesList.add(new ShoppingPage(MainActivity.this));
-        mAllPagesList.add(new ShoppingPage(MainActivity.this));
+        mAllPagesList.add(new MorePage(MainActivity.this));
         mViewPager.setAdapter(new MainAdapter() );
         mMainRadio.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -63,16 +66,17 @@ public class MainActivity extends Activity {
                     case R.id.menu:
                         mMenu.setTextColor(Color.RED);
                         setCheckedTextColor(mMenu);
-                        Toast.makeText(MainActivity.this,"主页被点击了",Toast.LENGTH_SHORT).show();
+                        mViewPager.setCurrentItem(0,false);
                         break;
                     case R.id.search:
                         mSearch.setTextColor(Color.RED);
                         setCheckedTextColor(mSearch);
-
+                        mViewPager.setCurrentItem(1,false);
                         break;
                     case R.id.brand:
                         mBrand.setTextColor(Color.RED);
                         setCheckedTextColor(mBrand);
+                        mViewPager.setCurrentItem(2,false);
                         break;
                     case R.id.shopping:
                         mShopping.setTextColor(Color.RED);
@@ -83,6 +87,7 @@ public class MainActivity extends Activity {
                     case R.id.more:
                         mMore.setTextColor(Color.RED);
                         setCheckedTextColor(mMore);
+                        mViewPager.setCurrentItem(4,false);
                         break;
                     default:
                         break;
