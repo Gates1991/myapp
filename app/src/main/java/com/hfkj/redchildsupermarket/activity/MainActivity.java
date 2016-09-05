@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 
@@ -45,6 +46,7 @@ public class MainActivity extends Activity {
                     case R.id.menu:
                         mMenu.setTextColor(Color.RED);
                         setCheckedTextColor(mMenu);
+                        Toast.makeText(MainActivity.this,"主页被点击了",Toast.LENGTH_SHORT).show();
                         break;
                     case R.id.search:
                         mSearch.setTextColor(Color.RED);
