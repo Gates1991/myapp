@@ -3,12 +3,14 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
-    <com.hfkj.redchildsupermarket.view.NoScrollViewPager
-        android:id="@+id/nsvp"
+    <FrameLayout
+        android:id="@+id/fl_content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
-    </com.hfkj.redchildsupermarket.view.NoScrollViewPager>
+        android:layout_weight="1"
+        android:layout_above="@+id/bottom_bar"
+        android:background="@android:color/white" >
+    </FrameLayout>
     <RadioGroup
         android:id="@+id/main_radio"
         android:layout_width="fill_parent"
