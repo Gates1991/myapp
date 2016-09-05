@@ -5,4 +5,5 @@
     <dimen name="mian_shade_width">5dp</dimen>
     <dimen name="bottom_tab_padding_drawable">0dp</dimen>
     <dimen name="bottom_tab_font_size">14sp</dimen>
+    <dimen name="top_title">26sp</dimen>
 </resources>
