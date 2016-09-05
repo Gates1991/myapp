@@ -51,6 +51,7 @@ public class MainActivity extends Activity {
                     case R.id.search:
                         mSearch.setTextColor(Color.RED);
                         setCheckedTextColor(mSearch);
+
                         break;
                     case R.id.brand:
                         mBrand.setTextColor(Color.RED);
