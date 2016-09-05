@@ -10,17 +10,32 @@ package com.hfkj.redchildsupermarket.allpage;/*
 
 import android.content.Context;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.Bind;
+
 public class BrandPage extends BasePage {
+    @Bind(R.id.button_back)
+    Button mButtonBack;
+    @Bind(R.id.tv_title)
+    TextView mTvTitle;
+    @Bind(R.id.listview)
+    ListView mListview;
+    private List mListViewData = new ArrayList();
     public BrandPage(Context context) {
         super(context);
     }
 
     @Override
     protected View initView() {
-        View view = View.inflate(mContext,R.layout.brandpage_frame,null);
+        View view = View.inflate(mContext, R.layout.brandpage_frame, null);
 
         return view;
     }
@@ -28,5 +43,6 @@ public class BrandPage extends BasePage {
     @Override
     public void initData() {
 
+        //mListview.setAdapter();
     }
 }

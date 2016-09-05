@@ -25,6 +25,7 @@ public class MorePage extends BasePage {
         View view = View.inflate(mContext, R.layout.more_frame, null);
         initTitleBar();
         return view;
+
     }
 
     private void initTitleBar() {
