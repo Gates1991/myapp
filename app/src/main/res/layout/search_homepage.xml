@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:background="#F5F5F5"
+             android:gravity="center_vertical"
+              android:layout_width="match_parent"
+              android:layout_height="33dp">
+
+    <EditText
+        android:layout_marginLeft="5dp"
+        android:id="@+id/search_et"
+        android:layout_width="0dp"
+        android:drawableLeft="@drawable/menu_search"
+        android:background="@drawable/shape_search"
+        android:hint="请输入关键字"
+        android:layout_weight="1"
+        android:layout_height="33dp"/>
+    <ImageButton
+        android:layout_marginRight="5dp"
+        android:background="@drawable/selector_search_imagebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"/>
+
+
+</LinearLayout>
