@@ -28,7 +28,7 @@ public class MainActivity extends Activity {
     RadioButton mShopping;
     @Bind(R.id.more)
     RadioButton mMore;
-    private RadioButton previousChecked;
+    private RadioButton previousChecked;   //记录上次被点击的RadioButton
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +69,7 @@ public class MainActivity extends Activity {
                 }
             }
         });
+        mMenu.setChecked(true);
     }
 
     private void setCheckedTextColor(RadioButton radioButton) {
