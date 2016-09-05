@@ -14,7 +14,7 @@
         android:layout_marginRight="5dp"
         android:background="@drawable/id_head_back_normal"
         android:scaleType="centerInside"
-        android:visibility="gone"/>
+        />
     <RelativeLayout
         android:layout_width="0dip"
         android:layout_weight="1"
