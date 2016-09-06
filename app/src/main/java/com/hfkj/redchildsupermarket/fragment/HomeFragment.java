@@ -166,7 +166,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         });
     }
 
-
     /**
      * 解析网络数据
      *
@@ -182,7 +181,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @OnClick(R.id.bt_search)
     public void onClick() {
-
+        //// TODO: 2016/9/6
     }
 
     @Override

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <ImageView
+        android:src="@drawable/qun1"
+        android:id="@+id/iv_limitshop"
+        android:layout_height="90dp"
+        android:layout_width="wrap_content"
+       />
+    <LinearLayout
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="灰色孕妇服"
+            android:textColor="#000"
+            android:id="@+id/tv_item_type"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"/>
+        <TextView
+            android:text="商品原价"
+            android:id="@+id/tv_item_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="限时特价"
+            android:id="@+id/tv_item_limitPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_limittime"
+            android:text="剩余时间:一天"
+            android:textColor="#f00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <Button
+        android:background="@drawable/selector_bt_limit"
+        android:text="立即抢购"
+        android:textSize="15sp"
+        android:textColor="#fff"
+        android:layout_marginLeft="30dp"
+        android:id="@+id/bt_limitshop"
+        android:layout_width="wrap_content"
+        android:layout_height="30sp"/>
+
+
+</LinearLayout>
