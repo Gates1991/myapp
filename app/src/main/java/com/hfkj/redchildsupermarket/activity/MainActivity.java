@@ -10,12 +10,12 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.fragment.BaseFragment;
 import com.hfkj.redchildsupermarket.fragment.BrandFragment;
 import com.hfkj.redchildsupermarket.fragment.CarFragment;
 import com.hfkj.redchildsupermarket.fragment.HomeFragment;
 import com.hfkj.redchildsupermarket.fragment.MoreFragment;
 import com.hfkj.redchildsupermarket.fragment.SearchFragment;
-import com.hfkj.redchildsupermarket.fragment.BaseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -98,7 +98,8 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_content,frag);
         transaction.commit();
-        frag.initData();
+
+        // frag.initData();
 
     }
     private void setCheckedTextColor(RadioButton radioButton) {

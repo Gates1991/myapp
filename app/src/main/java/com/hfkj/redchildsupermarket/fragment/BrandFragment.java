@@ -31,7 +31,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 
-public class BrandFragment extends BaseFragment implements AdapterView.OnItemClickListener {
+public class BrandFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
@@ -48,22 +48,26 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
     private BrandAdapter mBrandAdapter;
     private List<BrandBean.CategoryBean> mCategoryBeen;
 
+    private int level = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_brand, null);
+
         ButterKnife.bind(this, view);
-      // initData();
+        initData();
+
         mTvTitleName.setText("商品分类");
         return view;
     }
 
     public void initData() {
-      /*  mTvTitleName.setText("商品分类");*/
 
         getNetDatas();
 
         mListview.setOnItemClickListener(this);
+        mBtTitleLeft.setOnClickListener(this);
 
     }
 
@@ -88,17 +92,18 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
     private void parseRespomse(BrandBean brandBean) {
         mCategoryBeen = brandBean.getCategory();
         mCategoryData.clear();
+
         for (int i = 0; i < mCategoryBeen.size(); i++) {
             if (mCategoryBeen.get(i).getParentId() == 0) {
                 mCategoryData.add(mCategoryBeen.get(i));
             }
         }
-        if (mBrandAdapter == null) {
+      /*  if (mBrandAdapter == null) {*/
             mBrandAdapter = new BrandAdapter(mContext, mCategoryData);
             mListview.setAdapter(mBrandAdapter);
-        } else {
+        /*} else {
             mBrandAdapter.notifyDataSetChanged();
-        }
+        }*/
     }
 
     @Override
@@ -118,43 +123,155 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
         int id1 = categoryBean.getId();
         switch (id1) {
             case 1:
-                Toast.makeText(mContext, "这是孕妈专区", Toast.LENGTH_SHORT).show();
-
-                mCategoryData.clear();
-                for (int i = 0; i <mCategoryBeen.size() ; i++) {
+                // Toast.makeText(mContext, "这是孕妈专区", Toast.LENGTH_SHORT).show();
+                refreshData(id1);
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
                     if (mCategoryBeen.get(i).getParentId() == 1) {
                         mCategoryData.add(mCategoryBeen.get(i));
                     }
-                }
-                mBrandAdapter.notifyDataSetChanged();
+                }*/
+                mTvTitleName.setText(categoryBean.getName());
+                level = 1;
                 break;
             case 2:
-                Toast.makeText(mContext, "这是寝具装饰", Toast.LENGTH_SHORT).show();
-                mCategoryData.clear();
-                for (int i = 0; i <mCategoryBeen.size() ; i++) {
+                refreshData(id1);
+                //Toast.makeText(mContext, "这是寝具服饰", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
                     if (mCategoryBeen.get(i).getParentId() == 2) {
                         mCategoryData.add(mCategoryBeen.get(i));
                     }
-                }
-                mBrandAdapter.notifyDataSetChanged();
-
+                }*/
+                mTvTitleName.setText(categoryBean.getName());
+                level = 1;
                 break;
             case 3:
-                Toast.makeText(mContext, "这是宝宝用品", Toast.LENGTH_SHORT).show();
-                Toast.makeText(mContext, "这是寝具装饰", Toast.LENGTH_SHORT).show();
-                mCategoryData.clear();
-                for (int i = 0; i <mCategoryBeen.size() ; i++) {
+                refreshData(id1);
+                // Toast.makeText(mContext, "这是宝宝用品", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
                     if (mCategoryBeen.get(i).getParentId() == 3) {
                         mCategoryData.add(mCategoryBeen.get(i));
                     }
-                }
-                mBrandAdapter.notifyDataSetChanged();
+                }*/
+                mTvTitleName.setText(categoryBean.getName());
+                level = 1;
                 break;
+            case 11:
+                refreshData(id1);
+                // Toast.makeText(mContext, "这是妈妈个人护理", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 11) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 2;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 12:
+                refreshData(id1);
+                //Toast.makeText(mContext, "这是孕妇服饰", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 12) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 2;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 13:
+                refreshData(id1);
+                // Toast.makeText(mContext, "这是孕妇内衣", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 13) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 2;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 21:
+                refreshData(id1);
+                //  Toast.makeText(mContext, "这是婴幼儿护齿", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 21) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 3;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 22:
+                // Toast.makeText(mContext, "这是儿童玩具", Toast.LENGTH_SHORT).show();
+                refreshData(id1);
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 22) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 3;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 31:
+                refreshData(id1);
+                //Toast.makeText(mContext, "这是女士围裙", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 31) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 4;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 32:
+                refreshData(id1);
+                // Toast.makeText(mContext, "这是男士围裙", Toast.LENGTH_SHORT).show();
+                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
+                    if (mCategoryBeen.get(i).getParentId() == 32) {
+                        mCategoryData.add(mCategoryBeen.get(i));
+                    }
+                }*/
+                level = 4;
+                mTvTitleName.setText(categoryBean.getName());
+                break;
+        }
+    }
 
+    private void refreshData(int id) {
+        mCategoryData.clear();
+        for (int i = 0; i < mCategoryBeen.size(); i++) {
+            if (mCategoryBeen.get(i).getParentId() == id) {
+                mCategoryData.add(mCategoryBeen.get(i));
+            }
+        }
+        mBrandAdapter.notifyDataSetChanged();
+        mBtTitleLeft.setVisibility(View.VISIBLE);
+    }
 
+    @Override
+    public void onClick(View v) {
+
+        if (level == 1) {
+            // Toast.makeText(mContext, "这是1级目录", Toast.LENGTH_SHORT).show();
+            refreshData(0);
+            mBtTitleLeft.setVisibility(View.GONE);
+            mTvTitleName.setText("商品分类");
+        } else if (level == 2) {
+            //Toast.makeText(mContext, "这是2级目录", Toast.LENGTH_SHORT).show();
+            refreshData(1);
+            mTvTitleName.setText("孕妈专区");
+            level = 1;
+        } else if (level == 3) {
+            //Toast.makeText(mContext, "这是3级目录", Toast.LENGTH_SHORT).show();
+            refreshData(3);
+            mTvTitleName.setText("宝宝用品");
+            level = 1;
+        } else if (level == 4) {
+            refreshData(2);
+            mTvTitleName.setText("寝具服饰");
+            level = 1;
         }
 
     }
+
 
     private interface HttpApi {
         @FormUrlEncoded
