@@ -42,7 +42,7 @@ public class BrandAdapter extends CommonAdapter<BrandBean.CategoryBean> {
         }
         String uri = getItem(position).getPic();
 
-        Glide.with(mContext).load(Constant.BaseUrl + uri).into(holder.mItemIcon);
+        Glide.with(mContext).load(Constant.BASE_URL + uri).into(holder.mItemIcon);
         holder.mTvName.setText(getItem(position).getName());
         holder.mTvTag.setText(getItem(position).getTag());
         return convertView;

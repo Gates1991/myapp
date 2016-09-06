@@ -15,6 +15,7 @@ import com.hfkj.redchildsupermarket.fragment.CarFragment;
 import com.hfkj.redchildsupermarket.fragment.HomeFragment;
 import com.hfkj.redchildsupermarket.fragment.MoreFragment;
 import com.hfkj.redchildsupermarket.fragment.SearchFragment;
+import com.hfkj.redchildsupermarket.fragment.BaseFragment;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -49,47 +50,39 @@ public class MainActivity extends FragmentActivity {
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId) {
                 case R.id.menu:
-                    mMenu.setTextColor(Color.RED);
                     setCheckedTextColor(mMenu);
-                    changeFragment(mFragHome);
+                    changeFragment((BaseFragment) mFragHome);
                     break;
                 case R.id.search:
-                    mSearch.setTextColor(Color.RED);
-                   setCheckedTextColor(mSearch);
-                    changeFragment(mFragSearch);
+                    setCheckedTextColor(mSearch);
+                    changeFragment((BaseFragment) mFragSearch);
                     break;
                 case R.id.brand:
-                    mBrand.setTextColor(Color.RED);
                     setCheckedTextColor(mBrand);
-                    changeFragment(mFragBrand);
+                    changeFragment((BaseFragment) mFragBrand);
                     break;
                 case R.id.shopping:
-                    mShopping.setTextColor(Color.RED);
                     setCheckedTextColor(mShopping);
-                    changeFragment(mFragCar);
+                    changeFragment((BaseFragment) mFragCar);
                     break;
                 case R.id.more:
-                    mMore.setTextColor(Color.RED);
                     setCheckedTextColor(mMore);
-                    changeFragment(mFragMore);
+                    changeFragment((BaseFragment) mFragMore);
                     break;
                 default:
                     break;
             }
         }
     };
-    private FragmentManager supportFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        //获取FragmentManager
-        supportFragmentManager =getSupportFragmentManager();
-        mMainRadio.setOnCheckedChangeListener(listener);
         initFragment();
-        changeFragment(mFragHome);
+        mMainRadio.setOnCheckedChangeListener(listener);
+        mMenu.setChecked(true);
     }
 
     private void  initFragment(){
@@ -100,57 +93,23 @@ public class MainActivity extends FragmentActivity {
         mFragMore =new MoreFragment();
     }
 
-    private void changeFragment(Fragment frag){
+    public void changeFragment(BaseFragment frag){
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_content,frag);
         transaction.commit();
+        frag.initData();
 
     }
     private void setCheckedTextColor(RadioButton radioButton) {
+        radioButton.setTextColor(Color.RED);
         if (previousChecked != null) {
             previousChecked.setTextColor(Color.WHITE);
         }
         previousChecked = radioButton;
     }
-
-
-    /**
-     * 添加Fragment到回退栈,并且添加动画
-     *
-     * @param fragment
-     */
-    public void addToBackStack(Fragment fragment){
-        FragmentTransaction transaction=supportFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
-        );
-        transaction.replace(R.id.fl_content,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+    public RadioButton getBrand () {
+        return  mBrand;
     }
 
-
-    /**
-     * 清空栈
-     */
-    public void clearBackStack(){
-        supportFragmentManager.popBackStack(null,1);//参数为0，清除栈顶的Fragment，参数为1，清空栈
-    }
-
-    /**
-     * 模拟退栈
-     */
-    public void popBackStack(){
-        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
-
-    }
-
-    @Override
-    public void onBackPressed(){
-        super.onBackPressed();
-        clearBackStack();
-
-    }
 }
-

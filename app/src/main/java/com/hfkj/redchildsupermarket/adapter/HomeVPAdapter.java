@@ -45,7 +45,7 @@ public class HomeVPAdapter extends PagerAdapter{
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView iv = new ImageView(mContext);
         container.addView(iv);
-        Glide.with(mContext).load(Constant.BaseUrl+pageList.get(position).getPic()).into(iv);
+        Glide.with(mContext).load(Constant.BASE_URL+pageList.get(position).getPic()).into(iv);
 
         return iv;
     }

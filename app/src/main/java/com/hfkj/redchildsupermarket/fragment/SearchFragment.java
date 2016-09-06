@@ -68,7 +68,7 @@ public class SearchFragment extends Fragment {
     private String httpGet() {
         new Retrofit
                 .Builder()
-                .baseUrl(Constant.BaseUrl)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(HttpApi.class)
