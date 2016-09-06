@@ -1,6 +1,7 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.activity.UserLoginActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -80,8 +83,10 @@ public class MoreFragment extends Fragment {
             case R.id.user_center://用户中心
 
                 //判断是否登录,默认是没有登录,()
-
-
+                Toast.makeText(mContext,"用户中心被点击了",Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, UserLoginActivity.class);
+            //    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
                break;
             case R.id.browse_record://浏览记录
                 break;
