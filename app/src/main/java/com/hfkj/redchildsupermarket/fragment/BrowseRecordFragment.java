@@ -15,6 +15,10 @@ import android.view.ViewGroup;
  * @更新描述 ${TODO}
  */
 public class BrowseRecordFragment extends BaseFragment {
+    @Override
+    public void initData() {
+
+    }
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

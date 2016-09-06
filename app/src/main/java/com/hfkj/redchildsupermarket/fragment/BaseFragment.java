@@ -10,7 +10,7 @@ import android.support.v4.app.Fragment;
  *进行了Retrofit的初始化
  *
  */
-abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
 	public Context mContext;
 
@@ -22,7 +22,7 @@ abstract class BaseFragment extends Fragment {
 
 	}
 
-
+	public abstract  void  initData();
 
 
 

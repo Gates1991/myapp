@@ -68,7 +68,7 @@ public class MoreFragment extends BaseFragment {
     //创建集合,将所有fragment存入到集合中
     List<BaseFragment> mFragments = new ArrayList<>();
 
-    private void initData() {
+    public void initData() {
         mFragments.add(new UserLoginFrament()); //账户中心
         mFragments.add(new BrowseRecordFragment());//浏览记录
         mFragments.add(new HelpCenterFragment()); //帮助中心

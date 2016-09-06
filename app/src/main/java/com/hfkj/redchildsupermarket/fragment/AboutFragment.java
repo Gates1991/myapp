@@ -9,4 +9,8 @@ package com.hfkj.redchildsupermarket.fragment;
  * @更新描述 ${TODO}
  */
 public class AboutFragment extends  BaseFragment {
+    @Override
+    public void initData() {
+
+    }
 }

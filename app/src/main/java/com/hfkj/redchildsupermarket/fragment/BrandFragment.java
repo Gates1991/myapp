@@ -53,12 +53,13 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_brand, null);
         ButterKnife.bind(this, view);
-        initData();
+      // initData();
+        mTvTitleName.setText("商品分类");
         return view;
     }
 
-    private void initData() {
-        mTvTitleName.setText("商品分类");
+    public void initData() {
+      /*  mTvTitleName.setText("商品分类");*/
 
         getNetDatas();
 
@@ -67,7 +68,7 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
     }
 
     private void getNetDatas() {
-        new Retrofit.Builder().baseUrl(Constant.BaseUrl).addConverterFactory(GsonConverterFactory.create()
+        new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()
         ).build().create(HttpApi.class).getBrandData("0").enqueue(new Callback<BrandBean>() {
             @Override
             public void onResponse(Call<BrandBean> call, Response<BrandBean> response) {

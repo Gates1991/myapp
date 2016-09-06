@@ -11,13 +11,8 @@
     <include layout="@layout/search_layout"></include>
 
     <ExpandableListView
-        android:id="@+id/el_search1"
+        android:id="@+id/el_search"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ExpandableListView>
-
-    <ExpandableListView
-        android:id="@+id/el_search2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></ExpandableListView>
+        android:layout_height="match_parent"></ExpandableListView>
 
 </LinearLayout>

@@ -141,7 +141,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     private void getNetData() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constant.BaseUrl)
+                .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         HttpRetrofit httpRetrofit = retrofit.create(HttpRetrofit.class);
@@ -200,6 +200,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 break;
 
         }
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     /**
