@@ -113,8 +113,10 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        switch (position) {
-            case 0:
+        BrandBean.CategoryBean categoryBean = mBrandAdapter.getItem(position);
+        int id1 = categoryBean.getId();
+        switch (id1) {
+            case 1:
                 Toast.makeText(mContext, "这是孕妈专区", Toast.LENGTH_SHORT).show();
 
                 mCategoryData.clear();
@@ -125,7 +127,7 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                 }
                 mBrandAdapter.notifyDataSetChanged();
                 break;
-            case 1:
+            case 2:
                 Toast.makeText(mContext, "这是寝具装饰", Toast.LENGTH_SHORT).show();
                 mCategoryData.clear();
                 for (int i = 0; i <mCategoryBeen.size() ; i++) {
@@ -134,8 +136,9 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                     }
                 }
                 mBrandAdapter.notifyDataSetChanged();
+
                 break;
-            case 2:
+            case 3:
                 Toast.makeText(mContext, "这是宝宝用品", Toast.LENGTH_SHORT).show();
                 Toast.makeText(mContext, "这是寝具装饰", Toast.LENGTH_SHORT).show();
                 mCategoryData.clear();
@@ -146,7 +149,10 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                 }
                 mBrandAdapter.notifyDataSetChanged();
                 break;
+
+
         }
+
     }
 
     private interface HttpApi {
