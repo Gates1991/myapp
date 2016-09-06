@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.bean.BrandBean;
 
@@ -64,11 +65,12 @@ public class BrandFragment extends BaseFragment {
         ).build().create(HttpApi.class).getBrandData("0").enqueue(new Callback<BrandBean>() {
             @Override
             public void onResponse(Call<BrandBean> call, Response<BrandBean> response) {
-                if (response.isSuccessful()){
+                if (response.isSuccessful()) {
                     BrandBean brandBean = response.body();
                     List<BrandBean.CategoryBean> categoryBeen = brandBean.getCategory();
-                    for (int i = 0; i < categoryBeen.size() ; i++) {
-                        if (categoryBeen.get(i).getParentId() == 0){
+                    mCategoryData.clear();
+                    for (int i = 0; i < categoryBeen.size(); i++) {
+                        if (categoryBeen.get(i).getParentId() == 0) {
                             mCategoryData.add(categoryBeen.get(i));
                         }
                     }
@@ -103,7 +105,7 @@ public class BrandFragment extends BaseFragment {
         Call<BrandBean> getBrandData(@Field("version") String value);
     }
 
-    private class BrandAdapter extends BaseAdapter{
+    private class BrandAdapter extends BaseAdapter {
         public BrandAdapter(List<BrandBean.CategoryBean> categoryData) {
         }
 
@@ -124,11 +126,30 @@ public class BrandFragment extends BaseFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null){
-                convertView = View.inflate(mContext, R.layout.item_brand,null);
-            }
 
+            ViewHolder holder = null;
+            if (convertView == null) {
+                holder = new ViewHolder();
+                convertView = View.inflate(mContext, R.layout.item_brand, null);
+                holder.mItemIcon = (ImageView) convertView.findViewById(R.id.item_icon);
+                holder.mTvName = (TextView) convertView.findViewById(R.id.tv_name);
+                holder.mTvTag = (TextView) convertView.findViewById(R.id.tv_tag);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+            String uri = getItem(position).getPic();
+
+            Glide.with(mContext).load(BaseUrl + uri).into(holder.mItemIcon);
+            holder.mTvName.setText(getItem(position).getName());
+            holder.mTvTag.setText(getItem(position).getTag());
             return convertView;
+        }
+
+        private class ViewHolder {
+            ImageView mItemIcon;
+            TextView mTvName;
+            TextView mTvTag;
         }
     }
 

@@ -19,6 +19,10 @@ abstract class BaseFragment extends Fragment {
 		
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
+
 	}
+
+
+
 
 }

@@ -5,26 +5,51 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class SearchFragment extends Fragment {
 
-	private TextView tvTitle;
+    @Bind(R.id.et_search)
+    EditText etSearch;
+    @Bind(R.id.bt_search)
+    Button btSearch;
+    @Bind(R.id.el_search1)
+    ExpandableListView elSearch1;
+    @Bind(R.id.el_search2)
+    ExpandableListView elSearch2;
+    private TextView tvTitle;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.fragment_search, null);
+        View view = inflater.inflate(R.layout.fragment_search, null);
 
-		return view;
-	}
+        ButterKnife.bind(this, view);
+        return view;
+    }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.bt_search)
+    public void onClick() {
+    }
 }
