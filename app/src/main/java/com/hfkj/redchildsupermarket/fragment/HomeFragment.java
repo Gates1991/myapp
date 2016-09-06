@@ -3,7 +3,6 @@ package com.hfkj.redchildsupermarket.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
@@ -45,26 +45,30 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     Button   mBtSearch;
     @Bind(R.id.et_search)
     EditText mEtSearch;
-    @Bind(R.id.lv)
-    ListView mLv;
+  //  @Bind(R.id.lv_home)
+     public  ListView  mLv;
     private HomeViewPage mViewPage;//viewpage页面
     private List<ImageView> dots = new ArrayList<>();//小圆点对象的数据集合
 
     public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
 
-    private List<ItemBean>  itemDatas     = new ArrayList<>();
+    private List<ItemBean>  itemDatas= new ArrayList<>();
     private int[]    itemPic   = {R.mipmap.home_classify_01, R.mipmap.home_classify_02, R.mipmap.home_classify_03,
             R.mipmap.home_classify_04, R.mipmap.home_classify_05};
     private String[]     itemTitel = {"限时抢购", "促销快报", "新品上市", "热门单品", "推荐品牌"};
-
+    private HomeLVAdapter mHomeLVAdapter;
     private Handler mHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             initDots(mHomeTopicBeen.size());
-            if (mViewPage == null) {
+
+                if (mViewPage != null) {
+                    //先将上一次开启的循环消息停止
+                    mViewPage.stop();
+                }
                 mViewPage = new HomeViewPage(mHomeTopicBeen, dots, mContext);
-            }
+
             mViewPage.start();
             if (rl != null) {
                 rl.removeAllViews();
@@ -72,7 +76,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             }
         }
     };
-    private HomeLVAdapter mHomeLVAdapter;
 
     /**
      * 动态创建小圆点
@@ -102,27 +105,30 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 ll_point.addView(iv);
             }
         }
-
-
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
+       mLv= (ListView) view.findViewById(R.id.lv_home);
         ButterKnife.bind(this, view);
-        init();
-        mLv.setOnItemClickListener(this);
+         initData();
         return view;
     }
-
     /**
      * 初始化数据
      */
-    private void init() {
-         initListView();
-        getNetData();
+
+    @Override
+     public void initData() {
+            initListView();
+            getNetData();
+        if (mLv != null) {
+            mLv.setOnItemClickListener(this);
+        }
     }
+
+
 
     private void initListView() {
         if (itemDatas != null && itemDatas.size() == 0) {
@@ -130,12 +136,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 itemDatas.add(new ItemBean(itemTitel[i],itemPic[i]));
             }
         }
-        if (mHomeLVAdapter == null) {
             mHomeLVAdapter = new HomeLVAdapter(mContext, itemDatas);
             mLv.setAdapter(mHomeLVAdapter);
-        } else {
             mHomeLVAdapter.notifyDataSetChanged();
-        }
+
     }
 
 
@@ -174,7 +178,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
         mHomeTopicBeen = homeData.getHomeTopic();
         mHandler.sendEmptyMessage(0);
-
     }
 
     @OnClick(R.id.bt_search)
@@ -184,9 +187,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Fragment fragment=null;
+        BaseFragment fragment=null;
         switch (position) {
             case 0:
+                fragment=new LimitShoping();
+                ( (MainActivity) mContext).addToBackStack(fragment);
                 break;
             case 1:
                 break;
@@ -202,10 +207,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     }
 
-    @Override
-    public void initData() {
-
-    }
 
     /**
      * retrofit框架的接口

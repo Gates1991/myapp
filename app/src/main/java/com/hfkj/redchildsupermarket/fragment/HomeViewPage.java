@@ -60,6 +60,7 @@ public class HomeViewPage extends ViewPager {
         init();
     }
 
+
     //添加触摸事件
     private void init() {
         this.setOnTouchListener(new OnTouchListener() {
@@ -113,6 +114,9 @@ public class HomeViewPage extends ViewPager {
         mHandler.sendEmptyMessageDelayed(0,2000);
 
     }
+    public void stop(){
+        mHandler.removeCallbacksAndMessages(null);
+        }
 
 
 }

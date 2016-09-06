@@ -32,7 +32,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
-public class SearchFragment extends Fragment {
+public class SearchFragment extends BaseFragment {
 
     @Bind(R.id.et_search)
     EditText etSearch;
@@ -61,7 +61,7 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    private void initData() {
+    public void initData() {
         mTvTitleName.setText("搜索");
 
 

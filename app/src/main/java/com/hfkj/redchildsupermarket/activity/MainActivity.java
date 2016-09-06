@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
@@ -38,36 +39,41 @@ public class MainActivity extends FragmentActivity {
     RadioButton mMore;
 
 
-    private Fragment mFragHome;
-    private Fragment mFragSearch;
-    private Fragment mFragBrand;
-    private Fragment mFragCar;
-    private Fragment mFragMore;
-    private RadioButton previousChecked;
+    private BaseFragment mFragHome;
+    private BaseFragment mFragSearch;
+    private BaseFragment mFragBrand;
+    private BaseFragment mFragCar;
+    private BaseFragment mFragMore;
+    private RadioButton  previousChecked;
 
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
         @Override
         public void onCheckedChanged(RadioGroup group, int checkedId) {
             switch (checkedId) {
                 case R.id.menu:
+                    mMenu.setTextColor(Color.RED);
                     setCheckedTextColor(mMenu);
-                    changeFragment((BaseFragment) mFragHome);
+                    changeFragment(mFragHome);
                     break;
                 case R.id.search:
+                    mSearch.setTextColor(Color.RED);
                     setCheckedTextColor(mSearch);
-                    changeFragment((BaseFragment) mFragSearch);
+                    changeFragment(mFragSearch);
                     break;
                 case R.id.brand:
+                    mBrand.setTextColor(Color.RED);
                     setCheckedTextColor(mBrand);
-                    changeFragment((BaseFragment) mFragBrand);
+                    changeFragment(mFragBrand);
                     break;
                 case R.id.shopping:
+                    mShopping.setTextColor(Color.RED);
                     setCheckedTextColor(mShopping);
-                    changeFragment((BaseFragment) mFragCar);
+                    changeFragment(mFragCar);
                     break;
                 case R.id.more:
+                    mMore.setTextColor(Color.RED);
                     setCheckedTextColor(mMore);
-                    changeFragment((BaseFragment) mFragMore);
+                    changeFragment(mFragMore);
                     break;
                 default:
                     break;
@@ -85,23 +91,24 @@ public class MainActivity extends FragmentActivity {
         mMenu.setChecked(true);
     }
 
-    private void  initFragment(){
-        mFragHome =new HomeFragment();
-        mFragSearch =new SearchFragment();
-        mFragBrand =new BrandFragment();
-        mFragCar =new CarFragment();
-        mFragMore =new MoreFragment();
+    private void initFragment() {
+        mFragHome = new HomeFragment();
+        mFragSearch = new SearchFragment();
+        mFragBrand = new BrandFragment();
+        mFragCar = new CarFragment();
+        mFragMore = new MoreFragment();
     }
 
-    public void changeFragment(BaseFragment frag){
+    public void changeFragment(BaseFragment frag) {
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
-        transaction.replace(R.id.fl_content,frag);
+        transaction.replace(R.id.fl_content, frag);
         transaction.commit();
 
-        // frag.initData();
+       // frag.initData();
 
     }
+
     private void setCheckedTextColor(RadioButton radioButton) {
         radioButton.setTextColor(Color.RED);
         if (previousChecked != null) {
@@ -109,8 +116,28 @@ public class MainActivity extends FragmentActivity {
         }
         previousChecked = radioButton;
     }
-    public RadioButton getBrand () {
-        return  mBrand;
+
+
+    /**
+     * 添加Fragment到回退栈,并且添加动画
+     *
+     * @param fragment
+     */
+    public void addToBackStack(BaseFragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
     }
 
+    public RadioButton getBrand() {
+        return mBrand;
+
+    }
 }
