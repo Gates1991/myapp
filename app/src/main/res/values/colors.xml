@@ -3,4 +3,5 @@
     <color name="white">#FFF</color>
     <color name="red">#F00</color>
     <color name="bg_white">#FFF</color>
+    <color name="bt_gray">#5000</color>
 </resources>
