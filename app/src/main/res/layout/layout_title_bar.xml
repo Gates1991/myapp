@@ -1,49 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
     android:layout_width="match_parent"
+    android:layout_height="55dp"
     android:background="@drawable/head_bg"
     android:gravity="center_vertical"
-    android:layout_height="55dp">
+    android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/imgbtn_left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_title_left_btn"
-        android:scaleType="centerInside"
-        android:visibility="invisible"
-        />
     <RelativeLayout
-        android:layout_width="0dip"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <TextView
+
+        <ImageButton
+            android:id="@+id/imgbtn_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="标题"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_title_left_btn"
+            android:scaleType="centerInside"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_title_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/tv_title_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:drawablePadding="5dp"
             android:gravity="center"
-            android:textColor="#fff"
-            android:textSize="24sp"
             android:singleLine="true"
-            />
+            android:text="标题"
+            android:textColor="#fff"
+            android:textSize="24sp" />
 
     </RelativeLayout>
-    <ImageButton
-        android:id="@+id/btn_right"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/selector_title_right_btn"
-        android:scaleType="centerInside"
-        android:visibility="invisible"
-        />
 
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/btn_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/selector_title_right_btn"
+            android:scaleType="centerInside"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_title_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="" />
+    </RelativeLayout>
 
 
 </LinearLayout>
