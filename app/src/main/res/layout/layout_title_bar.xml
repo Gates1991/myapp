@@ -21,10 +21,14 @@
             android:visibility="invisible" />
 
         <TextView
+            android:layout_centerInParent="true"
             android:id="@+id/tv_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="" />
+            android:text=""
+            android:textColor="#fff"
+
+            />
     </RelativeLayout>
 
 
@@ -63,6 +67,7 @@
             android:visibility="invisible" />
 
         <TextView
+            android:layout_centerInParent="true"
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
