@@ -1,6 +1,9 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -26,8 +30,7 @@ import butterknife.OnClick;
 public class UserLoginFrament extends BaseFragment {
 
 
-    @Bind(R.id.imgbtn_left)
-    ImageButton mImgbtnLeft;
+
     @Bind(R.id.tv_title_left)
     TextView mTvTitleLeft;
     @Bind(R.id.tv_title_layout)
@@ -60,7 +63,9 @@ public class UserLoginFrament extends BaseFragment {
         mTvTitleLayout.setText("用户登录");
         ImageButton mImgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
         mImgbtn_left.setVisibility(View.VISIBLE);
-       // mTvTitleLeft.setText("返回");
+        TextView mTv_title_left = (TextView) view.findViewById(R.id.tv_title_left);
+        mTv_title_left.setText("返回");
+
 
         mContext = getActivity();
 
@@ -77,13 +82,34 @@ public class UserLoginFrament extends BaseFragment {
                 break;
             case R.id.bt_register://注册
                 //点击跳转注册页面
-               // startActivity(new Intent(UserLoginActivity.this,UserRegisterActivity.class));//直接跳转不压栈
+
+                addToBackStack(new UserRegisterFragment());
                 break;
             case R.id.imgbtn_left://返回按钮
                 // 退栈,添加动画效果
                 //TODO :
                 break;
         }
+    }
+
+
+
+    /**
+     * 添加Fragment到回退栈,并且添加动画
+     *
+     * @param fragment
+     */
+
+    public void addToBackStack(Fragment fragment){
+        FragmentManager supportFragmentManager=((MainActivity)mContext).getSupportFragmentManager();
+        FragmentTransaction transaction=supportFragmentManager.beginTransaction();
+        /*transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
+        );*/
+        transaction.replace(R.id.fl_content,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
 }

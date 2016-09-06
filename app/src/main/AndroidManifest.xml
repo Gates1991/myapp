@@ -17,11 +17,8 @@
         </activity>
         <activity android:name=".activity.MainActivity"/>
         <!--用户登录-->
-        <activity android:name=".activity.UserLoginActivity"/>
         <!--用户信息-->
-        <activity android:name=".activity.UserInformationActivity"/>
         <!--用户注册-->
-        <activity android:name=".activity.UserRegisterActivity"/>
     </application>
 
 </manifest>
