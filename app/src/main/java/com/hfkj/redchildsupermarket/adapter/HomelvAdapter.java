@@ -11,18 +11,29 @@ package com.hfkj.redchildsupermarket.adapter;/*
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.fragment.HomeFragment;
 
 import java.util.List;
 
-public class HomelvAdapter extends CommonAdapter {
-
-
-    public HomelvAdapter(Context context, List datas) {
+public class HomeLVAdapter extends CommonAdapter<HomeFragment.ItemBean> {
+    public HomeLVAdapter(Context context, List<HomeFragment.ItemBean> datas) {
         super(context, datas);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return null;
+        if (convertView == null) {
+           convertView = View.inflate(mContext, R.layout.item_home, null);
+        }
+        ImageView item_icon = (ImageView) convertView.findViewById(R.id.iv_item_icon);
+        TextView item_title = (TextView) convertView.findViewById(R.id.tv_item_title);
+        HomeFragment.ItemBean itemBean = mDatas.get(position);
+        item_icon.setImageResource(itemBean.icon);
+        item_title.setText(itemBean.itemTitle);
+        return convertView;
     }
 }
