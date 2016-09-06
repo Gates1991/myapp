@@ -1,9 +1,10 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.activity.UserLoginActivity;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MoreFragment extends Fragment {
+public class MoreFragment extends BaseFragment {
 
     @Bind(R.id.imgbtn_left)
     ImageButton mImgbtnLeft;
@@ -41,6 +45,7 @@ public class MoreFragment extends Fragment {
     private TextView mTvTitle;
     private Context mContext;
 
+   // private FragmentManager supportFragmentManager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,9 +54,11 @@ public class MoreFragment extends Fragment {
         //标题textview
         TextView mTvTitleLayout = (TextView) view.findViewById(R.id.tv_title_layout);
         mTvTitleLayout.setText("更多");
+
         initData();
         mContext = getActivity();
 
+      //  supportFragmentManager= ((MainActivity)mContext).getSupportFragmentManager();
 
         ButterKnife.bind(this, view);
       /*  mUserCenter.setOnClickListener(new View.OnClickListener() {
@@ -63,11 +70,19 @@ public class MoreFragment extends Fragment {
 
         return view;
     }
+    //创建集合,将所有fragment存入到集合中
+    List<BaseFragment> mFragments = new ArrayList<>();
 
     private void initData() {
+        mFragments.add(new UserLoginFrament()); //账户中心
+        mFragments.add(new BrowseRecordFragment());//浏览记录
+        mFragments.add(new HelpCenterFragment()); //帮助中心
+        mFragments.add(new UserFeedbackFragment());//用户反馈
+        mFragments.add(new AboutFragment()); //帮助
 
 
     }
+
 
 
     @Override
@@ -81,12 +96,17 @@ public class MoreFragment extends Fragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.user_center://用户中心
+                //TODO:将跳转页面添加到栈中,并设置动画
 
                 //判断是否登录,默认是没有登录,()
                 Toast.makeText(mContext,"用户中心被点击了",Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(mContext, UserLoginActivity.class);
+            //    Intent intent = new Intent(mContext, UserLoginActivity.class);
             //    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(intent);
+            //
+
+                //跳转到fragment
+            //
+                addToBackStack(mFragments.get(0));
                break;
             case R.id.browse_record://浏览记录
                 break;
@@ -100,4 +120,24 @@ public class MoreFragment extends Fragment {
                 break;
         }
     }
+
+    /**
+     * 添加Fragment到回退栈,并且添加动画
+     *
+     * @param fragment
+     */
+
+    public void addToBackStack(Fragment fragment){
+        FragmentManager supportFragmentManager=((MainActivity)mContext).getSupportFragmentManager();
+        FragmentTransaction transaction=supportFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
+        );
+        transaction.replace(R.id.fl_content,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
 }

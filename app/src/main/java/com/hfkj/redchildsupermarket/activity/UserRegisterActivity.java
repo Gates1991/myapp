@@ -60,8 +60,17 @@ public class UserRegisterActivity extends Activity {
 
 
 
-    @OnClick(R.id.ib_register_user)
-    public void onClick() {
-        Toast.makeText(this, "注册按钮被点击", Toast.LENGTH_SHORT).show();
+    @OnClick({R.id.ib_register_user,R.id.imgbtn_left})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.ib_register_user://注册按钮
+               Toast.makeText(this, "注册按钮被点击", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.imgbtn_left://返回键
+                //TODO:退栈返回到更多页面,动画效果
+                break;
+
+        }
+
     }
 }
