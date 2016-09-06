@@ -1,10 +1,10 @@
 package com.hfkj.redchildsupermarket.adapter;/*
  * @创建者  	bubble
- * @创建时间 	2016/9/5 22:16
+ * @创建时间 	2016/9/6 17:18
  * @描述	${TODO}
  * 
  * @更新者      $Author$
- * @更新时间	2016/9/5$
+ * @更新时间	2016/9/6$
  * @更新描述	${TODO}
  */
 
@@ -27,7 +27,7 @@ public class HomeLVAdapter extends CommonAdapter<HomeFragment.ItemBean> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-           convertView = View.inflate(mContext, R.layout.item_home, null);
+            convertView = View.inflate(mContext, R.layout.item_home, null);
         }
         ImageView item_icon = (ImageView) convertView.findViewById(R.id.iv_item_icon);
         TextView item_title = (TextView) convertView.findViewById(R.id.tv_item_title);

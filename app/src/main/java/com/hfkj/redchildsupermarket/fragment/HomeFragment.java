@@ -15,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
@@ -117,7 +116,7 @@ public class HomeFragment extends BaseFragment {
      * 初始化数据
      */
     private void init() {
-     initListView();
+         initListView();
         getNetData();
     }
 
