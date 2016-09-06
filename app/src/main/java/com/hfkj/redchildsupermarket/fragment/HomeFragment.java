@@ -15,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
@@ -48,7 +49,6 @@ public class HomeFragment extends BaseFragment {
     private List<ImageView> dots = new ArrayList<>();//小圆点对象的数据集合
 
     public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
-    private HomeLVAdapter mHomeLVAdapter;
 
     private List<ItemBean>  itemDatas     = new ArrayList<>();
     private int[]    itemPic   = {R.mipmap.home_classify_01, R.mipmap.home_classify_02, R.mipmap.home_classify_03,
@@ -71,6 +71,7 @@ public class HomeFragment extends BaseFragment {
 
         }
     };
+    private HomeLVAdapter mHomeLVAdapter;
 
     /**
      * 动态创建小圆点
