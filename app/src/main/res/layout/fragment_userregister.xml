@@ -57,6 +57,7 @@
             android:textSize="18sp" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/register_pw"
             android:layout_width="260dp"
             android:hint="在此输入密码"
@@ -88,6 +89,7 @@
             android:textSize="18sp" />
 
         <EditText
+            android:inputType="textPassword"
             android:id="@+id/register_pw_confirm"
             android:layout_width="260dp"
             android:hint="再次输入密码"

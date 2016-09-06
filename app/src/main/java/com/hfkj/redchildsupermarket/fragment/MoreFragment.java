@@ -61,12 +61,7 @@ public class MoreFragment extends BaseFragment {
       //  supportFragmentManager= ((MainActivity)mContext).getSupportFragmentManager();
 
         ButterKnife.bind(this, view);
-      /*  mUserCenter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(mContext, UserInformationActivity.class));
-            }
-        });*/
+
 
         return view;
     }
@@ -100,7 +95,6 @@ public class MoreFragment extends BaseFragment {
 
                 //判断是否登录,默认是没有登录,()
                 Toast.makeText(mContext,"用户中心被点击了",Toast.LENGTH_SHORT).show();
-            //    Intent intent = new Intent(mContext, UserLoginActivity.class);
             //    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             //
 
