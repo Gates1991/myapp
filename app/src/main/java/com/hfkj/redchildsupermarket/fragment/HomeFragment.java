@@ -1,14 +1,15 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.adapter.HomeVPAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
@@ -27,23 +28,33 @@ import retrofit2.http.GET;
 
 public class HomeFragment extends BaseFragment {
 
-    @Bind(R.id.vp)
-    ViewPager mVp;
+    @Bind(R.id.rl)
+    public RelativeLayout rl;
+    private HomeViewPage   mViewPage;
 
+    public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
 
-    public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen=new ArrayList<>();
-    private HomeVPAdapter mHomeVPAdapter;
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (mViewPage == null) {
+                mViewPage = new HomeViewPage(mHomeTopicBeen, mContext);
+            }
+            mViewPage.start();
+            rl.removeAllViews();
+            rl.addView(mViewPage);
+        }
+    };
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater,ViewGroup container, Bundle savedInstanceState) {
-        View view =inflater.inflate(R.layout.fragment_home, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
         initData();
-        return  view;
+        return view;
     }
-
-
 
     private void initData() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -71,13 +82,7 @@ public class HomeFragment extends BaseFragment {
     private void parseNetData(HomeVPBean homeData) {
         mHomeTopicBeen.clear();
         mHomeTopicBeen = homeData.getHomeTopic();
-
-        if (mHomeVPAdapter == null) {
-            mHomeVPAdapter = new HomeVPAdapter(mHomeTopicBeen, mContext);
-            mVp.setAdapter(mHomeVPAdapter);
-        } else {
-            mHomeVPAdapter.notifyDataSetChanged();
-        }
+        mHandler.sendEmptyMessageDelayed(0, 1000);
 
     }
 

@@ -15,11 +15,12 @@
 
    <include layout="@layout/search_layout"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="200dp">
-    </android.support.v4.view.ViewPager>
+ <RelativeLayout
+     android:id="@+id/rl"
+     android:layout_width="match_parent"
+     android:layout_height="200dp">
+
+ </RelativeLayout>
     <ListView
         android:id="@+id/lv"
         android:layout_width="match_parent"
