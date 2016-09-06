@@ -3,9 +3,11 @@ package com.hfkj.redchildsupermarket.fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,7 +35,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 
-public class HomeFragment extends BaseFragment {
+public class HomeFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.rl)
     public RelativeLayout rl;//放viewpage的布局
@@ -68,7 +70,6 @@ public class HomeFragment extends BaseFragment {
                 rl.removeAllViews();
                 rl.addView(mViewPage);
             }
-
         }
     };
     private HomeLVAdapter mHomeLVAdapter;
@@ -102,6 +103,7 @@ public class HomeFragment extends BaseFragment {
             }
         }
 
+
     }
 
 
@@ -110,6 +112,7 @@ public class HomeFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
         init();
+        mLv.setOnItemClickListener(this);
         return view;
     }
 
@@ -177,6 +180,26 @@ public class HomeFragment extends BaseFragment {
     @OnClick(R.id.bt_search)
     public void onClick() {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Fragment fragment=null;
+        switch (position) {
+            case 0:
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break ;
+            case 4:
+                break;
+            case 5:
+                break;
+
+        }
     }
 
     /**

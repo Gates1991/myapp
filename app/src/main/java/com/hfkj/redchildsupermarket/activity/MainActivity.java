@@ -114,10 +114,42 @@ public class MainActivity extends FragmentActivity {
     }
 
 
+    /**
+     * 添加Fragment到回退栈,并且添加动画
+     *
+     * @param fragment
+     */
+    public void addToBackStack(Fragment fragment){
+        FragmentTransaction transaction=supportFragmentManager.beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
+        );
+        transaction.replace(R.id.fl_content,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+    /**
+     * 清空栈
+     */
+    public void clearBackStack(){
+        supportFragmentManager.popBackStack(null,1);//参数为0，清除栈顶的Fragment，参数为1，清空栈
+    }
+
+    /**
+     * 模拟退栈
+     */
+    public void popBackStack(){
+        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
+
+    }
+
     @Override
     public void onBackPressed(){
         super.onBackPressed();
-
+        clearBackStack();
 
     }
 }
