@@ -14,7 +14,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.bean.HomeViewPageBean;
+import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class HomePageViewPageAdapter  extends PagerAdapter{
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView iv = new ImageView(mContext);
+        container.addView(iv);
+        Glide.with(mContext).load(Constant.BaseUrl+pageList.get(position).getPic()).into(iv);
+
         return iv;
     }
 

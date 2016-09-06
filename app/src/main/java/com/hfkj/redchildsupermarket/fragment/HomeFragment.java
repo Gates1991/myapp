@@ -3,9 +3,11 @@ package com.hfkj.redchildsupermarket.fragment;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,7 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.GET;
 
 
-
 public class HomeFragment extends BaseFragment {
 
 
@@ -39,8 +40,20 @@ public class HomeFragment extends BaseFragment {
     ViewPager mVp;
     @Bind(R.id.lv)
     ListView  mLv;
+    @Bind(R.id.search)
+    LinearLayout  search;
     private List<HomeViewPageBean.HomeTopicBean> mHomeTopic;
-   private  List<HomeTopicBean>  homeTopicbean=new ArrayList<>();
+    private List<HomeTopicBean> homeTopicbean = new ArrayList<>();
+    private HomePageViewPageAdapter mHomePageViewPageAdapter;
+    private LinearLayout.OnTouchListener listener= new LinearLayout.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                search.setFocusable(true);
+                search.setFocusableInTouchMode(true);
+                search.requestFocus();
+                return false;
+            }
+        };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,9 +61,10 @@ public class HomeFragment extends BaseFragment {
 
         View view = inflater.inflate(R.layout.fragment_home, null);
         ButterKnife.bind(this, view);
+        search.setOnTouchListener(listener);
         initData();
-        mVp.setAdapter(new HomePageViewPageAdapter(homeTopicbean,mContext));
-       // mLv.setAdapter();
+
+        // mLv.setAdapter();
         return view;
     }
 
@@ -81,19 +95,23 @@ public class HomeFragment extends BaseFragment {
     private void parseNetData(HomeViewPageBean homeData) {
         mHomeTopic = homeData.getHomeTopic();
         homeTopicbean.clear();
-        for (int i = 0; i <mHomeTopic.size() ; i++) {
+        for (int i = 0; i < mHomeTopic.size(); i++) {
             homeTopicbean.add(mHomeTopic.get(i));
         }
+        if (mHomePageViewPageAdapter == null) {
 
+            mHomePageViewPageAdapter = new HomePageViewPageAdapter(homeTopicbean, mContext);
+            mVp.setAdapter(mHomePageViewPageAdapter);
+        } else {
+            mHomePageViewPageAdapter.notifyDataSetChanged();
+        }
 
     }
 
-    private  interface  HttpRetrofit{
-            @GET("home")
+    private interface HttpRetrofit {
+        @GET("home")
         Call<HomeViewPageBean> getHomeData();
     }
-
-
 
 
     @Override

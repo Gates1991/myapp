@@ -78,12 +78,15 @@ public class MainActivity extends FragmentActivity {
             }
         }
     };
+    private FragmentManager supportFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        //获取FragmentManager
+        supportFragmentManager =getSupportFragmentManager();
         mMainRadio.setOnCheckedChangeListener(listener);
         initFragment();
         changeFragment(mFragHome);
@@ -98,10 +101,8 @@ public class MainActivity extends FragmentActivity {
     }
 
     private void changeFragment(Fragment frag){
-        FragmentManager supportFragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_content,frag);
-        System.out.println("1111");
         transaction.commit();
 
     }
@@ -111,4 +112,13 @@ public class MainActivity extends FragmentActivity {
         }
         previousChecked = radioButton;
     }
+
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+
+
+    }
 }
+
