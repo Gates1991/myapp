@@ -10,7 +10,7 @@ package com.hfkj.redchildsupermarket.bean;/*
 
 import java.util.List;
 
-public class HomeViewPageBean {
+public class HomeVPBean {
 
     /**
      * id : 123
@@ -18,7 +18,8 @@ public class HomeViewPageBean {
      * title : 活动1
      */
 
-    private List<HomeTopicBean> homeTopic;
+
+    public List<HomeTopicBean> homeTopic;
 
     public List<HomeTopicBean> getHomeTopic() {
         return homeTopic;

@@ -15,16 +15,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.hfkj.redchildsupermarket.bean.HomeViewPageBean;
+import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
 
-public class HomePageViewPageAdapter  extends PagerAdapter{
-    private List<HomeViewPageBean.HomeTopicBean> pageList;
-    private Context                              mContext;
+;
 
-    public HomePageViewPageAdapter(List<HomeViewPageBean.HomeTopicBean> pageList, Context context) {
+public class HomeVPAdapter extends PagerAdapter{
+    private List<HomeVPBean.HomeTopicBean> pageList;
+    private Context                        mContext;
+
+    public HomeVPAdapter(List<HomeVPBean.HomeTopicBean> pageList, Context context) {
         this.pageList = pageList;
         mContext = context;
     }
