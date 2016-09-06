@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--这是品牌条目点击的选择器图片-->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+<item android:state_pressed="true" android:drawable="@drawable/listview_65bg_selected"></item>
+    <item android:drawable="@drawable/listview_65bg_normal"></item>
+</selector>
