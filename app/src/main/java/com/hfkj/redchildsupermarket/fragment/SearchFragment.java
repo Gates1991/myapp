@@ -20,6 +20,8 @@ public class SearchFragment extends Fragment {
 
     @Bind(R.id.et_search)
     EditText etSearch;
+    @Bind(R.id.tv_title_name)
+    TextView mTvTitleName;
     @Bind(R.id.bt_search)
     Button btSearch;
     @Bind(R.id.el_search1)
@@ -35,7 +37,12 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search, null);
 
         ButterKnife.bind(this, view);
+        initData();
         return view;
+    }
+
+    private void initData() {
+        mTvTitleName.setText("搜索");
     }
 
     @Override
