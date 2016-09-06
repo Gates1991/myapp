@@ -3,6 +3,7 @@ package com.hfkj.redchildsupermarket.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.bean.SearchRecommandResponse;
@@ -44,6 +46,10 @@ public class SearchFragment extends Fragment {
     private TextView tvTitle;
     private List<String> mData = new ArrayList<>();
 
+    private String[] title = {"热门搜索","搜索历史"};
+
+    private List<String> searchOld=new ArrayList<>(); //本地缓存的搜索历史数据集合
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -61,8 +67,17 @@ public class SearchFragment extends Fragment {
 
         httpGet();
 
-
+        //设置适配器
         elSearch.setAdapter(new SearchAdapter());
+
+        //遍历所有group,将所有项设置成默认展开
+        int groupCount = elSearch.getCount();
+
+        for (int i=0; i<groupCount; i++) {
+
+            elSearch.expandGroup(i);
+
+        };
     }
 
     private String httpGet() {
@@ -78,6 +93,7 @@ public class SearchFragment extends Fragment {
 
                 if (response.isSuccessful()) {
                     SearchRecommandResponse searchRecommandResponse = response.body();
+                    System.out.println(searchRecommandResponse.toString());
                     parseRespomse(searchRecommandResponse);
                 }
             }
@@ -112,19 +128,30 @@ public class SearchFragment extends Fragment {
 
     @OnClick(R.id.bt_search)
     public void onClick() {
+        String keywords = etSearch.getText().toString();
+        if (!TextUtils.isEmpty(keywords)) {
+
+        }else {
+            Toast.makeText(getContext(), "您输入的关键字为空", Toast.LENGTH_SHORT).show();
+        }
     }
 
     class SearchAdapter extends BaseExpandableListAdapter {
         //获取组的数量，ExpandableListView最外层的条目数量
         @Override
         public int getGroupCount() {
-            return 1;
+            return 2;
         }
 
         //获取对应组的子条目的数量
         @Override
         public int getChildrenCount(int i) {
-            return mData.size();
+            if (i==0) {
+
+                return mData.size();
+            }else {
+                return searchOld.size();
+            }
         }
 
         //创建组条目的view界面
@@ -133,12 +160,13 @@ public class SearchFragment extends Fragment {
             if (convertView == null) {
                 convertView = new TextView(getActivity().getApplicationContext());
             }
-            String groupText = "热门搜索";
+            String groupText = title[groupPosition];
 
             TextView tv = (TextView) convertView;
+
             tv.setText(groupText);
             tv.setTextColor(Color.RED);
-            tv.setBackgroundColor(Color.parseColor("#55000000"));
+            tv.setBackgroundColor(Color.parseColor("#33000000"));
             tv.setPadding(8, 8, 8,8);
             tv.setTextSize(18);
             return tv;
@@ -147,17 +175,36 @@ public class SearchFragment extends Fragment {
         //创建对应组，对应子条目的view界面
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
-            if (convertView == null) {
-                convertView = new TextView(getActivity().getApplicationContext());
-            }
+           if (groupPosition==0) {
 
-            TextView tv = (TextView) convertView;
-            tv.setTextColor(Color.BLACK);
-            tv.setBackgroundColor(Color.WHITE);
-            tv.setPadding(5, 5, 5, 5);
-            tv.setText(mData.get(0) + "\n" + mData.get(1));
-            tv.setTextSize(14);
-            return tv;
+               if (convertView == null) {
+                   convertView = new TextView(getActivity().getApplicationContext());
+               }
+
+               TextView tv = (TextView) convertView;
+               tv.setTextColor(Color.parseColor("#55000000"));
+               tv.setBackgroundColor(Color.WHITE);
+               tv.setPadding(5, 5, 5, 5);
+
+               tv.setText(mData.get(childPosition));
+
+               tv.setTextSize(16);
+               return tv;
+           }else {
+               if (convertView == null) {
+                   convertView = new TextView(getActivity().getApplicationContext());
+               }
+
+               TextView tv = (TextView) convertView;
+               tv.setTextColor(Color.parseColor("#55000000"));
+               tv.setBackgroundColor(Color.WHITE);
+               tv.setPadding(5, 5, 5, 5);
+
+               tv.setText(searchOld.get(childPosition));
+
+               tv.setTextSize(16);
+               return tv;
+           }
         }
 
         //设置子条目是否可以进行点击
