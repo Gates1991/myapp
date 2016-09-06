@@ -51,7 +51,7 @@ public class MainActivity extends FragmentActivity {
                 case R.id.menu:
                     mMenu.setTextColor(Color.RED);
                     setCheckedTextColor(mMenu);
-                    changeFragment(mFragMore);
+                    changeFragment(mFragHome);
                     break;
                 case R.id.search:
                     mSearch.setTextColor(Color.RED);

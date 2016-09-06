@@ -79,6 +79,9 @@ public class MoreFragment extends Fragment {
         switch (view.getId()) {
             case R.id.user_center://用户中心
 
+                //判断是否登录,默认是没有登录,()
+
+
                break;
             case R.id.browse_record://浏览记录
                 break;
