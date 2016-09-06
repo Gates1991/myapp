@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <Button
+            android:id="@+id/bt_search"
+            android:layout_width="50dp"
+            android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="8dp"
+            android:text="搜索"
+            android:textColor="#fff"
+            android:textSize="18sp"
+            android:background="@drawable/selector_search_bt"
+            />
+        <EditText
+            android:id="@+id/et_search"
+            android:singleLine="true"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/shape_search_et"
+            android:drawableLeft="@drawable/bar_search_normal"
+            android:layout_toLeftOf="@id/bt_search"
+            android:hint="请输入关键字"/>
+
+
+    </RelativeLayout>

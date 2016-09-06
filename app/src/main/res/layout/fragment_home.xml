@@ -11,12 +11,18 @@
         android:scaleType="fitXY"
         android:src="@mipmap/head_bg_home" />
 
-    <TextView
-        android:id="@+id/textView1"
+   <include layout="@layout/search_homepage"/>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.11"
-        android:text="HomePage"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="200dp">
+    </android.support.v4.view.ViewPager>
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+    </ListView>
 
 </LinearLayout>
