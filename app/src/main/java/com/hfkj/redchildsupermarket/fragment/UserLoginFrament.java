@@ -47,6 +47,8 @@ public class UserLoginFrament extends BaseFragment {
     Button mBtLogin;
     @Bind(R.id.bt_register)
     Button mBtRegister;
+    private FragmentManager supportFragmentManager;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class UserLoginFrament extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.activity_user_login, null);
+        View view = inflater.inflate(R.layout.fragment_userlogin, null);
         //标题textview
         TextView mTvTitleLayout = (TextView) view.findViewById(R.id.tv_title_layout);
         mTvTitleLayout.setText("用户登录");
@@ -84,6 +86,9 @@ public class UserLoginFrament extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.bt_login:  //登录
+                //TODO:进行判断,email和密码获取,联网与服务器中的数据匹配,正确存在则进入
+                addToBackStack(new UserInformationFragment());
+
                 break;
             case R.id.bt_register://注册
                 //点击跳转注册页面
@@ -93,6 +98,7 @@ public class UserLoginFrament extends BaseFragment {
             case R.id.imgbtn_left://返回按钮
                 // 退栈,添加动画效果
                 //TODO :
+
                 break;
         }
     }
@@ -106,8 +112,8 @@ public class UserLoginFrament extends BaseFragment {
      */
 
     public void addToBackStack(Fragment fragment){
-        FragmentManager supportFragmentManager=((MainActivity)mContext).getSupportFragmentManager();
-        FragmentTransaction transaction=supportFragmentManager.beginTransaction();
+        supportFragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
+        FragmentTransaction transaction= supportFragmentManager.beginTransaction();
         /*transaction.setCustomAnimations(
                 R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
                 R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
@@ -116,5 +122,7 @@ public class UserLoginFrament extends BaseFragment {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+
 
 }
