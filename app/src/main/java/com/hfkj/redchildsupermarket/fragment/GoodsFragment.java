@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.GoodsListAdapter;
-import com.hfkj.redchildsupermarket.bean.SearchGoodsResponse;
+import com.hfkj.redchildsupermarket.bean.SearchGoodsBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.ArrayList;
@@ -55,9 +55,10 @@ public class GoodsFragment extends BaseFragment {
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
 
-    private List<SearchGoodsResponse.ProductListBean> mDatas = new ArrayList();
+
     private String keyword;
 
+    List<SearchGoodsBean.ProductListBean> mDatas = new ArrayList();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -81,9 +82,8 @@ public class GoodsFragment extends BaseFragment {
 
     @Override
     public void initData() {
-        getPostHttp();
 
-        lvGoods.setAdapter(new GoodsListAdapter(mContext, mDatas));
+        lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));
     }
 
     private void getPostHttp() {
@@ -92,12 +92,12 @@ public class GoodsFragment extends BaseFragment {
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(HttpApi.class).search(0, 20, "saleDown", keyword).enqueue(new Callback<SearchGoodsResponse>() {
+                .create(HttpApi.class).search(0, 20, "saleDown", keyword).enqueue(new Callback<SearchGoodsBean>() {
             @Override
-            public void onResponse(Call<SearchGoodsResponse> call, Response<SearchGoodsResponse> response) {
+            public void onResponse(Call<SearchGoodsBean> call, Response<SearchGoodsBean> response) {
                 if (response.isSuccessful()) {
 
-                    SearchGoodsResponse searchGoodsResponse = response.body();
+                    SearchGoodsBean searchGoodsResponse = response.body();
 
                     System.out.println(searchGoodsResponse.toString());
 
@@ -106,13 +106,13 @@ public class GoodsFragment extends BaseFragment {
             }
 
             @Override
-            public void onFailure(Call<SearchGoodsResponse> call, Throwable throwable) {
+            public void onFailure(Call<SearchGoodsBean> call, Throwable throwable) {
                 Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void parseRespomse1(SearchGoodsResponse searchGoodsResponse) {
+    private void parseRespomse1(SearchGoodsBean searchGoodsResponse) {
         // TODO: 2016/9/7 json 数据解析处理
         mDatas.clear();
         mDatas = searchGoodsResponse.getProductList();
@@ -144,7 +144,7 @@ public class GoodsFragment extends BaseFragment {
         //POST 请求PSOT参数
         @FormUrlEncoded  //进行表单url编码
         @POST("search")
-        Call<SearchGoodsResponse> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
 }

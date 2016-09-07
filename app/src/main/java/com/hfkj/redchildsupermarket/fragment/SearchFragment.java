@@ -312,7 +312,7 @@ public class SearchFragment extends BaseFragment {
 //        //POST 请求PSOT参数
 //        @FormUrlEncoded  //进行表单url编码
 //        @POST("search")
-//        Call<SearchGoodsResponse> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+//        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
 }

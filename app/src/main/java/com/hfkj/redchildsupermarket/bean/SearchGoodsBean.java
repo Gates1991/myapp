@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by 栁年 on 2016/9/6.
  */
-public class SearchGoodsResponse extends BaseResponse {
+public class SearchGoodsBean extends BaseResponse {
 
     /**
      * listCount : 10
@@ -55,6 +55,15 @@ public class SearchGoodsResponse extends BaseResponse {
         private String name;
         private String pic;
         private int price;
+        private int commentCount;
+        public int getCommentCount() {
+            return commentCount;
+        }
+
+        public void setCommentCount(int commentCount) {
+            this.commentCount = commentCount;
+        }
+
 
         public int getId() {
             return id;
@@ -110,7 +119,7 @@ public class SearchGoodsResponse extends BaseResponse {
 
     @Override
     public String toString() {
-        return "SearchGoodsResponse{" +
+        return "SearchGoodsBean{" +
                 "listCount=" + listCount +
                 ", total=" + total +
                 ", productList=" + productList +

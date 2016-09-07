@@ -94,6 +94,7 @@ public class MainActivity extends FragmentActivity {
         supportFragmentManager = getSupportFragmentManager();
         initFragment();
         mMainRadio.setOnCheckedChangeListener(listener);
+        supportFragmentManager = getSupportFragmentManager();
         mMenu.setChecked(true);
     }
 
@@ -130,7 +131,7 @@ public class MainActivity extends FragmentActivity {
      * @param fragment
      */
     public void addToBackStack(BaseFragment fragment) {
-        FragmentTransaction transaction =  getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(
                 R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
                 R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out

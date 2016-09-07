@@ -49,6 +49,7 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
     private List<BrandBean.CategoryBean> mCategoryBeen;
 
     private int level = 0;
+    private DetailsFragment mDetailsFragment;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,12 +104,12 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                 mCategoryData.add(mCategoryBeen.get(i));
             }
         }
-      /*  if (mBrandAdapter == null) {*/
+      if (mBrandAdapter == null) {
         mBrandAdapter = new BrandAdapter(mContext, mCategoryData);
-        mListview.setAdapter(mBrandAdapter);
-        /*} else {
+        } else {
             mBrandAdapter.notifyDataSetChanged();
-        }*/
+        }
+        mListview.setAdapter(mBrandAdapter);
     }
 
     @Override
@@ -188,33 +189,45 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 111:
-                Toast.makeText(mContext, "洁牙护齿", Toast.LENGTH_SHORT).show();
-
-                    DetailsFragment detailsFragment = new DetailsFragment();
-                    mMainActivity.addToBackStack(detailsFragment,id1);
+                //Toast.makeText(mContext, "洁牙护齿", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 112:
-                Toast.makeText(mContext, "成人尿不湿", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "成人尿不湿", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 121:
-                Toast.makeText(mContext, "韩版孕妇服饰", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "韩版孕妇服饰", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 131:
-                Toast.makeText(mContext, "欧美风孕妇内衣", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "欧美风孕妇内衣", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 211:
-                Toast.makeText(mContext, "幼儿牙刷", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "幼儿牙刷", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 212:
-                Toast.makeText(mContext, "7周岁儿童玩具", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "7周岁儿童玩具", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 311:
-                Toast.makeText(mContext, "韩版围裙", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, "韩版围裙", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
             case 312:
-                Toast.makeText(mContext, "日版围裙", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, "日版围裙", Toast.LENGTH_SHORT).show();
+                skipDetailsFragment(id1);
                 break;
         }
+    }
+
+    private void skipDetailsFragment(int id1) {
+        if (mDetailsFragment ==null){
+            mDetailsFragment = new DetailsFragment();
+        }
+        mMainActivity.addToBackStack(mDetailsFragment,id1);
     }
 
     private void refreshData(int id) {

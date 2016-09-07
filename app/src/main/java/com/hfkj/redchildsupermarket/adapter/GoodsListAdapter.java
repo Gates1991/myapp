@@ -1,6 +1,7 @@
 package com.hfkj.redchildsupermarket.adapter;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -8,13 +9,10 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.bean.SearchGoodsResponse;
+import com.hfkj.redchildsupermarket.bean.SearchGoodsBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by 栁年 on 2016/9/7.
@@ -27,40 +25,44 @@ public class GoodsListAdapter extends CommonAdapter {
 
 
     public View getView(int position, View convertView, ViewGroup paren) {
-        ViewHolder holder =null;
+        ViewHolder holder = null;
         if (convertView == null) {
-            holder = new ViewHolder(convertView);
+            holder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.goods_list_item, null);
-
+            holder.ivGoodsIcon = (ImageView) convertView.findViewById(R.id.iv_goods_icon);
+            holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
+            holder.tvNowPrice = (TextView) convertView.findViewById(R.id.tv_now_price);
+            holder.tvLastPrice = (TextView) convertView.findViewById(R.id.tv_last_price);
+            holder.tvAppraise = (TextView) convertView.findViewById(R.id.tv_appraise);
             convertView.setTag(holder);
 
         }else {
             holder= (ViewHolder) convertView.getTag();
         }
-        SearchGoodsResponse.ProductListBean  bean = (SearchGoodsResponse.ProductListBean) getItem(position);
+        SearchGoodsBean.ProductListBean  bean = (SearchGoodsBean.ProductListBean) getItem(position);
         Glide.with(mContext.getApplicationContext()).load(Constant.BASE_URL+bean.getPic()).into(holder.ivGoodsIcon);
 
         holder.tvTitle.setText(bean.getName());
-        holder.tvNowPrice.setText(bean.getPrice());
-        holder.tvLastPrice.setText(bean.getMarketPrice());
-
+        holder.tvNowPrice.setText("现价:¥"+bean.getPrice());
+        holder.tvLastPrice.setText("原价:¥"+bean.getMarketPrice());
+        holder.tvLastPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.tvAppraise.setText("以有"+bean.getCommentCount()+"条评论");
         return convertView;
     }
 
-    static class ViewHolder {
-        @Bind(R.id.iv_goods_icon)
+  public class ViewHolder {
+
         ImageView ivGoodsIcon;
-        @Bind(R.id.tv_title)
+
         TextView tvTitle;
-        @Bind(R.id.tv_now_price)
+
         TextView tvNowPrice;
-        @Bind(R.id.tv_last_price)
+
         TextView tvLastPrice;
-        @Bind(R.id.tv_appraise)
+
         TextView tvAppraise;
 
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
+
+
     }
 }
