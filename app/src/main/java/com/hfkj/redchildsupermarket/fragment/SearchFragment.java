@@ -184,6 +184,7 @@ public class SearchFragment extends BaseFragment {
         keywords = etSearch.getText().toString();
         if (!TextUtils.isEmpty(keywords)) {
             searchOld.add(keywords);
+            // TODO: 2016/9/7 搜索点击
             searchAdapter.notifyDataSetChanged();
 
         } else {

@@ -10,10 +10,12 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.GoodsListAdapter;
 import com.hfkj.redchildsupermarket.bean.SearchGoodsResponse;
+import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +24,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -49,7 +55,9 @@ public class GoodsFragment extends BaseFragment {
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
 
-    List<SearchGoodsResponse.ProductListBean> mDatas = new ArrayList();
+    private List<SearchGoodsResponse.ProductListBean> mDatas = new ArrayList();
+    private String keyword;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,6 +65,9 @@ public class GoodsFragment extends BaseFragment {
         View view = View.inflate(mContext, R.layout.fragment_goods_item, null);
 
         ButterKnife.bind(this, view);
+        Bundle bundle = getArguments();
+        keyword = bundle.getString("keyword");
+
 
         initView();
         initData();
@@ -70,31 +81,43 @@ public class GoodsFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        getPostHttp();
 
-        lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));
+        lvGoods.setAdapter(new GoodsListAdapter(mContext, mDatas));
     }
-//    private void getPostHttp(int childPosition) {
-//        new Retrofit
-//                .Builder()
-//                .baseUrl(Constant.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-//                .create(HttpApi.class).search(0, 20, "saleDown",keyword).enqueue(new Callback<SearchGoodsResponse>() {
-//            @Override
-//            public void onResponse(Call<SearchGoodsResponse> call, Response<SearchGoodsResponse> response) {
-//                if (response.isSuccessful()) {
-//                    SearchGoodsResponse searchGoodsResponse = response.body();
-//                    System.out.println(searchGoodsResponse.toString());
-//                    parseRespomse1(searchGoodsResponse);
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<SearchGoodsResponse> call, Throwable throwable) {
-//                Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
+    private void getPostHttp() {
+        new Retrofit
+                .Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(HttpApi.class).search(0, 20, "saleDown", keyword).enqueue(new Callback<SearchGoodsResponse>() {
+            @Override
+            public void onResponse(Call<SearchGoodsResponse> call, Response<SearchGoodsResponse> response) {
+                if (response.isSuccessful()) {
+
+                    SearchGoodsResponse searchGoodsResponse = response.body();
+
+                    System.out.println(searchGoodsResponse.toString());
+
+                    parseRespomse1(searchGoodsResponse);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<SearchGoodsResponse> call, Throwable throwable) {
+                Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void parseRespomse1(SearchGoodsResponse searchGoodsResponse) {
+        // TODO: 2016/9/7 json 数据解析处理
+        mDatas.clear();
+        mDatas = searchGoodsResponse.getProductList();
+
+    }
 
     @Override
     public void onDestroyView() {
