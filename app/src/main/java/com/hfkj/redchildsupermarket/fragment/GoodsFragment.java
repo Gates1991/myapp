@@ -12,6 +12,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.adapter.GoodsListAdapter;
+import com.hfkj.redchildsupermarket.bean.SearchGoodsResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -40,6 +45,7 @@ public class GoodsFragment extends BaseFragment {
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
 
+    List<SearchGoodsResponse.ProductListBean> mDatas = new ArrayList();
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -55,6 +61,7 @@ public class GoodsFragment extends BaseFragment {
     public void initData() {
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("搜索结果");
+        lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));
     }
 
     @Override
