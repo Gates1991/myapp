@@ -31,16 +31,25 @@ public class ShoppingCarBean extends BaseResponse {
     }
 
     public static class CartBean {
-        private int    id;
-        private int    pid;
-        private int    pnum;
-        private int    ppid;
-        private String productImageUrl;
-        private String productName;
-        private String productPrice;
-        private String productPropertyName;
-        private int    state;
-        private String user_id;
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
+
+        private boolean isChecked;
+        private int     id;
+        private int     pid;
+        private int     pnum;
+        private int     ppid;
+        private String  productImageUrl;
+        private String  productName;
+        private String  productPrice;
+        private String  productPropertyName;
+        private int     state;
+        private String  user_id;
 
         public int getId() {
             return id;

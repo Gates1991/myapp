@@ -78,7 +78,6 @@ public class UserLoginFrament extends BaseFragment {
         super.onResume();
     }
 
-    @Override
     public void initData() {
 
     }

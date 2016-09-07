@@ -57,7 +57,7 @@ public class ShopCarShowAdapter extends BaseAdapter {
                     .into(viewHolder.mIvShop);
             viewHolder.mTvProductName.setText(bean.getProductName());
             viewHolder.mProductPrice.setText("价格:" + bean.getProductPrice());
-           viewHolder.mTvProductNum.setText("数量:" + bean.getPnum());
+            viewHolder.mTvProductNum.setText("数量:" + bean.getPnum());
             viewHolder.mProductTotalMoney.setText("小计:" + Integer.valueOf(bean.getProductPrice()) * bean.getPnum());
             convertView.setTag(viewHolder);
         } else {
@@ -83,20 +83,5 @@ public class ShopCarShowAdapter extends BaseAdapter {
         }
     }
 
-   /* static class ViewHolder {
-        @Bind(R.id.iv_shop)
-        ImageView mIvShop;
-        @Bind(R.id.tv_product_name)
-        TextView  mTvProductName;
-        @Bind(R.id.product_price)
-        TextView  mProductPrice;
-        @Bind(R.id.tv_product_num)
-        TextView  mTvProductNum;
-        @Bind(R.id.product_total_money)
-        TextView  mProductTotalMoney;
 
-        ViewHolder(View view) {
-            ButterKnife.bind(this, view);
-        }
-    }*/
 }

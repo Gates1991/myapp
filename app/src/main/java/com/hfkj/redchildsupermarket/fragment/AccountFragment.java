@@ -6,25 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.hfkj.redchildsupermarket.R;
-
 /**
- * @创建者 Shayne
- * @创建时间 2016/9/6 18:23
- * @描述着 ${TODO}
- * @更新者 $Author$
- * @更新时间 $Date$
- * @更新描述 ${TODO}
+ * Created by wf on 2016/9/7.
  */
-public class BrowseRecordFragment extends BaseFragment {
-
+public class AccountFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        inflater.inflate(R.layout.fragment_browserecord,null);
         return super.onCreateView(inflater, container, savedInstanceState);
-    }
-    public void initData() {
-
     }
 }

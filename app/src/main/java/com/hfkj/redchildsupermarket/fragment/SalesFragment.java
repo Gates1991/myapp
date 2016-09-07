@@ -59,7 +59,6 @@ public class SalesFragment extends BaseFragment implements View.OnClickListener 
     }
 
 
-    @Override
     public void initData() {
         getNetData();
 

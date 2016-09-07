@@ -35,7 +35,7 @@
             android:id="@+id/brand"
             style="@style/main_tab_bottom"
             android:drawableTop="@drawable/selector_brand"
-            android:text="品牌"
+            android:text="分类"
            />
         <RadioButton
             android:id="@+id/shopping"

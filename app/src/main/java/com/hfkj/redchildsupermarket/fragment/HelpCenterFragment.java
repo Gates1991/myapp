@@ -25,7 +25,6 @@ public class HelpCenterFragment extends BaseFragment {
         return view;
     }
 
-    @Override
     public void initData() {
 
     }
