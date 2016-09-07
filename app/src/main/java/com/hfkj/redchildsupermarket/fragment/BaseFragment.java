@@ -23,7 +23,6 @@ public abstract class BaseFragment extends Fragment {
 		super.onCreate(savedInstanceState);
 		mContext = getActivity();
 		mMainActivity = (MainActivity) mContext;
-
 	}
 
 	public abstract  void  initData();

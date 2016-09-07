@@ -132,8 +132,8 @@ public class MainActivity extends FragmentActivity {
         );
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);
-        mMainRadio.setVisibility(View.GONE);
         transaction.commit();
+        mMainRadio.setVisibility(View.GONE);
 
     }
 
@@ -148,8 +148,8 @@ public class MainActivity extends FragmentActivity {
      * 模拟退栈
      */
     public void popBackStack(){
-        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
         mMainRadio.setVisibility(View.VISIBLE);
+        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
     }
 
     public RadioButton getBrand() {
