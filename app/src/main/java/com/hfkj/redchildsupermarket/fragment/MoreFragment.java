@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
@@ -93,16 +92,12 @@ public class MoreFragment extends BaseFragment {
             case R.id.user_center://用户中心
                 //TODO:将跳转页面添加到栈中,并设置动画
 
-                //判断是否登录,默认是没有登录,()
-                Toast.makeText(mContext,"用户中心被点击了",Toast.LENGTH_SHORT).show();
-            //    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            //
 
                 //先获取token中判断是否登录,已登录跳转到用户信息界面,未登录跳转到登录界面
                 islogin();
 /*
                 addToBackStack(mFragments.get(0));
-                //TODO "这边有bug
+
                 RadioGroup mMain_radio = (RadioGroup) ((MainActivity) mContext).findViewById(R.id.main_radio);
                 mMain_radio.setVisibility(View.INVISIBLE);*/
                 break;

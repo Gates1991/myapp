@@ -95,6 +95,7 @@ public class UserLoginFrament extends BaseFragment {
         TextView mTv_title_left = (TextView) view.findViewById(R.id.tv_title_left);
         mTv_title_left.setText("返回");
 
+        mMainActivity.isMainFrament=false;
 
         mContext = getActivity();
 
@@ -165,10 +166,13 @@ public class UserLoginFrament extends BaseFragment {
         if (TextUtils.equals("error", loginBean.response)) {
             Toast.makeText(mContext, "ERRORCODE:" + loginBean.error.code + "MSG:" + loginBean.error.msg, Toast.LENGTH_SHORT).show();
         } else {
-            System.out.println(userInfo.toString());
+            System.out.println(loginBean.toString());
 
             SpUtil.saveinfo(mContext,"login_user_id",userInfo.getUser_id());
             SpUtil.saveinfo(mContext,"login_token", String.valueOf(userInfo.getToken()));
+            System.out.println(userInfo.getUser_id()+"lo");
+            System.out.println(userInfo.getToken()+"lo");
+
             Toast.makeText(mContext, "LOGIN", Toast.LENGTH_SHORT).show();
             addToBackStack(new UserInformationFragment());
         }

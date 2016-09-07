@@ -1,5 +1,7 @@
 package com.hfkj.redchildsupermarket.http;
 
+import com.hfkj.redchildsupermarket.bean.CancelBean;
+import com.hfkj.redchildsupermarket.bean.InformationBean;
 import com.hfkj.redchildsupermarket.bean.LoginBean;
 import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
@@ -67,6 +69,26 @@ public interface HttpApi {
     @FormUrlEncoded //进行url表单编码
     @POST("register")
     Call<RegisterBean> register(@Field("username") String username, @Field("password") String password);
+
+
+    /**
+     * 用户信息借口
+     * @param
+     * @return
+     */
+
+    @GET("userinfo")
+    Call<InformationBean> getInfoMsg(@Query("token") Long b,@Query("userid") String a );
+
+    /**
+     * 注销接口
+     * @param userid
+     * @return
+     */
+
+    @FormUrlEncoded
+    @POST("logout")
+    Call<CancelBean> logout(@Field("userid") String userid);
 
 
     /**

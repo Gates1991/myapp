@@ -189,7 +189,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         switch (position) {
             case 0:
                 fragment=new LimitShoping();
-                ( (MainActivity) mContext).addToBackStack(fragment);
+                mMainActivity.addToBackStack(fragment);
                 break;
             case 1:
                 fragment = new SalesFragment();
