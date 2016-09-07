@@ -18,13 +18,18 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.bean.LimitShopintBean;
+import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductListBean> {
+
+    @Bind(R.id.bt_limitshop)
+    Button    mBtLimitshop;
     @Bind(R.id.iv_limitshop)
     ImageView mIvLimitshop;
     @Bind(R.id.tv_item_type)
@@ -35,8 +40,7 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
     TextView  mTvItemLimitPrice;
     @Bind(R.id.tv_limittime)
     TextView  mTvLimittime;
-    @Bind(R.id.bt_limitshop)
-    Button    mBtLimitshop;
+
 
     public LimitShopAdapter(Context context, List<LimitShopintBean.ProductListBean> datas) {
         super(context, datas);
@@ -44,20 +48,24 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.item_limitshop, null);
+            ButterKnife.bind(this, convertView);
         }
         LimitShopintBean.ProductListBean productListBean = mDatas.get(position);
-        Glide.with(mContext).load(productListBean.getPic()).into(mIvLimitshop);
+        Glide.with(mContext).load(Constant.BASE_URL+productListBean.getPic()).into(mIvLimitshop);
         mTvItemType.setText(productListBean.getName());
-        mTvItemLimitPrice.setText(productListBean.getLimitPrice());
-        mTvLimittime.setText(productListBean.getLeftTime());
-        mTvItemPrice.setText(productListBean.getPrice());
-
+        mTvItemLimitPrice.setText(productListBean.getLimitPrice()+"");
+        mTvLimittime.setText("限时"+productListBean.getLeftTime());
+        mTvItemPrice.setText(productListBean.getPrice()+"价格");
         return convertView;
     }
 
+
+
     @OnClick(R.id.bt_limitshop)
     public void onClick() {
+
     }
 }

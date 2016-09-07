@@ -23,10 +23,12 @@ import com.hfkj.redchildsupermarket.bean.LimitShopintBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,14 +38,13 @@ import retrofit2.http.Query;
 
 public class LimitShoping extends BaseFragment {
 
-
     @Bind(R.id.lv_limitshoping)
     ListView mLvLimitshoping;
     @Bind(R.id.tv_title_name)
     TextView tv_title_name;
     @Bind(R.id.bt_title_left)
-    Button bt_title_left;
-    private List<LimitShopintBean.ProductListBean> mProductList;
+    Button   bt_title_left;
+    private List<LimitShopintBean.ProductListBean> mProductList = new ArrayList<>();
     private LimitShopAdapter mLimitShopAdapter;
 
     @Override
@@ -57,13 +58,12 @@ public class LimitShoping extends BaseFragment {
 
     public void initData() {
         getNetData();
-        mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
-       mLvLimitshoping.setAdapter(mLimitShopAdapter);
+
     }
 
     private void initView() {
-         bt_title_left.setVisibility(View.VISIBLE);
-         tv_title_name.setText("限时抢购");
+        bt_title_left.setVisibility(View.VISIBLE);
+        tv_title_name.setText("限时抢购");
     }
 
     @Override
@@ -78,7 +78,8 @@ public class LimitShoping extends BaseFragment {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         HttpLimitShoping httpLimitShoping = retrofit.create(HttpLimitShoping.class);
-        Call<LimitShopintBean> call = httpLimitShoping.getHomeData("1", "20");
+
+        Call<LimitShopintBean> call = httpLimitShoping.getHomeData("1", "13");
         call.enqueue(new Callback<LimitShopintBean>() {
             @Override
             public void onResponse(Call<LimitShopintBean> call, Response<LimitShopintBean> response) {
@@ -95,7 +96,11 @@ public class LimitShoping extends BaseFragment {
     }
 
     private void parseNetData(LimitShopintBean limitShopintBean) {
+        mProductList.clear();
         mProductList = limitShopintBean.getProductList();
+        //   System.out.println(mProductList.size());
+        mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
+        mLvLimitshoping.setAdapter(mLimitShopAdapter);
 
     }
 
@@ -104,5 +109,11 @@ public class LimitShoping extends BaseFragment {
         Call<LimitShopintBean> getHomeData(@Query("page") String value1, @Query("pageNum") String value2);
 
     }
+
+    @OnClick(R.id.bt_title_left)
+    public void limitshop(View view){
+        mMainActivity.popBackStack();
+
+        }
 
 }
