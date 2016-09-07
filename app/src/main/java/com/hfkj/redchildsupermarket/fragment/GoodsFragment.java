@@ -21,6 +21,10 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 /**
  * Created by 栁年 on 2016/9/7.
@@ -54,15 +58,43 @@ public class GoodsFragment extends BaseFragment {
 
         ButterKnife.bind(this, view);
 
+        initView();
+        initData();
         return view;
+    }
+
+    private void initView() {
+        mBtTitleLeft.setVisibility(View.VISIBLE);
+        mTvTitleName.setText("搜索结果");
     }
 
     @Override
     public void initData() {
-        mBtTitleLeft.setVisibility(View.VISIBLE);
-        mTvTitleName.setText("搜索结果");
+
         lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));
     }
+//    private void getPostHttp(int childPosition) {
+//        new Retrofit
+//                .Builder()
+//                .baseUrl(Constant.BASE_URL)
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//                .create(HttpApi.class).search(0, 20, "saleDown",keyword).enqueue(new Callback<SearchGoodsResponse>() {
+//            @Override
+//            public void onResponse(Call<SearchGoodsResponse> call, Response<SearchGoodsResponse> response) {
+//                if (response.isSuccessful()) {
+//                    SearchGoodsResponse searchGoodsResponse = response.body();
+//                    System.out.println(searchGoodsResponse.toString());
+//                    parseRespomse1(searchGoodsResponse);
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<SearchGoodsResponse> call, Throwable throwable) {
+//                Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//    }
 
     @Override
     public void onDestroyView() {
@@ -82,5 +114,14 @@ public class GoodsFragment extends BaseFragment {
             case R.id.rb_uprack:
                 break;
         }
+    }
+
+    private interface HttpApi {
+
+        //POST 请求PSOT参数
+        @FormUrlEncoded  //进行表单url编码
+        @POST("search")
+        Call<SearchGoodsResponse> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+
     }
 }

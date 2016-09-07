@@ -112,7 +112,7 @@ public class LimitShoping extends BaseFragment {
 
     @OnClick(R.id.bt_title_left)
     public void limitshop(View view){
-       mMainActivity.popBackStack();
+//       mMainActivity.popBackStack();
 
         }
 

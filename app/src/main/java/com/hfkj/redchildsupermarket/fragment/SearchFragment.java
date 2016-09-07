@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.bean.SearchGoodsResponse;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.bean.SearchRecommandResponse;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
@@ -30,10 +30,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public class SearchFragment extends BaseFragment {
@@ -120,7 +117,10 @@ public class SearchFragment extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
 
                 Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
-                getPostHttp(childPosition);
+                //                getPostHttp(childPosition);
+
+                GoodsFragment goodsFragment = new GoodsFragment();
+                ((MainActivity) mContext).addToBackStack(goodsFragment,mData.get(childPosition));
 
                 return true;
             }
@@ -128,32 +128,6 @@ public class SearchFragment extends BaseFragment {
 
     }
 
-    private void getPostHttp(int childPosition) {
-        new Retrofit
-                .Builder()
-                .baseUrl(Constant.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(HttpApi.class).search(0,20,"saleDown",mData.get(childPosition)).enqueue(new Callback<SearchGoodsResponse>() {
-            @Override
-            public void onResponse(Call<SearchGoodsResponse> call, Response<SearchGoodsResponse> response) {
-                if (response.isSuccessful()) {
-                    SearchGoodsResponse searchGoodsResponse = response.body();
-                    System.out.println(searchGoodsResponse.toString());
-                    parseRespomse1(searchGoodsResponse);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<SearchGoodsResponse> call, Throwable throwable) {
-                Toast.makeText(mContext, "网络异常", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void parseRespomse1(SearchGoodsResponse searchGoodsResponse) {
-// TODO: 2016/9/7
-    }
 
 
     private void httpGet() {
@@ -334,11 +308,10 @@ public class SearchFragment extends BaseFragment {
         Call<SearchRecommandResponse> getSearchRecommend(@Path("search") String search, @Path("recommend") String recommend);// search/recommend
         //如果url中含有斜线，那么不能把带斜线的值传入（斜线会变乱码）
 
-
-        //POST 请求PSOT参数
-        @FormUrlEncoded  //进行表单url编码
-        @POST("search")
-        Call<SearchGoodsResponse> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+//        //POST 请求PSOT参数
+//        @FormUrlEncoded  //进行表单url编码
+//        @POST("search")
+//        Call<SearchGoodsResponse> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
 }
