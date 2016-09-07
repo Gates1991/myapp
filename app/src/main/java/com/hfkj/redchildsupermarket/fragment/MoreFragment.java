@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -100,8 +101,12 @@ public class MoreFragment extends BaseFragment {
 
                 //跳转到fragment
             //
+
                 addToBackStack(mFragments.get(0));
-               break;
+                //TODO "这边有bug
+                RadioGroup mMain_radio = (RadioGroup) ((MainActivity) mContext).findViewById(R.id.main_radio);
+                mMain_radio.setVisibility(View.INVISIBLE);
+                break;
             case R.id.browse_record://浏览记录
                 break;
             case R.id.help_center://帮助中心
