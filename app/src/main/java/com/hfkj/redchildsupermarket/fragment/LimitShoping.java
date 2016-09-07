@@ -71,6 +71,7 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
         ButterKnife.bind(this, view);
         initView();
         initData();
+        mMainActivity.isMainFrament=false;
         mLvLimitshoping.setOnItemClickListener(this);
         return view;
     }
@@ -132,8 +133,8 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
     private interface HttpLimitShoping {
         @GET("limitbuy")
         Call<LimitShopintBean> getHomeData(@Query("page") String value1, @Query("pageNum") String value2);
-
     }
+
 
     @OnClick(R.id.bt_title_left)
     public void limitshop(View view) {

@@ -1,0 +1,2 @@
+CHANGED,D:\Workspace4AS\RedBaby\retrofitsample\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\itheima\retrofitsample\MainActivity$override.class
+CHANGED,D:\Workspace4AS\RedBaby\retrofitsample\build\intermediates\transforms\instantRun\debug\folders\4000\5\enhanced\com\android\tools\fd\runtime\AppPatchesLoaderImpl.class

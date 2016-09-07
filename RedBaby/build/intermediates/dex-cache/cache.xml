@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\libs\internal_impl-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4da5a4d697d32497c6f85567a5112e62fdfd0676">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\internal_impl-23.3.0_8d274671c696386dda843e0c69d197fa2efe425c.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\RedBaby\library4retrofit\unspecified\jars\libs\retrofit-2.0.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="4699f3df4fa218a87a9652f69aceb73be1f452e6">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\retrofit-2.0.2_d4c05fe0fcb5d84251d72603a62f1d42a74ce79e.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\RedBaby\library4retrofit\unspecified\jars\libs\okio-1.7.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="78413559f4b2f0f172694c5c13c1ae8d215c4ffd">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\okio-1.7.0_8d725122299fcf13412d821e761aed98090790fd.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="23be6993826b8fd88bbc8d14928bb3b8960d3d4e">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\com.android.support-animated-vector-drawable-23.3.0_8e7815c0af0110df9d485d09621ed8a65282134c.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\com.android.support\support-v4\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="8a034dd16c0dfd75fe86c52c2cd581592acc684a">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\com.android.support-support-v4-23.3.0_67070861fc797aa0beeec1540a73c01ab4674879.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="868f9cc1e619abdff9f1537462088038a93b7062">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\instant-run-bootstrap_0056cfeaa500a36d65d62b02ecfd3031fdb5f176.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\RedBaby\library4retrofit\unspecified\jars\libs\gson-2.6.2.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="60bafc179f378806cbdcd0d6c5c2b53b903b291b">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\gson-2.6.2_88f2c9e2570cd355bcb1680c0d398a4de0ef1ee5.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="a0b5d60246cd9d4f3f2443611b3b4c25265840b5">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\com.android.support-support-vector-drawable-23.3.0_6319da9d0f2434e55f3311e18c8817a254534334.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\RedBaby\library4retrofit\unspecified\jars\libs\okhttp-3.2.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="7d87fc79785e667ccc5f9647edf5368c888faeee">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\okhttp-3.2.0_eef3f11b13ee4a5acb466af14352fffb033e5627.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="93421ec5e7f3f943cd33f2f1eac5a569c374858b">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\instant-run_2b831610ed5762791ed7bca803779986f57c2974.jar" />
+    </item>
+    <item
+        jar="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.3.0\jars\classes.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="1b8e03daaa43fb0a4cd57e378167c2fd70454c1e">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\com.android.support-appcompat-v7-23.3.0_9c2f022fe30ea3cea7b3d34a1d4203d3ab918592.jar" />
+    </item>
+    <item
+        jar="D:\Android\android_studio\extras\android\m2repository\com\android\support\support-annotations\23.3.0\support-annotations-23.3.0.jar"
+        jumboMode="true"
+        revision="23.0.3"
+        sha1="db7791d75a07fef9844d06236c1c59ba7bf6997c">
+        <dex dex="D:\Workspace4AS\RedBaby\redbaby2\build\intermediates\pre-dexed\debug\support-annotations-23.3.0_447bb5259931120440fa836aa2b5f38c7b152714.jar" />
+    </item>
+
+</items>

@@ -56,6 +56,8 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
         viewHolder.mTvLimittime.setText(time);
         viewHolder.mTvItemPrice.setText("原价:"+mProductListBean.getPrice()+"¥");
         viewHolder.mTvItemPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+        System.out.println("11111");
+
         return convertView;
     }
 

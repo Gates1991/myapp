@@ -25,6 +25,7 @@ public abstract class BaseFragment extends Fragment {
 		mMainActivity = (MainActivity) mContext;
 	}
 
+
 	public abstract  void  initData();
 
 }

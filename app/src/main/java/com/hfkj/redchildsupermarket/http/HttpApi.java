@@ -1,7 +1,9 @@
 package com.hfkj.redchildsupermarket.http;
 
 import com.hfkj.redchildsupermarket.bean.LoginBean;
+import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
+import com.hfkj.redchildsupermarket.bean.SalesBean;
 import com.hfkj.redchildsupermarket.http.response.ResponseHomeBigViewModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseProductListModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseSearchHotKeywordModel;
@@ -14,6 +16,7 @@ import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 /**
  * Created by CC on 2016/7/2.
@@ -66,6 +69,21 @@ public interface HttpApi {
     Call<RegisterBean> register(@Field("username") String username, @Field("password") String password);
 
 
+    /**
+     * 获得促销页面的数据
+     * @param value1
+     * @param value2
+     * @return
+     */
+    @GET("topic")
+    Call<SalesBean> getSalesData(@Query("page") String value1, @Query("pageNum") String value2);
+
+    /**
+     * 推荐品牌的数据
+     * @return
+     */
+    @GET("home")
+    Call<RecommandExpandBean> getRecommandExpand();
 
 
 
