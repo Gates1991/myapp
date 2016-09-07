@@ -2,7 +2,6 @@ package com.hfkj.redchildsupermarket.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -105,7 +104,7 @@ public class MainActivity extends FragmentActivity {
         transaction.replace(R.id.fl_content, frag);
         transaction.commit();
 
-       // frag.initData();
+
 
     }
 
