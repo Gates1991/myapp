@@ -12,13 +12,13 @@ public class SearchRecommandResponse extends BaseResponse {
 //    private String response;
     private List<String> searchKeywords;
 
-    public String getResponse() {
-        return response;
-    }
-
-    public void setResponse(String response) {
-        this.response = response;
-    }
+//    public String getResponse() {
+//        return response;
+//    }
+//
+//    public void setResponse(String response) {
+//        this.response = response;
+//    }
 
     public List<String> getSearchKeywords() {
         return searchKeywords;
