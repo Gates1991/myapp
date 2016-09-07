@@ -9,9 +9,9 @@ package com.hfkj.redchildsupermarket.adapter;/*
  */
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,45 +22,63 @@ import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductListBean> {
 
-    @Bind(R.id.bt_limitshop)
-    Button    mBtLimitshop;
-    @Bind(R.id.iv_limitshop)
-    ImageView mIvLimitshop;
-    @Bind(R.id.tv_item_type)
-    TextView  mTvItemType;
-    @Bind(R.id.tv_item_price)
-    TextView  mTvItemPrice;
-    @Bind(R.id.tv_item_limitPrice)
-    TextView  mTvItemLimitPrice;
-    @Bind(R.id.tv_limittime)
-    TextView  mTvLimittime;
+    private LimitShopintBean.ProductListBean mProductListBean;
 
 
     public LimitShopAdapter(Context context, List<LimitShopintBean.ProductListBean> datas) {
         super(context, datas);
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
+            ViewHolder viewHolder=null;
         if (convertView == null) {
+            viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_limitshop, null);
-            ButterKnife.bind(this, convertView);
+            viewHolder.mIvLimitshop = (ImageView) convertView.findViewById(R.id.iv_limitshop);
+            viewHolder.mTvItemPrice = (TextView) convertView.findViewById(R.id.tv_item_price);
+            viewHolder.mTvItemType = (TextView) convertView.findViewById(R.id.tv_item_type);
+            viewHolder.mTvItemLimitPrice = (TextView) convertView.findViewById(R.id.tv_item_limitPrice);
+            viewHolder.mTvLimittime = (TextView) convertView.findViewById(R.id.tv_limittime);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder= (ViewHolder) convertView.getTag();
         }
-        LimitShopintBean.ProductListBean productListBean = mDatas.get(position);
-        Glide.with(mContext).load(Constant.BASE_URL+productListBean.getPic()).into(mIvLimitshop);
-        mTvItemType.setText(productListBean.getName());
-        mTvItemLimitPrice.setText(productListBean.getLimitPrice()+"");
-        mTvLimittime.setText("限时"+productListBean.getLeftTime());
-        mTvItemPrice.setText(productListBean.getPrice()+"价格");
+       mProductListBean = mDatas.get(position);
+        Glide.with(mContext).load(Constant.BASE_URL+ mProductListBean.getPic()).into( viewHolder.mIvLimitshop);
+        viewHolder.mTvItemType .setText(mProductListBean.getName());
+        viewHolder.mTvItemLimitPrice.setText(mProductListBean.getLimitPrice()+"¥");
+        String time = getTimeFromInt(mProductListBean.getLeftTime());
+        System.out.println(time+position);
+        viewHolder.mTvLimittime.setText(time);
+        viewHolder.mTvItemPrice.setText("原价:"+mProductListBean.getPrice()+"¥");
+        viewHolder.mTvItemPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         return convertView;
     }
+
+    private class ViewHolder{
+        ImageView mIvLimitshop;
+        TextView  mTvItemType;
+        TextView  mTvItemPrice;
+        TextView  mTvItemLimitPrice;
+        TextView  mTvLimittime;
+    }
+
+    public String getTimeFromInt(long time) {
+     //  System.out.println(time);
+        time=time/1000;
+        if (time <= 0) { return "已结束"; }
+        long day = time / (1 * 60 * 60 * 24);
+        long hour = time / (1 * 60 * 60) % 24;
+        long minute = time / (1 * 60) % 60;
+        long second = time / (1) % 60;
+        return "剩余"+ hour + "小时" + minute + "分" + second + "秒";
+    }
+
+
 
 
 

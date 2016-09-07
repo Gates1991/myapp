@@ -9,9 +9,12 @@ package com.hfkj.redchildsupermarket.fragment;/*
  */
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -36,7 +39,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class LimitShoping extends BaseFragment {
+public class LimitShoping extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.lv_limitshoping)
     ListView mLvLimitshoping;
@@ -47,12 +50,28 @@ public class LimitShoping extends BaseFragment {
     private List<LimitShopintBean.ProductListBean> mProductList = new ArrayList<>();
     private LimitShopAdapter mLimitShopAdapter;
 
+    private Handler mHandler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (msg.what == 1) {
+                for (int i = 0; i < mProductList.size(); i++) {
+                    mProductList.get(i).setLeftTime(mProductList.get(i).getLeftTime() - 1000);
+                }
+                    mLimitShopAdapter.notifyDataSetChanged();
+            }
+            mHandler.sendEmptyMessageDelayed(1,1000);
+        }
+    };
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_limitshoping, null);
         ButterKnife.bind(this, view);
         initView();
         initData();
+        mLvLimitshoping.setOnItemClickListener(this);
         return view;
     }
 
@@ -70,6 +89,7 @@ public class LimitShoping extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+       mHandler.removeCallbacksAndMessages(null);
     }
 
     public void getNetData() {
@@ -99,9 +119,18 @@ public class LimitShoping extends BaseFragment {
         mProductList.clear();
         mProductList = limitShopintBean.getProductList();
         //   System.out.println(mProductList.size());
-        mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
+        if (mLimitShopAdapter == null) {
+            mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
+        } else {
+            mLimitShopAdapter.notifyDataSetChanged();
+        }
         mLvLimitshoping.setAdapter(mLimitShopAdapter);
+        mHandler.sendEmptyMessageDelayed(1, 1000);
+    }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //TODO: 2016/9/7
     }
 
     private interface HttpLimitShoping {
@@ -111,9 +140,10 @@ public class LimitShoping extends BaseFragment {
     }
 
     @OnClick(R.id.bt_title_left)
-    public void limitshop(View view){
+    public void limitshop(View view) {
         mMainActivity.popBackStack();
 
-        }
+    }
+
 
 }

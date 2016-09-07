@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.fragment.BaseFragment;
@@ -80,6 +81,10 @@ public class MainActivity extends FragmentActivity {
         }
     };
     private FragmentManager supportFragmentManager;
+    private long            mTimeMillis;
+    private long mCurrentTimeMillis;
+    private boolean isFirst;
+    private long currentClickTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +159,18 @@ public class MainActivity extends FragmentActivity {
 
     public RadioButton getBrand() {
         return mBrand;
+    }
+
+    @Override
+    public void onBackPressed() {
+       long currentTimeMillis = System.currentTimeMillis();
+        if (currentTimeMillis - currentClickTime >2000){
+            Toast.makeText(this, "再次点击则退出应用", Toast.LENGTH_SHORT).show();
+            currentClickTime = currentTimeMillis;
+        }else {
+            finish();
+        }
+
 
     }
 }
