@@ -79,12 +79,14 @@ public class MainActivity extends FragmentActivity {
             }
         }
     };
+    private FragmentManager supportFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        supportFragmentManager = getSupportFragmentManager();
         initFragment();
         mMainRadio.setOnCheckedChangeListener(listener);
         mMenu.setChecked(true);
@@ -123,16 +125,31 @@ public class MainActivity extends FragmentActivity {
      * @param fragment
      */
     public void addToBackStack(BaseFragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        FragmentTransaction transaction =  getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(
                 R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
                 R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
         );
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);
-        mMainRadio.setVisibility(View.GONE);
         transaction.commit();
+        mMainRadio.setVisibility(View.GONE);
 
+    }
+
+    /**
+     * 清空栈
+     */
+    public void clearBackStack(){
+        supportFragmentManager.popBackStack(null,1);//参数为0，清除栈顶的Fragment，参数为1，清空栈
+    }
+
+    /**
+     * 模拟退栈
+     */
+    public void popBackStack(){
+        mMainRadio.setVisibility(View.VISIBLE);
+        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
     }
 
     public RadioButton getBrand() {

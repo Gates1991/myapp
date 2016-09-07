@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/RedBaby.iml" filepath="$PROJECT_DIR$/RedBaby.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library4retrofit/library4retrofit.iml" filepath="$PROJECT_DIR$/library4retrofit/library4retrofit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/redbaby2/redbaby2.iml" filepath="$PROJECT_DIR$/redbaby2/redbaby2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/retrofitsample/retrofitsample.iml" filepath="$PROJECT_DIR$/retrofitsample/retrofitsample.iml" />
+    </modules>
+  </component>
+</project>

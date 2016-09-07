@@ -2,79 +2,54 @@ package com.hfkj.redchildsupermarket.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 
 /**
- * @Description: sp 工具类
- * @author teacher
- * @date 2016-9-2 上午9:10:58 
+ * @创建者 Shayne
+ * @创建时间 2016/9/7 3:18
+ * @描述着 ${TODO}
+ * @更新者 $Author$
+ * @更新时间 $Date$
+ * @更新描述 ${TODO}
  */
 public class SpUtil {
-	
-	private static final String SP_NAME = "config";
-	private static SharedPreferences sp;
 
-	//保存boolean值
-	public static void putBoolean(Context context,String key,boolean flag){
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
+    private static final String SP_NAME = "config";
+    private static SharedPreferences mSp;
 
-		Editor edit = sp.edit();
-		edit.putBoolean(key, flag);
-		edit.commit();
-	}
-
-	//获取布尔值
-	public static boolean getBoolean(Context context,String key,boolean defValue){
-
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
-		boolean value = sp.getBoolean(key,defValue);
-		return value;
-	}
+    //保存布尔值
+    public static void saveBoolean(Context context, String key, boolean value) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        mSp.edit().putBoolean(key, value).commit();
+    }
 
 
-	//保存String
-	public static void putString(Context context,String key,String value){
-
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
-		Editor edit = sp.edit();
-		edit.putString(key, value);
-		edit.commit();
-	}
-
-	//获取String
-	public static String getString(Context context,String key){
-
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
-
-		return sp.getString(key, null);
-	}
+    //获取布尔值
+    public static boolean getBoolean(Context context, String key, boolean defValue) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        boolean result = mSp.getBoolean(key, defValue);
+        return result;
+    }
 
 
-	//保存int值
-	public static void putInt(Context context,String key,int value){
+    //保存布尔值
+    public static void saveinfo(Context context, String key, String value) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        mSp.edit().putString(key, value).commit();
+    }
 
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
-		Editor edit = sp.edit();
-		edit.putInt(key, value);
-		edit.commit();
-	}
 
-	//获取int值
-	public static int getInt(Context context,String key, int defvalue){
-		if (sp==null) {
-			sp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
-		}
-
-		return sp.getInt(key, defvalue);
-	}
+    //获取布尔值
+    public static String getinfo(Context context, String key, String defValue) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        String result = mSp.getString(key, defValue);
+        return result;
+    }
 }
