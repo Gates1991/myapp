@@ -137,8 +137,40 @@ public class MainActivity extends FragmentActivity {
         );
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);
-        transaction.commit();
         mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
+    public void addToBackStack(BaseFragment fragment,int id) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+        Bundle bundle = new Bundle();
+        bundle.putInt("id",id);
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
+    public void addToBackStack(BaseFragment fragment,String keyword) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+        Bundle bundle = new Bundle();
+
+        bundle.putString("keyword",keyword);
+
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
 
     }
 

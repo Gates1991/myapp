@@ -1,13 +1,14 @@
 package com.hfkj.redchildsupermarket.adapter;
 
 import android.content.Context;
+import android.widget.BaseAdapter;
 
 import java.util.List;
 
 /**
  * Created by xx on 2016/8/28.
  */
-public abstract class CommonAdapter<T> extends android.widget.BaseAdapter {
+public abstract class CommonAdapter<T> extends BaseAdapter {
     public   List<T> mDatas;
     public   Context mContext;
 

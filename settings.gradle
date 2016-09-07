@@ -1,1 +1,1 @@
-include ':app', ':glidesample'
+include ':app'

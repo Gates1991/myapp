@@ -119,11 +119,7 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
         mProductList.clear();
         mProductList = limitShopintBean.getProductList();
         //   System.out.println(mProductList.size());
-        if (mLimitShopAdapter == null) {
-            mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
-        } else {
-            mLimitShopAdapter.notifyDataSetChanged();
-        }
+        mLimitShopAdapter = new LimitShopAdapter(mContext, mProductList);
         mLvLimitshoping.setAdapter(mLimitShopAdapter);
         mHandler.sendEmptyMessageDelayed(1, 1000);
     }
