@@ -80,7 +80,6 @@ public class GoodsFragment extends BaseFragment {
         mTvTitleName.setText("搜索结果");
     }
 
-    @Override
     public void initData() {
 
         lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));

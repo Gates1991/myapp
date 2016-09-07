@@ -11,6 +11,8 @@
     <include layout="@layout/search_layout"></include>
 
     <ExpandableListView
+        android:divider="#20000000"
+        android:dividerHeight="1px"
         android:id="@+id/el_search"
         android:layout_width="match_parent"
         android:layout_marginTop="15dp"

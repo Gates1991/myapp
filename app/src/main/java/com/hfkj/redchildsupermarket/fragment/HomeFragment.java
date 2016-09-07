@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
@@ -119,7 +118,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
      * 初始化数据
      */
 
-    @Override
      public void initData() {
             initListView();
             getNetData();
@@ -190,7 +188,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         switch (position) {
             case 0:
                 fragment=new LimitShoping();
-                ( (MainActivity) mContext).addToBackStack(fragment);
+            /*    ( (MainActivity) mContext).addToBackStack(fragment);*/
                 break;
             case 1:
                 break;

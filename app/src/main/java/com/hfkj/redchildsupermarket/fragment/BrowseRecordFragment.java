@@ -24,7 +24,6 @@ public class BrowseRecordFragment extends BaseFragment {
         inflater.inflate(R.layout.fragment_browserecord,null);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
-    @Override
     public void initData() {
 
     }

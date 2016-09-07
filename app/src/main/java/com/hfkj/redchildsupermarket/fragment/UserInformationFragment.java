@@ -67,7 +67,6 @@ public class UserInformationFragment extends BaseFragment {
     //创建一个集合管理fragment
     List<BaseFragment> mUserInFragments = new ArrayList<>();
 
-    @Override
     public void initData() {
         //TODO:
         // mUserInFragments.add()   //我的订单页

@@ -203,7 +203,6 @@ public class UserRegisterFragment extends BaseFragment {
     }
 
 
-    @Override
     public void initData() {
 
     }

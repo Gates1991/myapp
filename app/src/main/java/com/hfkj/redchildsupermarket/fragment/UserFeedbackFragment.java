@@ -26,7 +26,6 @@ public class UserFeedbackFragment extends  BaseFragment {
         return view;
     }
 
-    @Override
     public void initData() {
 
     }

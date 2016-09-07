@@ -26,7 +26,6 @@ public class AboutFragment extends  BaseFragment {
         return view;
     }
 
-    @Override
     public void initData() {
 
     }

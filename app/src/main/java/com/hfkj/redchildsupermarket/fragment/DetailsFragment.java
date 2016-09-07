@@ -68,7 +68,6 @@ public class DetailsFragment extends BaseFragment {
         return view;
     }
 
-    @Override
     public void initData() {
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
                 .create(HttpApi.class).getDetailsData("1","10","saleDown",mCid).enqueue(new Callback<SearchGoodsBean>() {

@@ -6,6 +6,7 @@
         android:orientation="horizontal"
         >
     <CheckBox
+        android:id="@+id/cb_check"
         android:layout_marginLeft="2dp"
         android:layout_gravity="center_vertical"
         android:layout_width="wrap_content"
@@ -59,7 +60,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                 <ImageView
-
+                    android:clickable="true"
+                    android:id="@+id/iv_button_add"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/shape_shop_add_bg"/>
@@ -73,10 +75,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:clickable="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/shape_shop_edit_bg"/>
                     <TextView
+                        android:id="@+id/tv_shop_num_total"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
@@ -86,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
                     <ImageView
+                        android:id="@+id/iv_button_cut"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/shape_shop_remove_bg"/>
