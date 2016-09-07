@@ -2,7 +2,7 @@ package com.hfkj.redchildsupermarket.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,6 +49,7 @@ public class SearchFragment extends BaseFragment {
     private String[] title = {"热门搜索","搜索历史"};
 
     private List<String> searchOld=new ArrayList<>(); //本地缓存的搜索历史数据集合
+    private SearchAdapter searchAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,16 +69,23 @@ public class SearchFragment extends BaseFragment {
         httpGet();
 
         //设置适配器
-        elSearch.setAdapter(new SearchAdapter());
+        searchAdapter = new SearchAdapter();
+        elSearch.setAdapter(searchAdapter);
 
-        //遍历所有group,将所有项设置成默认展开
-        int groupCount = elSearch.getCount();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //遍历所有group,将所有项设置成默认展开
+                int groupCount = elSearch.getCount();
 
-        for (int i=0; i<groupCount; i++) {
+                for (int i=0; i<groupCount; i++) {
 
-            elSearch.expandGroup(i);
+                    elSearch.expandGroup(i);
 
-        };
+                };
+            }
+        },10);
+
     }
 
     private String httpGet() {
@@ -93,7 +101,9 @@ public class SearchFragment extends BaseFragment {
 
                 if (response.isSuccessful()) {
                     SearchRecommandResponse searchRecommandResponse = response.body();
+
                     System.out.println(searchRecommandResponse.toString());
+
                     parseRespomse(searchRecommandResponse);
                 }
             }
@@ -130,6 +140,8 @@ public class SearchFragment extends BaseFragment {
     public void onClick() {
         String keywords = etSearch.getText().toString();
         if (!TextUtils.isEmpty(keywords)) {
+                searchOld.add(keywords);
+            searchAdapter.notifyDataSetChanged();
 
         }else {
             Toast.makeText(getContext(), "您输入的关键字为空", Toast.LENGTH_SHORT).show();
