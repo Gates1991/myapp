@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <include layout="@layout/title_bar"></include>
+
+    <RadioGroup
+        android:id="@+id/rg_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb_sales"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_goods_sort_left"
+            android:button="@null"
+            android:checked="true"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:text="销量"
+            android:textColor="#8000"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_goods_sort_mid"
+            android:button="@null"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:text="价格"
+            android:textColor="#8000"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_appraise"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_goods_sort_mid"
+            android:button="@null"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:text="好评度"
+            android:textColor="#8000"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/rb_uprack"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/selector_goods_sort_right"
+            android:button="@null"
+            android:ellipsize="marquee"
+            android:gravity="center"
+            android:padding="2dp"
+            android:singleLine="true"
+            android:text="上架时间"
+            android:textColor="#8000"
+            android:textSize="16sp"/>
+    </RadioGroup>
+    <ListView
+        android:id="@+id/lv_goods"
+        android:layout_marginTop="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></ListView>
+</LinearLayout>
