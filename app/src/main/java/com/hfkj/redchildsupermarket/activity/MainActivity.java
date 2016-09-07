@@ -38,6 +38,7 @@ public class MainActivity extends FragmentActivity {
     @Bind(R.id.more)
     RadioButton mMore;
 
+    public boolean isMainFrament = true;
 
     private BaseFragment mFragHome;
     private BaseFragment mFragSearch;
@@ -196,13 +197,19 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-       long currentTimeMillis = System.currentTimeMillis();
-        if (currentTimeMillis - currentClickTime >2000){
-            Toast.makeText(this, "再次点击则退出应用", Toast.LENGTH_SHORT).show();
-            currentClickTime = currentTimeMillis;
+        if (isMainFrament){
+            long currentTimeMillis = System.currentTimeMillis();
+            if (currentTimeMillis - currentClickTime >2000){
+                Toast.makeText(this, "再次点击则退出应用", Toast.LENGTH_SHORT).show();
+                currentClickTime = currentTimeMillis;
+            }else {
+                finish();
+            }
         }else {
-            finish();
+            popBackStack();
+            isMainFrament = true;
         }
+
 
 
     }
