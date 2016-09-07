@@ -35,7 +35,7 @@ public class SpUtil {
     }
 
 
-    //保存布尔值
+    //保存信息数据
     public static void saveinfo(Context context, String key, String value) {
         if (mSp == null) {
             mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
@@ -44,7 +44,7 @@ public class SpUtil {
     }
 
 
-    //获取布尔值
+    //获取信息数据
     public static String getinfo(Context context, String key, String defValue) {
         if (mSp == null) {
             mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
@@ -52,4 +52,15 @@ public class SpUtil {
         String result = mSp.getString(key, defValue);
         return result;
     }
+
+    public static void clearData(Context context) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor edit = mSp.edit();
+        edit.clear();
+        edit.commit();
+    }
+
+
 }

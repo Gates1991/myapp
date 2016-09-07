@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,12 +78,7 @@ public class UserInformationFragment extends BaseFragment {
 
     }
 
-    /**
-     * 清空栈
-     */
-    public void clearBackStack() {
-        supportFragmentManager.popBackStack(null, 1);//参数为0，清除栈顶的Fragment，参数为1，清空栈
-    }
+
 
     @Override
     public void onDestroyView() {
@@ -97,7 +93,7 @@ public class UserInformationFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgbtn_left://返回
-                clearBackStack();
+                mMainActivity.clearBackStack();
                 break;
             case R.id.my_indent: // 我的订单
                 break;
@@ -108,6 +104,10 @@ public class UserInformationFragment extends BaseFragment {
             case R.id.favorite:  //我的收藏夹
                 break;
             case R.id.ib_cancel: // 注销按钮
+                //点击退栈,到登录界面,清空sp
+                SpUtil.clearData(mContext);
+                mMainActivity.popBackStack();
+
                 break;
         }
     }

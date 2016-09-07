@@ -9,13 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,6 @@ public class MoreFragment extends BaseFragment {
         initData();
         mContext = getActivity();
 
-      //  supportFragmentManager= ((MainActivity)mContext).getSupportFragmentManager();
 
         ButterKnife.bind(this, view);
 
@@ -99,13 +98,13 @@ public class MoreFragment extends BaseFragment {
             //    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             //
 
-                //跳转到fragment
-            //
-
+                //先获取token中判断是否登录,已登录跳转到用户信息界面,未登录跳转到登录界面
+                islogin();
+/*
                 addToBackStack(mFragments.get(0));
                 //TODO "这边有bug
                 RadioGroup mMain_radio = (RadioGroup) ((MainActivity) mContext).findViewById(R.id.main_radio);
-                mMain_radio.setVisibility(View.INVISIBLE);
+                mMain_radio.setVisibility(View.INVISIBLE);*/
                 break;
             case R.id.browse_record://浏览记录
                 break;
@@ -118,6 +117,21 @@ public class MoreFragment extends BaseFragment {
             case R.id.ib_tel://电话
                 break;
         }
+    }
+
+    private void islogin() {
+        //拿sp中的login时的token值
+        String login_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
+        String login_token = SpUtil.getinfo(mContext, "login_token", "");
+        if (login_user_id.isEmpty() || login_token.isEmpty()) {
+            //跳转到登录界面
+            addToBackStack(new UserLoginFrament());
+        } else {
+            //跳转到用户信息界面
+            addToBackStack(new UserInformationFragment());
+        }
+
+
     }
 
     /**
