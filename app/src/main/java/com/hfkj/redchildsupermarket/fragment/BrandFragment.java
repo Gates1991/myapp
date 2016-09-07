@@ -62,6 +62,11 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
         return view;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     public void initData() {
 
         getNetDatas();
@@ -99,8 +104,8 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
             }
         }
       /*  if (mBrandAdapter == null) {*/
-            mBrandAdapter = new BrandAdapter(mContext, mCategoryData);
-            mListview.setAdapter(mBrandAdapter);
+        mBrandAdapter = new BrandAdapter(mContext, mCategoryData);
+        mListview.setAdapter(mBrandAdapter);
         /*} else {
             mBrandAdapter.notifyDataSetChanged();
         }*/
@@ -125,112 +130,89 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
             case 1:
                 // Toast.makeText(mContext, "这是孕妈专区", Toast.LENGTH_SHORT).show();
                 refreshData(id1);
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 1) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 mTvTitleName.setText(categoryBean.getName());
                 level = 1;
                 break;
             case 2:
                 refreshData(id1);
                 //Toast.makeText(mContext, "这是寝具服饰", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 2) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 mTvTitleName.setText(categoryBean.getName());
                 level = 1;
                 break;
             case 3:
                 refreshData(id1);
                 // Toast.makeText(mContext, "这是宝宝用品", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 3) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 mTvTitleName.setText(categoryBean.getName());
                 level = 1;
                 break;
             case 11:
                 refreshData(id1);
                 // Toast.makeText(mContext, "这是妈妈个人护理", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 11) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 2;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 12:
                 refreshData(id1);
                 //Toast.makeText(mContext, "这是孕妇服饰", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 12) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 2;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 13:
                 refreshData(id1);
                 // Toast.makeText(mContext, "这是孕妇内衣", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 13) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 2;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 21:
                 refreshData(id1);
                 //  Toast.makeText(mContext, "这是婴幼儿护齿", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 21) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 3;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 22:
                 // Toast.makeText(mContext, "这是儿童玩具", Toast.LENGTH_SHORT).show();
                 refreshData(id1);
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 22) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 3;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 31:
                 refreshData(id1);
                 //Toast.makeText(mContext, "这是女士围裙", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 31) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 4;
                 mTvTitleName.setText(categoryBean.getName());
                 break;
             case 32:
                 refreshData(id1);
                 // Toast.makeText(mContext, "这是男士围裙", Toast.LENGTH_SHORT).show();
-                /*for (int i = 0; i < mCategoryBeen.size(); i++) {
-                    if (mCategoryBeen.get(i).getParentId() == 32) {
-                        mCategoryData.add(mCategoryBeen.get(i));
-                    }
-                }*/
                 level = 4;
                 mTvTitleName.setText(categoryBean.getName());
+                break;
+            case 111:
+                Toast.makeText(mContext, "洁牙护齿", Toast.LENGTH_SHORT).show();
+
+                    DetailsFragment detailsFragment = new DetailsFragment();
+                    mMainActivity.addToBackStack(detailsFragment,id1);
+                break;
+            case 112:
+                Toast.makeText(mContext, "成人尿不湿", Toast.LENGTH_SHORT).show();
+                break;
+            case 121:
+                Toast.makeText(mContext, "韩版孕妇服饰", Toast.LENGTH_SHORT).show();
+                break;
+            case 131:
+                Toast.makeText(mContext, "欧美风孕妇内衣", Toast.LENGTH_SHORT).show();
+                break;
+            case 211:
+                Toast.makeText(mContext, "幼儿牙刷", Toast.LENGTH_SHORT).show();
+                break;
+            case 212:
+                Toast.makeText(mContext, "7周岁儿童玩具", Toast.LENGTH_SHORT).show();
+                break;
+            case 311:
+                Toast.makeText(mContext, "韩版围裙", Toast.LENGTH_SHORT).show();
+                break;
+            case 312:
+                Toast.makeText(mContext, "日版围裙", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
