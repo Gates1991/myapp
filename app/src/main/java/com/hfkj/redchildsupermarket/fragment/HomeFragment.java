@@ -196,8 +196,14 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 mMainActivity.addToBackStack(fragment);
                 break;
             case 2:
+              /*  fragment = new ShangPingFragment();
+                mMainActivity.addToBackStack(fragment,11);*/
+                fragment = new DetailsFragment();
+                mMainActivity.addToBackStack(fragment,100);
                 break;
             case 3:
+                fragment = new DetailsFragment();
+                mMainActivity.addToBackStack(fragment,200);
                 break ;
             case 4:
               fragment = new recommendBrandFragment();
