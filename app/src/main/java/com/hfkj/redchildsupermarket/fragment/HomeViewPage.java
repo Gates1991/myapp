@@ -14,7 +14,6 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.hfkj.redchildsupermarket.adapter.HomeVPAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
@@ -23,10 +22,10 @@ import java.util.List;
 
 public class HomeViewPage extends ViewPager {
     private List<HomeVPBean.HomeTopicBean> pageList;
-   private List<ImageView> dots;
     private  Context                        mContext;
+    private long mCurrentTimeMillis;
     private HomeVPAdapter mHomeVPAdapter;
-    private Handler mHandler=new Handler(){
+    public Handler mHandler=new Handler(){
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -35,31 +34,26 @@ public class HomeViewPage extends ViewPager {
                     int currentItem = HomeViewPage.this.getCurrentItem();
                     if (pageList.size() != 0) {
                         int pos = (currentItem+1)%pageList.size();
-
-                        HomeViewPage.this.setCurrentItem(pos,false);
-
+                        HomeViewPage.this.setCurrentItem(pos);
                     }
                     mHandler.sendEmptyMessageDelayed(0,2000);
                     break;
             }
         }
     };
-    private long mCurrentTimeMillis;
-    private int prePosition;
+    private onViewPageChangeListener mOnViewPageChangeListener;
+
 
     /**
      * @param pageList viewpage的集合
-     * @param dots 小圆点的集合
      * @param context
      */
-    public HomeViewPage(List<HomeVPBean.HomeTopicBean> pageList, List<ImageView> dots ,Context context) {
+    public HomeViewPage(List<HomeVPBean.HomeTopicBean> pageList,Context context) {
         super(context);
         this.pageList=pageList;
         this.mContext=context;
-        this.dots=dots;
         init();
     }
-
 
     //添加触摸事件
     private void init() {
@@ -88,11 +82,9 @@ public class HomeViewPage extends ViewPager {
             }
             @Override
             public void onPageSelected(int position) {
-                ImageView prePoint = dots.get(prePosition);
-                prePoint.setEnabled(false);
-                ImageView currentPoint = dots.get(position);
-                prePosition =position;
-                currentPoint.setEnabled(true);
+                if (mOnViewPageChangeListener != null) {
+                    mOnViewPageChangeListener.onViewPageChange(position);
+                }
             }
 
             @Override
@@ -101,6 +93,13 @@ public class HomeViewPage extends ViewPager {
             }
         });
     }
+    public interface onViewPageChangeListener{
+        public void onViewPageChange(int position);
+    }
+    public void setOnViewPageChange(onViewPageChangeListener listener){
+        this.mOnViewPageChangeListener=listener;
+    }
+
 
     //启动viewpage
     public void start(){
