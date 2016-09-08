@@ -95,7 +95,6 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     public void initData() {
         getPostHttp();
 
-
     }
 
     private void getPostHttp() {
