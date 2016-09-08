@@ -6,17 +6,20 @@
         android:layout_height="@dimen/title_height"
         android:background="@mipmap/head_bg"
         android:padding="@dimen/title_padding" >
-
+        <!--android:background="@drawable/selector_title_left_btn"-->
         <Button
             android:id="@+id/bt_title_left"
-            android:layout_width="wrap_content"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/selector_title_left_btn"
+            android:drawableLeft="@mipmap/goback_mmin"
+            android:background="@color/touming"
             android:text="返回"
+            android:textSize="14sp"
             android:textColor="@android:color/white"
             android:visibility="gone" />
+
 
         <TextView
             android:id="@+id/tv_title_name"

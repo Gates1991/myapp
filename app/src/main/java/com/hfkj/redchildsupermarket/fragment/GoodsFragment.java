@@ -57,7 +57,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
 
-    private RadioButton  previousChecked;
+    private RadioButton previousChecked;
     private String keyword;
 
     private List<SearchGoodsBean.ProductListBean> mDatas = new ArrayList();
@@ -73,6 +73,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         ButterKnife.bind(this, view);
         Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
+
         mMainActivity.isMainFrament = false;
 
         sort = "saleDown";
@@ -84,16 +85,27 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     private void initView() {
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("搜索结果");
-        rbSales.setChecked(true);
-        rbSales.setTextColor(Color.WHITE);
-        mBtTitleLeft.setOnClickListener(this);
 
+        //默认进来rbSales设置为true状态
+        rbSales.setChecked(true);
+        previousChecked = rbSales;
+        setCheckedTextColor(previousChecked);
+
+        mBtTitleLeft.setOnClickListener(this);
 
 
     }
 
     public void initData() {
         getPostHttp();
+
+        lvGoods.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                mMainActivity.addToBackStack(new ShangPingFragment(), mDatas.get(i).getId());
+            }
+        });
 
     }
 
@@ -147,32 +159,51 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
 
                 sort = "saleDown";
                 getPostHttp();
-                setCheckedTextColor(rbSales);
+                //                rbSales.setTextColor(Color.WHITE);
+                //                rbPrice.setTextColor(Color.parseColor("#88000000"));
+                //                rbAppraise.setTextColor(Color.parseColor("#88000000"));
+                //                rbUprack.setTextColor(Color.parseColor("#88000000"));
+                previousChecked = rbSales;
+                setCheckedTextColor(previousChecked);
 
                 break;
             case R.id.rb_price:
-                rbSales.setTextColor(Color.parseColor("#88000000"));
                 if (rbSales.isChecked()) {
+                    sort = "priceDown";
 
-                    sort="priceUp";
-                }else {
-                    sort="priceDown";
+                } else {
+
+                    sort = "priceUp";
                 }
                 getPostHttp();
-                setCheckedTextColor(rbPrice);
+                //                rbSales.setTextColor(Color.parseColor("#88000000"));
+                //                rbPrice.setTextColor(Color.WHITE);
+                //                rbAppraise.setTextColor(Color.parseColor("#88000000"));
+                //                rbUprack.setTextColor(Color.parseColor("#88000000"));
+                previousChecked = rbPrice;
+                setCheckedTextColor(previousChecked);
                 break;
             case R.id.rb_appraise:
-                rbSales.setTextColor(Color.parseColor("#88000000"));
-//                sort="commentDown";// 评价排序接口错误
-                sort="priceDown";//使用价格排序
+                //                sort="commentDown";// 评价排序接口错误
+                sort = "priceDown";//使用价格排序
                 getPostHttp();
-                setCheckedTextColor(rbAppraise);
+//                rbPrice.setTextColor(Color.parseColor("#88000000"));
+//                rbSales.setTextColor(Color.parseColor("#88000000"));
+//                rbAppraise.setTextColor(Color.WHITE);
+//                rbUprack.setTextColor(Color.parseColor("#88000000"));
+
+                previousChecked = rbAppraise;
+                setCheckedTextColor(previousChecked);
                 break;
             case R.id.rb_uprack:
-                rbSales.setTextColor(Color.parseColor("#88000000"));
-                sort="shelvesDown";
+                sort = "shelvesDown";
                 getPostHttp();
-                setCheckedTextColor(rbUprack);
+//                rbAppraise.setTextColor(Color.parseColor("#88000000"));
+//                rbPrice.setTextColor(Color.parseColor("#88000000"));
+//                rbSales.setTextColor(Color.parseColor("#88000000"));
+//                rbUprack.setTextColor(Color.WHITE);
+                previousChecked = rbUprack;
+                setCheckedTextColor(previousChecked);
                 break;
 
         }
@@ -180,12 +211,16 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
-    private void setCheckedTextColor(RadioButton radioButton) {
-        radioButton.setTextColor(Color.WHITE);
-        if (previousChecked != null) {
-            previousChecked.setTextColor(Color.parseColor("#88000000"));
-        }
-        previousChecked = radioButton;
+    private void setCheckedTextColor(RadioButton previousChecked) {
+
+        rbSales.setTextColor(Color.parseColor("#88000000"));
+        rbPrice.setTextColor(Color.parseColor("#88000000"));
+        rbAppraise.setTextColor(Color.parseColor("#88000000"));
+        rbUprack.setTextColor(Color.parseColor("#88000000"));
+        if (previousChecked.isChecked()) {
+           previousChecked.setTextColor(Color.WHITE);
+       }
+
     }
 
     private interface HttpApi {

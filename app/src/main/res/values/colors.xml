@@ -5,4 +5,6 @@
     <color name="bg_white">#FFF</color>
     <color name="bt_gray">#5000</color>
     <color name="item_selector">#55D7D5D5</color>
+    <color name="touming">#00000000</color>
+    <color name="bt_background">#F00</color>
 </resources>
