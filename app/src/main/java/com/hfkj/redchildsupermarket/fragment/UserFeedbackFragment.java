@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
@@ -33,12 +33,13 @@ public class UserFeedbackFragment extends  BaseFragment {
     }
 
     private void initTitleView() {
-        ImageButton mImgbtn_left = (ImageButton) mView.findViewById(R.id.imgbtn_left);
-        mImgbtn_left.setVisibility(View.VISIBLE);
-        TextView mTv_title_left = (TextView) mView.findViewById(R.id.tv_title_left);
-        mTv_title_left.setText("返回");
-        TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_layout);
-        mTv_title_layout.setText("用户反馈");
+        Button mBt_title_left = (Button) mView.findViewById(R.id.bt_title_left);
+        mBt_title_left.setVisibility(View.VISIBLE);
+        Button mTt_title_right = (Button) mView.findViewById(R.id.bt_title_right);
+        mTt_title_right.setText("提交");
+        mTt_title_right.setVisibility(View.VISIBLE);
+        TextView mTv_title_name = (TextView) mView.findViewById(R.id.tv_title_name);
+        mTv_title_name.setText("用户反馈");
 
     }
 
