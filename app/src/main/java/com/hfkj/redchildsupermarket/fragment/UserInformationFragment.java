@@ -21,9 +21,6 @@ import com.hfkj.redchildsupermarket.http.HttpApi;
 import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -136,6 +133,9 @@ public class UserInformationFragment extends BaseFragment {
     private void processRegisterBean(InformationBean informationBean) {
         if (TextUtils.equals("error", informationBean.response)) {
             Toast.makeText(mContext, "ERRORCODE:" + informationBean.error.code + "MSG:" + informationBean.error.msg, Toast.LENGTH_SHORT).show();
+            //请重新登录(如果知道超时返回的code值就可以进行判断,在登录无效后,重新登录)
+            mMainActivity.addToBackStack(new UserLoginFrament());
+
         } else {
             //正常对接
             InformationBean.UserInfoBean userInfo = informationBean.getUserInfo();
@@ -191,24 +191,12 @@ public class UserInformationFragment extends BaseFragment {
         super.onResume();
     }
 
-    //创建一个集合管理fragment
-    List<BaseFragment> mUserInFragments = new ArrayList<>();
+
 
     public void initData() {
-        //TODO:
-        // mUserInFragments.add()   //我的订单页
-        // mUserInFragments.add()   //地址管理页
-        // mUserInFragments.add()   //我的优惠券页
-        // mUserInFragments.add()   //我的收藏夹页
 
 
     }
-
-
-
-
-
-
 
 
     @OnClick({R.id.imgbtn_left, R.id.my_indent, R.id.address, R.id.coupon, R.id.favorite, R.id.ib_cancel})
@@ -218,12 +206,17 @@ public class UserInformationFragment extends BaseFragment {
                 mMainActivity.clearBackStack();
                 break;
             case R.id.my_indent: // 我的订单
+                mMainActivity.addToBackStack(new MyIndentFragment());
                 break;
             case R.id.address: // 地址管理
+                mMainActivity.addToBackStack(new AddressManagerFragment());
                 break;
             case R.id.coupon :    //我的优惠券
+                mMainActivity.addToBackStack(new MyTicketFragment());
                 break;
             case R.id.favorite:  //我的收藏夹
+
+                mMainActivity.addToBackStack(new MyFavoriteFragment());
                 break;
             case R.id.ib_cancel: // 注销按钮
                 //点击退栈,到登录界面,接口对接,清空sp

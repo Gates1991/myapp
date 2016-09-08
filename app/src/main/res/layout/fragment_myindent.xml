@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/layout_title_bar"/>
+    <LinearLayout
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="13dp"
+
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        >
+
+        <TextView
+            android:id="@+id/tv_SucessIndent"
+            android:gravity="center"
+            android:background="@drawable/id_segment_normal_1_bg"
+            android:layout_width="wrap_content"
+            android:text="完成订单"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_UnsucessIndent"
+            android:gravity="center"
+            android:background="@drawable/id_segment_normal_2_bg"
+            android:layout_width="wrap_content"
+            android:text="未完成订单"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_CancelIndent"
+            android:gravity="center"
+            android:background="@drawable/id_segment_normal_3_bg"
+            android:layout_width="wrap_content"
+            android:text="取消订单"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

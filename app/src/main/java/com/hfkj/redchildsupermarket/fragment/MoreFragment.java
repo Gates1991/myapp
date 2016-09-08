@@ -102,12 +102,18 @@ public class MoreFragment extends BaseFragment {
                 mMain_radio.setVisibility(View.INVISIBLE);*/
                 break;
             case R.id.browse_record://浏览记录
+                mMainActivity.addToBackStack(new BrowseRecordFragment());
+
                 break;
             case R.id.help_center://帮助中心
+                mMainActivity.addToBackStack(new HelpCenterFragment());
                 break;
             case R.id.user_feedback://用户反馈
+                mMainActivity.addToBackStack(new UserFeedbackFragment());
+
                 break;
             case R.id.about://关于
+                mMainActivity.addToBackStack(new AboutFragment());
                 break;
             case R.id.ib_tel://电话
                 break;
