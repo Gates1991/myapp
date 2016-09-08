@@ -120,8 +120,13 @@ public class SearchFragment extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
 
                 Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
+                if (childPosition<mData.size()) {
 
-                etSearch.setText(mData.get(childPosition));
+                    etSearch.setText(mData.get(childPosition));
+                }else {
+
+                    etSearch.setText(searchOld.get(childPosition));
+                }
                 onClick();
 
                 return true;
@@ -195,6 +200,7 @@ public class SearchFragment extends BaseFragment {
     public void onClick() {
         keywords = etSearch.getText().toString();
         if (!TextUtils.isEmpty(keywords)) {
+            etSearch.setSelection(keywords.length());
             GoodsFragment goodsFragment = new GoodsFragment();
             ((MainActivity) mContext).addToBackStack(goodsFragment, keywords);
 
@@ -243,7 +249,9 @@ public class SearchFragment extends BaseFragment {
             return tv;
         }
 
-        //创建对应组，对应子条目的view界面
+
+
+        //创建对应组对应子条目的view界面
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
             if (groupPosition == 0) {

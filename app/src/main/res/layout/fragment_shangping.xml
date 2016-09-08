@@ -23,82 +23,84 @@
 
             <TextView
                 android:id="@+id/tv_name"
-                android:paddingLeft="15dp"
-                android:paddingTop="10dp"
-                android:textSize="18sp"
-                android:textColor="#000"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="15dp"
+                android:paddingTop="10dp"
                 android:text="玩具积木"
+                android:textColor="#000"
+                android:textSize="18sp"
                 />
 
             <RelativeLayout
-                android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
 
                 >
 
                 <TextView
-                    android:paddingLeft="15dp"
-                    android:textSize="16sp"
+                    android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
                     android:text="市场价: "
-                    android:id="@+id/textView"/>
+                    android:textSize="16sp"/>
+
                 <TextView
                     android:id="@+id/tv_marketPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
                     android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/textView"
                     android:layout_toRightOf="@+id/textView"
-                    android:layout_toEndOf="@+id/textView"/>
+                    android:text="100"/>
 
                 <TextView
-                    android:textSize="16sp"
                     android:id="@+id/pingjia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="商品评价: "
                     android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/textView"
-                    android:layout_toEndOf="@+id/textView"
                     android:layout_marginLeft="113dp"
-                    android:layout_marginStart="113dp"/>
+                    android:layout_marginStart="113dp"
+                    android:layout_toEndOf="@+id/textView"
+                    android:layout_toRightOf="@+id/textView"
+                    android:text="商品评价: "
+                    android:textSize="16sp"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/image"
                     android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/pingjia"
                     android:layout_toRightOf="@+id/pingjia"
-                    android:layout_toEndOf="@+id/pingjia"/>
+                    android:background="@drawable/image"/>
 
             </RelativeLayout>
 
             <RelativeLayout
-                android:paddingTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingTop="10dp"
 
                 >
 
                 <TextView
-                    android:paddingLeft="15dp"
-                    android:textSize="16sp"
+                    android:id="@+id/textView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
                     android:text="会员价: "
-                    android:id="@+id/textView2"/>
+                    android:textSize="16sp"/>
+
                 <TextView
                     android:id="@+id/tv_vipPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
                     android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/textView2"
                     android:layout_toRightOf="@+id/textView2"
-                    android:layout_toEndOf="@+id/textView2"/>
+                    android:text="100"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -113,19 +115,19 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:paddingTop="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:paddingTop="5dp"
                 >
 
                 <TextView
-                    android:paddingLeft="15dp"
-                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
+                    android:paddingLeft="15dp"
                     android:text="数    量:"
+                    android:textSize="16sp"
                     />
 
                 <RelativeLayout
@@ -156,53 +158,58 @@
 
                 <Button
                     android:id="@+id/bt_addCar"
-                    android:textSize="16sp"
-                    android:background="@drawable/button_long_selected"
-                    android:layout_marginLeft="50dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_long_selected"
                     android:text="加入购物车"
+                    android:textSize="16sp"
                     />
 
                 <Button
                     android:id="@+id/bt_collect"
-                    android:textSize="16sp"
-                    android:background="@drawable/button_long_normal"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="50dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="50dp"
                     android:layout_weight="1"
+                    android:background="@drawable/button_long_normal"
                     android:text="收藏"
+                    android:textSize="16sp"
                     />
 
             </LinearLayout>
-          <TextView
-              android:layout_margin="10dp"
-              android:layout_width="match_parent"
-              android:layout_height="1dp"
-              android:background="@color/bt_gray"
-              />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_margin="10dp"
+                android:background="@color/bt_gray"
+                />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+
                 <TextView
-                    android:paddingLeft="15dp"
-                    android:textSize="16sp"
                     android:id="@+id/kucun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
                     android:text="查看库存:"
+                    android:textSize="16sp"
                     />
+
                 <TextView
                     android:id="@+id/tv_location"
-                    android:textSize="16sp"
-                    android:layout_toRightOf="@+id/kucun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/kucun"
                     android:text="上海"
+                    android:textSize="16sp"
                     />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -215,31 +222,36 @@
                     android:src="@drawable/arrow"/>
 
             </RelativeLayout>
+
             <TextView
-                android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_margin="10dp"
                 android:background="@color/bt_gray"
                 />
+
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
+
                 <TextView
-                    android:paddingLeft="15dp"
-                    android:textSize="16sp"
                     android:id="@+id/pinglun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:paddingLeft="15dp"
                     android:text="用户评论:"
+                    android:textSize="16sp"
                     />
+
                 <TextView
                     android:id="@+id/tv_comment"
-                    android:textSize="16sp"
-                    android:layout_toRightOf="@+id/pinglun"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/pinglun"
                     android:text="上海"
+                    android:textSize="16sp"
                     />
+
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

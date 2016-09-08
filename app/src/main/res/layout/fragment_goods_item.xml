@@ -20,7 +20,7 @@
             android:layout_weight="1"
             android:background="@drawable/selector_goods_sort_left"
             android:button="@null"
-            android:checked="true"
+
             android:ellipsize="marquee"
             android:gravity="center"
             android:padding="2dp"

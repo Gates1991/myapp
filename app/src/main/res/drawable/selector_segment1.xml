@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:drawable="@drawable/id_segment_selected_1_bg"/>
+    <item android:state_pressed="true" android:drawable="@drawable/id_segment_selected_1_bg"/>
+    <item android:drawable="@drawable/id_segment_normal_1_bg"/>
+</selector>
