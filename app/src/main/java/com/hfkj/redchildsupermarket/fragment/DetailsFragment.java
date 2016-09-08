@@ -64,10 +64,23 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         View view = inflater.inflate(R.layout.fragment_goods_item, null);
 
         Bundle bundle = getArguments();
-        mCid = bundle.getInt("id");
+
         ButterKnife.bind(this, view);
-        mTvTitleName.setText("商品列表");
+
+        mCid = bundle.getInt("id");
+
+        if (mCid ==100  ){
+            mTvTitleName.setText("新品上市");
+            mCid = 212;
+        }else if (mCid == 200){
+            mTvTitleName.setText("热门单品");
+            mCid = 121;
+        }else {
+            mTvTitleName.setText("商品列表");
+        }
+
         initData();
+        mMainActivity.isMainFrament = false;
         mLvGoods.setOnItemClickListener(this);
         return view;
     }
@@ -76,7 +89,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mMainActivity.isMainFrament = false;
+
 
     }
 
