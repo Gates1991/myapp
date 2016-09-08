@@ -37,7 +37,7 @@ public class MainActivity extends FragmentActivity {
     RadioButton mShopping;
     @Bind(R.id.more)
     RadioButton mMore;
-
+    //判断是否是主Fragment
     public boolean isMainFrament = true;
 
     private BaseFragment mFragHome;
@@ -198,7 +198,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (isMainFrament){
+        if (isMainFrament){//是主的Fragment就退栈,不是主Fragment就清除栈顶
             long currentTimeMillis = System.currentTimeMillis();
             if (currentTimeMillis - currentClickTime >2000){
                 Toast.makeText(this, "再次点击则退出应用", Toast.LENGTH_SHORT).show();

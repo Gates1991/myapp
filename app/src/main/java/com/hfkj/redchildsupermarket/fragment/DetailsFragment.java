@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,7 +37,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class DetailsFragment extends BaseFragment {
+public class DetailsFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @Bind(R.id.tv_title_name)
     TextView mTvTitleName;
@@ -54,6 +55,8 @@ public class DetailsFragment extends BaseFragment {
     ListView mLvGoods;
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
+    private GoodsListAdapter mAdapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
@@ -65,6 +68,7 @@ public class DetailsFragment extends BaseFragment {
         ButterKnife.bind(this, view);
         mTvTitleName.setText("商品列表");
         initData();
+        mLvGoods.setOnItemClickListener(this);
         return view;
     }
 
@@ -78,6 +82,10 @@ public class DetailsFragment extends BaseFragment {
 
     @Override
     public void initData() {
+        getNetData();
+    }
+
+    private void getNetData() {
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
                 .create(HttpApi.class).getDetailsData("1","10","saleDown",mCid).enqueue(new Callback<SearchGoodsBean>() {
 
@@ -96,8 +104,12 @@ public class DetailsFragment extends BaseFragment {
     }
 
     private void parseRespomse(SearchGoodsBean searchGoodsBean) {
+        mProductListBeen.clear();
         mProductListBeen.addAll(searchGoodsBean.getProductList());
-        mLvGoods.setAdapter(new GoodsListAdapter(mContext,mProductListBeen));
+        if (mAdapter == null) {
+            mAdapter = new GoodsListAdapter(mContext, mProductListBeen);
+        }
+        mLvGoods.setAdapter(mAdapter);
 
     }
 
@@ -105,6 +117,15 @@ public class DetailsFragment extends BaseFragment {
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.unbind(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        SearchGoodsBean.ProductListBean bean  = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
+
+        int beanId = bean.getId();
+        ShangPingFragment shangPingFragment = new ShangPingFragment();
+        mMainActivity.addToBackStack(shangPingFragment,beanId);
     }
 
     private interface HttpApi {
