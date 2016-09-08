@@ -35,7 +35,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
+                android:layout_margin="10dp"
                 android:gravity="top"
+
                 android:hint="请输入您的评论"
                 android:textSize="15sp"/>
 
@@ -62,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@null"
+                android:layout_margin="5dp"
                 android:gravity="center_vertical"
                 android:hint="姓名、联系电话、邮箱"
                 android:textSize="15sp"/>
