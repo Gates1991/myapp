@@ -82,7 +82,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public void initData() {
 
         infoList.add("欢迎领导光临红孩子商城");
-        infoList.add("喜庆国庆欢乐大酬宾");
+        infoList.add("喜迎国庆欢乐大酬宾");
         infoList.add("更多活动敬请关注红孩子商城");
          mCustomScorollView.setList(infoList);
         mCustomScorollView.startScroll();

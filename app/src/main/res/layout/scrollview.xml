@@ -47,5 +47,5 @@
         android:ellipsize="end"
         android:textColor="#D8D800"
         android:singleLine="true"
-        android:text="喜庆国庆欢乐大酬宾" />
+        android:text="喜迎国庆欢乐大酬宾" />
 </RelativeLayout>
