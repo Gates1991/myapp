@@ -72,6 +72,8 @@ public class Constant {
     public static final String INVOICE = "invoice";
     public static final String ORDER = "order";
     public static final String SEARCH_KEYWORD ="#####";//搜索的关键字
+    public static final String Call_NUM ="400-888-88888";//客服电话
+
 
 
 }
