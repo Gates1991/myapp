@@ -148,38 +148,39 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         ButterKnife.unbind(this);
     }
 
+    private int i=1;
     @OnClick({R.id.rb_sales, R.id.rb_price, R.id.rb_appraise, R.id.rb_uprack})
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.bt_title_left:
                 mMainActivity.popBackStack();
                 break;
 
             case R.id.rb_sales:
+                 i++;
+                if (i%2==0) {
+                    sort = "saleDown";
 
-                sort = "saleDown";
+                }else {
+                    sort = "saleDown";
+                }
+
                 getPostHttp();
-                //                rbSales.setTextColor(Color.WHITE);
-                //                rbPrice.setTextColor(Color.parseColor("#88000000"));
-                //                rbAppraise.setTextColor(Color.parseColor("#88000000"));
-                //                rbUprack.setTextColor(Color.parseColor("#88000000"));
                 previousChecked = rbSales;
                 setCheckedTextColor(previousChecked);
 
                 break;
             case R.id.rb_price:
-                if (rbSales.isChecked()) {
+                i++;
+                if (i%2==0) {
                     sort = "priceDown";
 
-                } else {
-
+                }else {
                     sort = "priceUp";
                 }
                 getPostHttp();
-                //                rbSales.setTextColor(Color.parseColor("#88000000"));
-                //                rbPrice.setTextColor(Color.WHITE);
-                //                rbAppraise.setTextColor(Color.parseColor("#88000000"));
-                //                rbUprack.setTextColor(Color.parseColor("#88000000"));
+
                 previousChecked = rbPrice;
                 setCheckedTextColor(previousChecked);
                 break;
@@ -187,10 +188,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
                 //                sort="commentDown";// 评价排序接口错误
                 sort = "priceDown";//使用价格排序
                 getPostHttp();
-//                rbPrice.setTextColor(Color.parseColor("#88000000"));
-//                rbSales.setTextColor(Color.parseColor("#88000000"));
-//                rbAppraise.setTextColor(Color.WHITE);
-//                rbUprack.setTextColor(Color.parseColor("#88000000"));
+
 
                 previousChecked = rbAppraise;
                 setCheckedTextColor(previousChecked);
@@ -198,10 +196,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
             case R.id.rb_uprack:
                 sort = "shelvesDown";
                 getPostHttp();
-//                rbAppraise.setTextColor(Color.parseColor("#88000000"));
-//                rbPrice.setTextColor(Color.parseColor("#88000000"));
-//                rbSales.setTextColor(Color.parseColor("#88000000"));
-//                rbUprack.setTextColor(Color.WHITE);
+
                 previousChecked = rbUprack;
                 setCheckedTextColor(previousChecked);
                 break;
