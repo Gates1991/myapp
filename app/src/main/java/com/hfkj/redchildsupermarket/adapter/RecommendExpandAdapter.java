@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.bean.RecommandExpandBean.BrandBean;
 import com.hfkj.redchildsupermarket.bean.RecommandExpandBean.BrandBean.ValueBean;
+import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
 
@@ -63,7 +64,7 @@ public class RecommendExpandAdapter extends BaseExpandableListAdapter {
         ImageView iv_item_recommandbrand = (ImageView) convertView.findViewById(R.id.iv_item_recommandbrand);
         ValueBean valueBean = mChildData.get(childPosition);
         tv_item_recommandbrand.setText(valueBean.getName());
-        Glide.with(mContext).load(valueBean.getPic()).into(iv_item_recommandbrand);
+        Glide.with(mContext).load(Constant.BASE_URL+valueBean.getPic()).into(iv_item_recommandbrand);
         return convertView;
     }
 

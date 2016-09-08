@@ -104,7 +104,7 @@ public interface HttpApi {
      * 推荐品牌的数据
      * @return
      */
-    @GET("home")
+    @GET("brand")
     Call<RecommandExpandBean> getRecommandExpand();
 
 
