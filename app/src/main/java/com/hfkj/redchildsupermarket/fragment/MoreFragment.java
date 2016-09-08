@@ -98,9 +98,9 @@ public class MoreFragment extends BaseFragment {
         View view = View.inflate(mContext, R.layout.dialog_call_num, null);
         builder.setView(view);
 
+//        builder.setCancelable(false);
         alertDialog = builder.create();
-
-        builder.setCancelable(true);
+        alertDialog.setCanceledOnTouchOutside(false);
 
         Button call_back = (Button) view.findViewById(R.id.call_back);
         Button call_num = (Button) view.findViewById(R.id.call_num);
@@ -116,11 +116,12 @@ public class MoreFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
 
+//                Intent intent = new Intent(Intent.ACTION_CALL,Uri.parse("tel:"+Constant.Call_NUM));
                 Intent intent = new Intent();
 //                intent.setAction(Intent.ACTION_CALL);
                 intent.setAction(Intent.ACTION_DIAL);
-                intent.setData(Uri.parse("tel://"+Constant.Call_NUM));
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                intent.setData(Uri.parse("tel://"+ Constant.Call_NUM));
+//                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 alertDialog.dismiss();
             }

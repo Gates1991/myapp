@@ -9,6 +9,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.bean.SearchRecommandResponse;
+
+import retrofit2.Call;
+import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 /**
  * @创建者 Shayne
@@ -42,6 +47,19 @@ public class HelpCenterFragment extends BaseFragment {
     }
 
     public void initData() {
+
+    }
+
+    private interface HttpApi {
+
+        @POST("help")
+        Call<SearchRecommandResponse> getSearchRecommend(@Path("version") String version);// search/recommend
+        //如果url中含有斜线，那么不能把带斜线的值传入（斜线会变乱码）
+
+        //        //POST 请求PSOT参数
+        //        @FormUrlEncoded  //进行表单url编码
+        //        @POST("search")
+        //        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
 }
