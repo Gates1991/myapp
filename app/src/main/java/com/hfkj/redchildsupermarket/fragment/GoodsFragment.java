@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -94,6 +95,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     public void initData() {
         getPostHttp();
 
+
     }
 
     private void getPostHttp() {
@@ -151,13 +153,19 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rb_price:
                 rbSales.setTextColor(Color.parseColor("#88000000"));
-                sort="priceUp";
+                if (rbSales.isChecked()) {
+
+                    sort="priceUp";
+                }else {
+                    sort="priceDown";
+                }
                 getPostHttp();
                 setCheckedTextColor(rbPrice);
                 break;
             case R.id.rb_appraise:
                 rbSales.setTextColor(Color.parseColor("#88000000"));
-                sort="commentDown";
+//                sort="commentDown";// 评价排序接口错误
+                sort="priceDown";//使用价格排序
                 getPostHttp();
                 setCheckedTextColor(rbAppraise);
                 break;
