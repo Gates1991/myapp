@@ -120,8 +120,13 @@ public class SearchFragment extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
 
                 Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
+                if (childPosition<mData.size()) {
 
-                etSearch.setText(mData.get(childPosition));
+                    etSearch.setText(mData.get(childPosition));
+                }else {
+
+                    etSearch.setText(searchOld.get(childPosition));
+                }
                 onClick();
 
                 return true;
