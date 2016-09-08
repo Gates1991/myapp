@@ -35,7 +35,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class ShangPingFragment extends BaseFragment {
+public class ShangPingFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.bt_title_left)//这是头布局的左斌按钮
             Button mBtTitleLeft;
@@ -84,6 +84,7 @@ public class ShangPingFragment extends BaseFragment {
     private void initView() {
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("商品详情");
+        mBtTitleLeft.setOnClickListener(this);
     }
 
     @Override
@@ -139,6 +140,11 @@ public class ShangPingFragment extends BaseFragment {
         mTvComment.setText("共有"+commentCount+"条评论");
 
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        mMainActivity.popBackStack();
     }
 
     private interface HttpApi {

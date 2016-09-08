@@ -124,7 +124,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         // TODO: 2016/9/7 json 数据解析处理
         mDatas.clear();
         mDatas = searchGoodsResponse.getProductList();
-
+        System.out.println(mDatas.toString());
         GoodsListAdapter goodsListAdapter = new GoodsListAdapter(mContext, mDatas);
         lvGoods.setAdapter(goodsListAdapter);
     }
@@ -157,7 +157,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
                 break;
             case R.id.rb_appraise:
                 rbSales.setTextColor(Color.parseColor("#88000000"));
-                sort="commentDown";
+                sort="priceDown";
                 getPostHttp();
                 setCheckedTextColor(rbAppraise);
                 break;
