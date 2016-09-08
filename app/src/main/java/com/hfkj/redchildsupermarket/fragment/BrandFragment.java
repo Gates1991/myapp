@@ -225,7 +225,7 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
 
     private void skipDetailsFragment(int id1) {
 
-            mDetailsFragment = new DetailsFragment();
+        mDetailsFragment = new DetailsFragment();
 
         mMainActivity.addToBackStack(mDetailsFragment,id1);
     }

@@ -10,24 +10,31 @@ package com.hfkj.redchildsupermarket.fragment;/*
 
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.adapter.CommentAdapter;
+import com.hfkj.redchildsupermarket.bean.CommentBean;
 import com.hfkj.redchildsupermarket.bean.DetailsBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,40 +42,46 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class ShangPingFragment extends BaseFragment implements View.OnClickListener {
+public class ShangPingFragment extends BaseFragment {
 
-    @Bind(R.id.bt_title_left)//这是头布局的左斌按钮
-            Button mBtTitleLeft;
-    @Bind(R.id.tv_title_name)//这是头布局名字
-            TextView mTvTitleName;
-    @Bind(R.id.iv_title_icon)//这是头布局背景
-            ImageView mIvTitleIcon;
-    @Bind(R.id.bt_title_right)//这是头布局右边按钮
-            Button mBtTitleRight;
-    @Bind(R.id.iv_icon)//这是大图
-            ImageView mIvIcon;
-    @Bind(R.id.tv_name)//这是商品名
-            TextView mTvName;
-    @Bind(R.id.tv_marketPrice)//这是市场价
-            TextView mTvMarketPrice;
-    @Bind(R.id.tv_vipPrice)//这是会员价
-            TextView mTvVipPrice;
-    @Bind(R.id.tv_inventory)//这是库存数量
-            TextView mTvInventory;
-    @Bind(R.id.bt_addCar)//这是加入购物车
-            Button mBtAddCar;
-    @Bind(R.id.bt_collect)//这是收藏
-            Button mBtCollect;
-    @Bind(R.id.tv_location)//这是库存地址
-            TextView mTvLocation;
-    @Bind(R.id.tv_comment)//这是用户评论
-            TextView mTvComment;
+
+    private static final String BASE_URL = "http://10.0.2.2:8080/market/product/";
+    @Bind(R.id.bt_title_left)
+    Button mBtTitleLeft;
+    @Bind(R.id.tv_title_name)
+    TextView mTvTitleName;
+    @Bind(R.id.iv_icon)
+    ImageView mIvIcon;
+    @Bind(R.id.tv_name)
+    TextView mTvName;
+    @Bind(R.id.tv_marketPrice)
+    TextView mTvMarketPrice;
+    @Bind(R.id.tv_vipPrice)
+    TextView mTvVipPrice;
+    @Bind(R.id.ed_commodity_num)
+    EditText mEdCommodityNum;
+    @Bind(R.id.tv_location)
+    TextView mTvLocation;
+    @Bind(R.id.tv_comment)
+    TextView mTvComment;
+    @Bind(R.id.rl_comment_content)
+    RelativeLayout mRlCommentContent;
+    @Bind(R.id.lv_comment)
+    ListView mLvComment;
+    @Bind(R.id.iv_car)
+    ImageView mIvCar;
+    @Bind(R.id.iv_star)
+    ImageView mIvStar;
+    @Bind(R.id.bt_car)
+    Button mBtCar;
+    @Bind(R.id.bt_now)
+    Button mBtNow;
     private int mPid;
+    private List<CommentBean.ProductBean> mConmmentData = new ArrayList();
 
-    @Nullable
+
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
-            savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_shangping, null);
 
@@ -76,20 +89,22 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         Bundle bundle = getArguments();
         mMainActivity.isMainFrament = false;
         initView();
-         mPid =  bundle.getInt("id");
+        mPid = bundle.getInt("id");
         initData();
+
         return view;
     }
 
     private void initView() {
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("商品详情");
-        mBtTitleLeft.setOnClickListener(this);
+
     }
 
     @Override
     public void initData() {
         getNetData();
+
     }
 
     @Override
@@ -105,6 +120,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
             public void onResponse(Call<DetailsBean> call, Response<DetailsBean> response) {
                 DetailsBean detailsBean = response.body();
                 parseRespomse(detailsBean);
+                getNetData2();
             }
 
             @Override
@@ -112,44 +128,105 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
 
             }
         });
+
+
     }
 
     private void parseRespomse(DetailsBean detailsBean) {
         DetailsBean.ProductBean product = detailsBean.getProduct();
         //大图
         List<String> bigPic = product.getBigPic();
-        Glide.with(mContext).load(Constant.BASE_URL+bigPic.get(0)).into(mIvIcon);
+        Glide.with(mContext).load(Constant.BASE_URL + bigPic.get(0)).into(mIvIcon);
         //商品名
         String name = product.getName();
         mTvName.setText(name);
         //市场价
         int marketPrice = product.getMarketPrice();
-        mTvMarketPrice.setText("¥"+marketPrice);
+        mTvMarketPrice.setText("¥" + marketPrice);
         mTvMarketPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
         //会员价
         int limitPrice = product.getLimitPrice();
-        mTvVipPrice.setText("¥"+limitPrice);
-        //数量
-        int buyLimit = product.getBuyLimit();
-        mTvInventory.setText(""+buyLimit);
+        mTvVipPrice.setText("¥" + limitPrice);
         //地址
         String inventoryArea = product.getInventoryArea();
         mTvLocation.setText(inventoryArea);
         //评论数量
         int commentCount = product.getCommentCount();
-        mTvComment.setText("共有"+commentCount+"条评论");
-
+        mTvComment.setText("(" + commentCount + "人评论)");
+        mEdCommodityNum.setText("1");
 
     }
 
-    @Override
-    public void onClick(View v) {
-        mMainActivity.popBackStack();
+    @OnClick({R.id.bt_title_left, R.id.rl_comment_content, R.id.iv_car, R.id.iv_star, R.id.bt_car, R.id.bt_now})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.bt_title_left:
+                mMainActivity.popBackStack();
+                break;
+            case R.id.rl_comment_content:
+                break;
+            case R.id.iv_car:
+                mMainActivity.addToBackStack(new CarFragment());
+                break;
+            case R.id.iv_star:
+                break;
+            case R.id.bt_car:
+                break;
+            case R.id.bt_now:
+                break;
+        }
+    }
+
+    public void getNetData2() {
+           new Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+                .create(HttpApi.class).geCommntData(String.valueOf(1),String.valueOf(10),String.valueOf(1)).enqueue(new Callback<CommentBean>() {
+            @Override
+            public void onResponse(Call<CommentBean> call, Response<CommentBean> response) {
+                if (response.isSuccessful()) {
+
+                    CommentBean commentBean = response.body();
+                    List<CommentBean.ProductBean> product = commentBean.getProduct();
+                    mConmmentData.addAll(product);
+                    mLvComment.setAdapter(new CommentAdapter(mContext, mConmmentData));
+                    setListViewHeightBasedOnChildren(mLvComment);
+
+                }else{
+                    System.out.println(response.errorBody());
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<CommentBean> call, Throwable throwable) {
+
+            }
+        });
+    }
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        if(listView == null) return;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
     private interface HttpApi {
 
         @GET("product")
         Call<DetailsBean> getDetailsData(@Query("pId") int cId);
+
+        //@GET("{product}/{comment}")
+        @GET("comment")
+        Call<CommentBean> geCommntData( @Query("page") String page, @Query("pageNum") String
+                pageNum,@Query("pId") String pId);
     }
 }

@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -30,6 +31,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -53,29 +55,33 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     RadioGroup mRgSort;
     @Bind(R.id.lv_goods)
     ListView mLvGoods;
+    @Bind(R.id.bt_title_left)
+    Button mBtTitleLeft;
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
+    private ShangPingFragment mShangPingFragment;
+    private String mOrderby;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_item, null);
+        View view = inflater.inflate(R.layout.fragment__libiao, null);
 
         Bundle bundle = getArguments();
 
         ButterKnife.bind(this, view);
 
         mCid = bundle.getInt("id");
-
-        if (mCid ==100  ){
+        mBtTitleLeft.setVisibility(View.VISIBLE);
+        if (mCid == 100) {
             mTvTitleName.setText("新品上市");
             mCid = 212;
-        }else if (mCid == 200){
+        } else if (mCid == 200) {
             mTvTitleName.setText("热门单品");
             mCid = 121;
-        }else {
+        } else {
             mTvTitleName.setText("商品列表");
         }
 
@@ -90,17 +96,38 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
 
 
-
     }
 
     @Override
     public void initData() {
+
+        setSort();
+
+    }
+
+    private void setSort() {
+        int checkedRadioButtonId = mRgSort.getCheckedRadioButtonId();
+        switch (checkedRadioButtonId) {
+            case R.id.rb_sales:
+                mOrderby = "saleDown";
+                break;
+            case R.id.rb_price:
+                mOrderby = "priceDown";
+                break;
+            case R.id.rb_appraise:
+                mOrderby = "commentDown";
+                break;
+            case R.id.rb_uprack:
+                mOrderby = "shelvesDown";
+                break;
+
+        }
         getNetData();
     }
 
     private void getNetData() {
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-                .create(HttpApi.class).getDetailsData("1","10","saleDown",mCid).enqueue(new Callback<SearchGoodsBean>() {
+                .create(HttpApi.class).getDetailsData("1", "10", mOrderby, mCid).enqueue(new Callback<SearchGoodsBean>() {
 
 
             @Override
@@ -134,20 +161,27 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        SearchGoodsBean.ProductListBean bean  = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
-
+        SearchGoodsBean.ProductListBean bean = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
         int beanId = bean.getId();
-        ShangPingFragment shangPingFragment = new ShangPingFragment();
-        mMainActivity.addToBackStack(shangPingFragment,beanId);
+        if (mShangPingFragment == null) {
+            mShangPingFragment = new ShangPingFragment();
+        }
+        mMainActivity.addToBackStack(mShangPingFragment, beanId);
     }
+
+    @OnClick(R.id.bt_title_left)
+    public void onClick() {
+        mMainActivity.popBackStack();
+    }
+
 
     private interface HttpApi {
 
         @GET("productlist")
-        Call<SearchGoodsBean> getDetailsData(@Query("page") String page, @Query("pageNum") String pageNum, @Query("orderby") String orderby, @Query("cId")
-        int cId);
+        Call<SearchGoodsBean> getDetailsData(@Query("page") String page, @Query("pageNum") String pageNum, @Query
+                ("orderby") String orderby, @Query("cId")
+                                             int cId);
     }
-
 
 
 }
