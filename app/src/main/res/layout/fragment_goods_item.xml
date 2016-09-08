@@ -26,8 +26,8 @@
             android:padding="2dp"
             android:singleLine="true"
             android:text="销量"
-            android:textColor="#8000"
-            android:textSize="16sp"/>
+            android:textColor="#88000000"
+            android:textSize="15sp"/>
 
         <RadioButton
             android:id="@+id/rb_price"
@@ -41,8 +41,8 @@
             android:padding="2dp"
             android:singleLine="true"
             android:text="价格"
-            android:textColor="#8000"
-            android:textSize="16sp"/>
+            android:textColor="#88000000"
+            android:textSize="15sp"/>
 
         <RadioButton
             android:id="@+id/rb_appraise"
@@ -56,8 +56,8 @@
             android:padding="2dp"
             android:singleLine="true"
             android:text="好评度"
-            android:textColor="#8000"
-            android:textSize="16sp"/>
+            android:textColor="#88000000"
+            android:textSize="15sp"/>
 
         <RadioButton
             android:id="@+id/rb_uprack"
@@ -71,14 +71,15 @@
             android:padding="2dp"
             android:singleLine="true"
             android:text="上架时间"
-            android:textColor="#8000"
-            android:textSize="16sp"/>
+            android:textColor="#88000000"
+            android:textSize="15sp"/>
     </RadioGroup>
+
     <ListView
         android:id="@+id/lv_goods"
-        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="15dp">
 
     </ListView>
 </LinearLayout>

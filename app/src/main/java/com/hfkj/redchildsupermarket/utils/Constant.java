@@ -71,5 +71,7 @@ public class Constant {
     public static final String ADDRESS = "address";
     public static final String INVOICE = "invoice";
     public static final String ORDER = "order";
+    public static final String SEARCH_KEYWORD ="#####";//搜索的关键字
+
 
 }

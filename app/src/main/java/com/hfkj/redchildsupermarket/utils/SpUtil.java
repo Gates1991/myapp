@@ -62,5 +62,24 @@ public class SpUtil {
         edit.commit();
     }
 
+    //保存int值
+    public static void putInt(Context context,String key,int value){
+
+        if (mSp==null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        SharedPreferences.Editor edit = mSp.edit();
+        edit.putInt(key, value);
+        edit.commit();
+    }
+
+    //获取int值
+    public static int getInt(Context context,String key, int defvalue){
+        if (mSp==null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+
+        return mSp.getInt(key, defvalue);
+    }
 
 }

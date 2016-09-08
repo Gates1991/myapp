@@ -36,21 +36,22 @@ public class GoodsListAdapter extends CommonAdapter {
             holder.tvAppraise = (TextView) convertView.findViewById(R.id.tv_appraise);
             convertView.setTag(holder);
 
-        }else {
-            holder= (ViewHolder) convertView.getTag();
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
-        SearchGoodsBean.ProductListBean  bean = (SearchGoodsBean.ProductListBean) getItem(position);
-        Glide.with(mContext.getApplicationContext()).load(Constant.BASE_URL+bean.getPic()).into(holder.ivGoodsIcon);
+        SearchGoodsBean.ProductListBean bean = (SearchGoodsBean.ProductListBean) getItem(position);
+        Glide.with(mContext.getApplicationContext()).load(Constant.BASE_URL + bean.getPic()).into(holder.ivGoodsIcon);
 
         holder.tvTitle.setText(bean.getName());
-        holder.tvNowPrice.setText("现价:¥"+bean.getPrice());
-        holder.tvLastPrice.setText("原价:¥"+bean.getMarketPrice());
+        holder.tvNowPrice.setText("现价:¥" + bean.getPrice());
+        holder.tvLastPrice.setText("原价:¥" + bean.getMarketPrice());
         holder.tvLastPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.tvAppraise.setText("以有"+bean.getCommentCount()+"条评论");
+        holder.tvAppraise.setText("已有" + bean.getCommentCount() + "条评论");
+
         return convertView;
     }
 
-  public class ViewHolder {
+    public class ViewHolder {
 
         ImageView ivGoodsIcon;
 
@@ -61,7 +62,6 @@ public class GoodsListAdapter extends CommonAdapter {
         TextView tvLastPrice;
 
         TextView tvAppraise;
-
 
 
     }

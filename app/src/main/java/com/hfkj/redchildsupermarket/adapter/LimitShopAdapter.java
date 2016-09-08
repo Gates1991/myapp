@@ -39,15 +39,15 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
             viewHolder = new ViewHolder();
             convertView = View.inflate(mContext, R.layout.item_limitshop, null);
             viewHolder.mIvLimitshop = (ImageView) convertView.findViewById(R.id.iv_limitshop);
-            viewHolder.mTvItemPrice = (TextView) convertView.findViewById(R.id.tv_item_price);
-            viewHolder.mTvItemType = (TextView) convertView.findViewById(R.id.tv_item_type);
-            viewHolder.mTvItemLimitPrice = (TextView) convertView.findViewById(R.id.tv_item_limitPrice);
-            viewHolder.mTvLimittime = (TextView) convertView.findViewById(R.id.tv_limittime);
             convertView.setTag(viewHolder);
         } else {
             viewHolder= (ViewHolder) convertView.getTag();
         }
        mProductListBean = mDatas.get(position);
+        viewHolder.mTvItemPrice = (TextView) convertView.findViewById(R.id.tv_item_price);
+        viewHolder.mTvItemType = (TextView) convertView.findViewById(R.id.tv_item_type);
+        viewHolder.mTvItemLimitPrice = (TextView) convertView.findViewById(R.id.tv_item_limitPrice);
+        viewHolder.mTvLimittime = (TextView) convertView.findViewById(R.id.tv_limittime);
         Glide.with(mContext).load(Constant.BASE_URL+ mProductListBean.getPic()).into( viewHolder.mIvLimitshop);
         viewHolder.mTvItemType .setText(mProductListBean.getName());
         viewHolder.mTvItemLimitPrice.setText(mProductListBean.getLimitPrice()+"¥");

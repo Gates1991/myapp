@@ -68,7 +68,7 @@
             android:visibility="invisible" />
 
         <TextView
-
+            android:textColor="#fff"
             android:layout_centerInParent="true"
             android:id="@+id/tv_title_right"
             android:layout_width="wrap_content"
