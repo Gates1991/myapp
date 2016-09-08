@@ -2,7 +2,6 @@ package com.hfkj.redchildsupermarket.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +17,10 @@ import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.bean.SearchRecommandResponse;
 import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -44,16 +45,18 @@ public class SearchFragment extends BaseFragment {
     @Bind(R.id.el_search)
     ExpandableListView elSearch;
 
-    private TextView tvTitle;
     private List<String> mData = new ArrayList<>();
 
     private String[] title = {"热门搜索", "搜索历史"};
 
-    private List<String> searchOld = new ArrayList<>(); //本地缓存的搜索历史数据集合
+    private LinkedList<String> searchOld; //本地缓存的搜索历史数据集合
+
     private SearchAdapter searchAdapter;
 
     private int prevousPosition = -1;//记录上一次被点击后打开的组的索引
     private String keywords;
+    private String regex = "#####";
+    private String sp_keyword;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,35 +65,35 @@ public class SearchFragment extends BaseFragment {
         View view = inflater.inflate(R.layout.fragment_search, null);
 
         ButterKnife.bind(this, view);
+        getsearchwords();
         initData();
         return view;
     }
 
+    private void getsearchwords() {
+        searchOld = new LinkedList<>();
+        sp_keyword = SpUtil.getinfo(mContext, Constant.SEARCH_KEYWORD, "");
+        if (TextUtils.isEmpty(sp_keyword)) {
+
+        } else {
+            String[] split = sp_keyword.split(regex);
+            for (int i = 0; i < split.length; i++) {
+                if (!searchOld.contains(split[i])) {
+
+                    searchOld.add(split[i]);
+                }
+
+            }
+        }
+    }
+
     public void initData() {
+
         mTvTitleName.setText("搜索");
 
 
         httpGet();
 
-        //设置适配器
-        searchAdapter = new SearchAdapter();
-        elSearch.setAdapter(searchAdapter);
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //遍历所有group,将所有项设置成默认展开
-                int groupCount = elSearch.getCount();
-
-                for (int i = 0; i < groupCount; i++) {
-
-                    elSearch.expandGroup(i);
-
-                }
-                ;
-            }
-        }, 10);
 
         //        elSearch.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
         //            @Override
@@ -117,19 +120,18 @@ public class SearchFragment extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
 
                 Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
-                //                getPostHttp(childPosition);
 
-                GoodsFragment goodsFragment = new GoodsFragment();
-                ((MainActivity) mContext).addToBackStack(goodsFragment,mData.get(childPosition));
+                etSearch.setText(mData.get(childPosition));
+                onClick();
 
                 return true;
             }
         });
 
+
     }
 
-
-
+    //获取热门搜索的数据
     private void httpGet() {
         new Retrofit
                 .Builder()
@@ -144,8 +146,6 @@ public class SearchFragment extends BaseFragment {
                 if (response.isSuccessful()) {
                     SearchRecommandResponse searchRecommandResponse = response.body();
 
-                    //System.out.println(searchRecommandResponse.toString());
-
                     parseRespomse(searchRecommandResponse);
                 }
             }
@@ -158,6 +158,7 @@ public class SearchFragment extends BaseFragment {
 
     }
 
+    //解析热门搜索的数据
     private void parseRespomse(SearchRecommandResponse searchRecommandResponse) {
         List<String> searchKeywords = searchRecommandResponse.getSearchKeywords();
         mData.clear();
@@ -165,6 +166,17 @@ public class SearchFragment extends BaseFragment {
             mData.add(searchKeywords.get(i));
         }
 
+        //设置适配器
+        searchAdapter = new SearchAdapter();
+        elSearch.setAdapter(searchAdapter);
+        //遍历所有group,将所有项设置成默认展开
+        int groupCount = elSearch.getCount();
+
+        for (int i = 0; i < groupCount; i++) {
+
+            elSearch.expandGroup(i);
+
+        }
     }
 
     @Override
@@ -183,9 +195,11 @@ public class SearchFragment extends BaseFragment {
     public void onClick() {
         keywords = etSearch.getText().toString();
         if (!TextUtils.isEmpty(keywords)) {
-            searchOld.add(keywords);
-            // TODO: 2016/9/7 搜索点击
-            searchAdapter.notifyDataSetChanged();
+            GoodsFragment goodsFragment = new GoodsFragment();
+            ((MainActivity) mContext).addToBackStack(goodsFragment, keywords);
+
+            //保存查询关键字记录到sp中
+            SpUtil.saveinfo(mContext, Constant.SEARCH_KEYWORD, keywords + regex + sp_keyword);
 
         } else {
             Toast.makeText(getContext(), "您输入的关键字为空", Toast.LENGTH_SHORT).show();
@@ -202,8 +216,8 @@ public class SearchFragment extends BaseFragment {
 
         //获取对应组的子条目的数量
         @Override
-        public int getChildrenCount(int i) {
-            if (i == 0) {
+        public int getChildrenCount(int groupPosition) {
+            if (groupPosition == 0) {
 
                 return mData.size();
             } else {
@@ -309,10 +323,10 @@ public class SearchFragment extends BaseFragment {
         Call<SearchRecommandResponse> getSearchRecommend(@Path("search") String search, @Path("recommend") String recommend);// search/recommend
         //如果url中含有斜线，那么不能把带斜线的值传入（斜线会变乱码）
 
-//        //POST 请求PSOT参数
-//        @FormUrlEncoded  //进行表单url编码
-//        @POST("search")
-//        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+        //        //POST 请求PSOT参数
+        //        @FormUrlEncoded  //进行表单url编码
+        //        @POST("search")
+        //        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
 }

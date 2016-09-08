@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -35,7 +36,7 @@ import retrofit2.http.POST;
 /**
  * Created by 栁年 on 2016/9/7.
  */
-public class GoodsFragment extends BaseFragment {
+public class GoodsFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.rb_sales)
     RadioButton rbSales;
@@ -55,10 +56,13 @@ public class GoodsFragment extends BaseFragment {
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
 
-
+    private RadioButton  previousChecked;
     private String keyword;
 
-    List<SearchGoodsBean.ProductListBean> mDatas = new ArrayList();
+    private List<SearchGoodsBean.ProductListBean> mDatas = new ArrayList();
+    private String sort;
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -66,10 +70,11 @@ public class GoodsFragment extends BaseFragment {
         View view = View.inflate(mContext, R.layout.fragment_goods_item, null);
 
         ButterKnife.bind(this, view);
-        Bundle bundle = getArguments();
+        Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
+        mMainActivity.isMainFrament = false;
 
-
+        sort = "saleDown";
         initView();
         initData();
         return view;
@@ -78,11 +83,17 @@ public class GoodsFragment extends BaseFragment {
     private void initView() {
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("搜索结果");
+        rbSales.setChecked(true);
+        rbSales.setTextColor(Color.WHITE);
+        mBtTitleLeft.setOnClickListener(this);
+
+
+
     }
 
     public void initData() {
+        getPostHttp();
 
-        lvGoods.setAdapter(new GoodsListAdapter(mContext,mDatas));
     }
 
     private void getPostHttp() {
@@ -91,14 +102,12 @@ public class GoodsFragment extends BaseFragment {
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(HttpApi.class).search(0, 20, "saleDown", keyword).enqueue(new Callback<SearchGoodsBean>() {
+                .create(HttpApi.class).search(0, 20, sort, keyword).enqueue(new Callback<SearchGoodsBean>() {
             @Override
             public void onResponse(Call<SearchGoodsBean> call, Response<SearchGoodsBean> response) {
                 if (response.isSuccessful()) {
 
                     SearchGoodsBean searchGoodsResponse = response.body();
-
-                    System.out.println(searchGoodsResponse.toString());
 
                     parseRespomse1(searchGoodsResponse);
                 }
@@ -116,6 +125,8 @@ public class GoodsFragment extends BaseFragment {
         mDatas.clear();
         mDatas = searchGoodsResponse.getProductList();
 
+        GoodsListAdapter goodsListAdapter = new GoodsListAdapter(mContext, mDatas);
+        lvGoods.setAdapter(goodsListAdapter);
     }
 
     @Override
@@ -127,15 +138,47 @@ public class GoodsFragment extends BaseFragment {
     @OnClick({R.id.rb_sales, R.id.rb_price, R.id.rb_appraise, R.id.rb_uprack})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.bt_title_left:
+                mMainActivity.popBackStack();
+                break;
+
             case R.id.rb_sales:
+
+                sort = "saleDown";
+                getPostHttp();
+                setCheckedTextColor(rbSales);
+
                 break;
             case R.id.rb_price:
+                rbSales.setTextColor(Color.parseColor("#88000000"));
+                sort="priceUp";
+                getPostHttp();
+                setCheckedTextColor(rbPrice);
                 break;
             case R.id.rb_appraise:
+                rbSales.setTextColor(Color.parseColor("#88000000"));
+                sort="commentDown";
+                getPostHttp();
+                setCheckedTextColor(rbAppraise);
                 break;
             case R.id.rb_uprack:
+                rbSales.setTextColor(Color.parseColor("#88000000"));
+                sort="shelvesDown";
+                getPostHttp();
+                setCheckedTextColor(rbUprack);
                 break;
+
         }
+
+
+    }
+
+    private void setCheckedTextColor(RadioButton radioButton) {
+        radioButton.setTextColor(Color.WHITE);
+        if (previousChecked != null) {
+            previousChecked.setTextColor(Color.parseColor("#88000000"));
+        }
+        previousChecked = radioButton;
     }
 
     private interface HttpApi {
