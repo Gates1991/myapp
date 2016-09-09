@@ -58,8 +58,9 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
-    private String mOrderby;
+    private String mOrderby = "saleDown";
     private ShangPingFragment mShangPingFragment;
+
 
     @Nullable
     @Override
