@@ -57,10 +57,9 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
-    private View mBtTitleLeft;
+    private Button mBtTitleLeft;
     private String mOrderby="saleDown";
     private ShangPingFragment mShangPingFragment;
-
 
     @Nullable
     @Override
@@ -80,7 +79,8 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         } else if (mCid == 200) {
             mTvTitleName.setText("热门单品");
             mCid = 121;
-        } else if (mCid == 300){
+
+        }else if (mCid == 300){
             mTvTitleName.setText("促销商品");
             mCid = 121;
         }else {
@@ -106,6 +106,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     }
 
     private void getNetData() {
+
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
                 .create(HttpApi.class).getDetailsData("1", "10", mOrderby, mCid).enqueue(new Callback<SearchGoodsBean>() {
 
@@ -144,6 +145,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         SearchGoodsBean.ProductListBean bean = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
         int beanId = bean.getId();
         if (mShangPingFragment == null) {
+
             mShangPingFragment = new ShangPingFragment();
         }
         mMainActivity.addToBackStack(mShangPingFragment, beanId);

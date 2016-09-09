@@ -21,6 +21,7 @@ import com.hfkj.redchildsupermarket.adapter.ShopCarShowAdapter;
 import com.hfkj.redchildsupermarket.bean.BaseResponse;
 import com.hfkj.redchildsupermarket.bean.ShoppingCarBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,10 +70,20 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private View mIv_allremove;
     private  AccountFragment accountFragment;
     private int mTotalMoney;
+    private String mUserid;
+    private String mTokenString;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
+        mTokenString = SpUtil.getinfo(mContext, "login_token", "");
+      //  long token = Long.parseLong(tokenString);
+       /* if (!TextUtils.isEmpty(userid) && !TextUtils.isEmpty(tokenString)) {
+            //获取网络数据显示
+        }*/
+
         View view = null;
         if (hasShopping) {
             view = inflater.inflate(R.layout.fragment_hasshopping, null);
@@ -146,7 +157,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         mChecked_all = (CheckBox) view.findViewById(R.id.checked_all);
         mIv_allremove = view.findViewById(R.id.iv_allremove);
         ButterKnife.bind(this, view);
-
+        initData();
         return view;
     }
 
@@ -167,11 +178,12 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
     public void initData() {
 
+
         //从服务器获取数据
         mList.clear();
         getRetrfit();
         mRetrofit.create(HttpApi.class)
-                .getShopData("1473125231223", "14731252269010")
+                .getShopData(mTokenString, mUserid)
                 .enqueue(new Callback<ShoppingCarBean>() {
                     @Override
                     public void onResponse(Call<ShoppingCarBean> call, Response<ShoppingCarBean> response) {
@@ -237,6 +249,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
         Object tag = v.getTag();
         switch (v.getId()) {
+
             case R.id.iv_button_add:
 
                 if (tag != null && tag instanceof Integer) {
@@ -246,7 +259,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                     if (num < 10) {
                         num++;
                         //将增加后的数据post到服务器
-                        postData2Server("1473125231223", "14731252269010", num,
+                        postData2Server(mTokenString, mUserid, num,
                                 cartBean.getPid(),
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
@@ -265,9 +278,9 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                     int position = (int) tag;
                     ShoppingCarBean.CartBean cartBean = mList.get(position);
                     int num = cartBean.getPnum();
-                    if (num > 0) {
+                    if (num > 1) {
                         num --;
-                        postData2Server("1473125231223", "14731252269010",num,
+                        postData2Server(mTokenString, mUserid, num,
                                 cartBean.getPid(),
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
