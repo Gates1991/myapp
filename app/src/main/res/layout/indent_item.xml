@@ -7,9 +7,11 @@
     android:layout_marginRight="18dp"
     android:layout_marginTop="15dp"
     android:padding="15dp"
+
     android:background="@drawable/shape_indent_bg"
     >
     <TextView
+        android:id="@+id/tv_intentNum"
         android:text="订单编号:201612323412523"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -18,10 +20,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tv_intentPrice"
             android:layout_width="wrap_content"
             android:text="订单总额:118"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_state"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:text="状态:未完成"
@@ -35,6 +39,7 @@
 
     </RelativeLayout>
     <TextView
+        android:id="@+id/tv_indentTime"
         android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
         android:text="2016-9-8 11:25:30"

@@ -1,8 +1,10 @@
 package com.hfkj.redchildsupermarket.http;
 
 import com.hfkj.redchildsupermarket.bean.CancelBean;
+import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.bean.InformationBean;
 import com.hfkj.redchildsupermarket.bean.LoginBean;
+import com.hfkj.redchildsupermarket.bean.MyAddressBean;
 import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
 import com.hfkj.redchildsupermarket.bean.SalesBean;
@@ -108,5 +110,32 @@ public interface HttpApi {
     Call<RecommandExpandBean> getRecommandExpand();
 
 
+    /**
+     * 订单管理接口
+     *
+     * @param type
+     * @param token
+     * @param userid
+     * @param pagenum
+     * @param pagesize
+     * @return
+     */
+
+    //  @FormUrlEncoded
+    //  @POST("orderlist")
+    //  Call<IndentBean> orderlist(@Field("type") Integer type, @Field("token") Long token,@Query("userid") String userid,@Query("pageNum") Integer pagenum,@Query("pageSize") Integer pagesize);
+    @FormUrlEncoded
+    @POST("orderlist")
+    Call<IndentBean> orderlist(@Query("userid") String userid, @Field("token") Long token, @Query("page") Integer pagenum, @Query("pageNum") Integer pagesize, @Field("type") Integer type);
+
+
+    /**
+     * 地址接口
+     * @param userid
+     * @param token
+     * @return
+     */
+    @GET("addresslist")
+    Call<MyAddressBean> getAddressData(@Query("userid") String userid, @Query("token") Long token );
 
 }

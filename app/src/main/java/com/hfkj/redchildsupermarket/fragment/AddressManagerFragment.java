@@ -22,7 +22,7 @@ import butterknife.OnClick;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class AddressManagerFragment extends BaseFragment {
+public class AddressManagerFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.btn_right)
     ImageButton btnRight;
@@ -42,6 +42,7 @@ public class AddressManagerFragment extends BaseFragment {
 
         ImageButton mImgbtn_left = (ImageButton) mView.findViewById(R.id.imgbtn_left);
         mImgbtn_left.setVisibility(View.VISIBLE);
+        mImgbtn_left.setOnClickListener(this);
         ImageButton mImgbtn_right = (ImageButton) mView.findViewById(R.id.btn_right);
         mImgbtn_right.setVisibility(View.VISIBLE);
 
@@ -51,12 +52,19 @@ public class AddressManagerFragment extends BaseFragment {
         tv_title_right.setText("新增地址");
 
         TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_layout);
-        mTv_title_layout.setText("地址管理");
+        mTv_title_layout.setText("新增地址");
     }
 
 
     @Override
     public void initData() {
+        //联网拿数据
+        getAddressData();
+
+    }
+
+    private void getAddressData() {
+
 
     }
 
@@ -70,5 +78,14 @@ public class AddressManagerFragment extends BaseFragment {
     public void onClick() {
         //暂时跳转,无逻辑
         mMainActivity.addToBackStack(new AddAddressFragment());
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgbtn_left:
+                mMainActivity.popBackStack();
+                break;
+        }
     }
 }
