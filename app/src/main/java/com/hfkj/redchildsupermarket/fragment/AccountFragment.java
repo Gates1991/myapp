@@ -12,7 +12,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
@@ -114,6 +113,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         fillBottom(mTotalPay);
     }
 
+
     private void fillBottom(int mTotalPay) {
         mTvPayTotal.setText("应付金额:￥"+mTotalPay+".0");
         mTvPayTotal.setTextColor(Color.RED);
@@ -148,7 +148,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_address:
-                Toast.makeText(mContext,"跳转到地址页面",Toast.LENGTH_SHORT).show();
+                ((MainActivity)mContext).addToBackStack(new AddressManagerFragment());
                 break;
             case R.id.rl_pay_way:
                 if (showPayWayDialog == null) {

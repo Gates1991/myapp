@@ -38,9 +38,6 @@ public class ShowAlipayDialog extends Dialog implements View.OnClickListener {
         this.context = context;
     }
 
-    /*protected ShowAlipayDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
-        super(context, cancelable, cancelListener);
-    }*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -72,7 +72,6 @@ public class MainActivity extends FragmentActivity {
                     mShopping.setTextColor(Color.RED);
                     setCheckedTextColor(mShopping);
                     changeFragment(mFragCar);
-                    ((CarFragment)mFragCar).initData();
                     break;
                 case R.id.more:
                     mMore.setTextColor(Color.RED);
