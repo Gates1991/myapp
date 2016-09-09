@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -176,6 +178,7 @@ public class SearchFragment extends BaseFragment {
         //设置适配器
         searchAdapter = new SearchAdapter();
         elSearch.setAdapter(searchAdapter);
+
         //遍历所有group,将所有项设置成默认展开
         int groupCount = elSearch.getCount();
 
@@ -259,36 +262,25 @@ public class SearchFragment extends BaseFragment {
         //创建对应组对应子条目的view界面
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
-            if (groupPosition == 0) {
-
-                if (convertView == null) {
-                    convertView = new TextView(getActivity().getApplicationContext());
-                }
-
-                TextView tv = (TextView) convertView;
-                tv.setTextColor(Color.parseColor("#55000000"));
-                tv.setBackgroundColor(Color.WHITE);
-                tv.setPadding(5, 5, 5, 5);
-
-                tv.setText(mData.get(childPosition));
-
-                tv.setTextSize(16);
-                return tv;
-            } else {
-                if (convertView == null) {
-                    convertView = new TextView(getActivity().getApplicationContext());
-                }
-
-                TextView tv = (TextView) convertView;
-                tv.setTextColor(Color.parseColor("#55000000"));
-                tv.setBackgroundColor(Color.WHITE);
-                tv.setPadding(5, 5, 5, 5);
-
-                tv.setText(searchOld.get(childPosition));
-
-                tv.setTextSize(16);
-                return tv;
+            if (convertView==null) {
+                TextView tv = new TextView(getActivity().getApplicationContext());
+                tv.setBackgroundResource(R.drawable.shape_search_et);
+                tv.setPadding(30,12,0,0);
+                convertView=tv;
             }
+            TextView tv = (TextView) convertView;
+            tv.setTextColor(Color.parseColor("#55000000"));
+
+//            ViewGroup.LayoutParams params = new LinearLayout.LayoutParams();
+//            convertView.setLayoutParams(params);
+            tv.setTextSize(14);
+            if (groupPosition == 0) {
+                tv.setText(mData.get(childPosition));
+            } else {
+                tv.setText(searchOld.get(childPosition));
+            }
+
+            return tv;
         }
 
         //设置子条目是否可以进行点击
@@ -341,5 +333,26 @@ public class SearchFragment extends BaseFragment {
         //        @POST("search")
         //        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
+    }
+
+
+
+
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        if (listView == null)
+            return;
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            return;
+        }
+        int totalHeight = 0;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 }

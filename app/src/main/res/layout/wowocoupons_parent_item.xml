@@ -13,9 +13,11 @@
         android:id="@+id/parentitem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="12dp"
         android:layout_weight="15"
-        android:text="标题"/>
+        android:text="标题"
+        android:textSize="18dp"
+        android:textColor="#9f00"/>
 
     <ImageView
         android:id="@+id/arrow"
