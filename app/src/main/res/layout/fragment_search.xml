@@ -19,4 +19,8 @@
         android:groupIndicator="@null"
         android:layout_height="match_parent"></ExpandableListView>
 
+    <Button
+        android:id="@+id/bt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
