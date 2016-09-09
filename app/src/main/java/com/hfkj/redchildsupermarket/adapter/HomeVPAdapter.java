@@ -25,12 +25,11 @@ import java.util.List;
 public class HomeVPAdapter extends PagerAdapter{
     private List<HomeVPBean.HomeTopicBean> pageList;
     private Context                        mContext;
-   private  List<ImageView> datas;
 
-    public HomeVPAdapter(List<HomeVPBean.HomeTopicBean> pageList, Context context, List<ImageView> datas ) {
+    public HomeVPAdapter(List<HomeVPBean.HomeTopicBean> pageList, Context context ) {
         this.pageList = pageList;
         mContext = context;
-        this.datas=datas;
+
     }
 
     @Override
@@ -52,7 +51,8 @@ public class HomeVPAdapter extends PagerAdapter{
         lp.width = ViewPager.LayoutParams.MATCH_PARENT;
         iv.setLayoutParams(lp);
         container.addView(iv);*/
-        ImageView iv = datas.get(position);
+        ImageView iv = new ImageView(mContext);
+        iv.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(iv);
         Glide.with(mContext).load(Constant.BASE_URL+pageList.get(position).getPic()).into(iv);
 

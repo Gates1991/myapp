@@ -58,7 +58,8 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
-    private String mOrderby = "saleDown";
+    private Button mBtTitleLeft;
+    private String mOrderby="saleDown";
     private ShangPingFragment mShangPingFragment;
 
 
@@ -67,21 +68,20 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__libiao, null);
-        Button mBtTitleLeft = (Button) view.findViewById(R.id.bt_title_left);
+        mBtTitleLeft = view.findViewById(R.id.bt_title_left);
         Bundle bundle = getArguments();
 
         ButterKnife.bind(this, view);
 
         mCid = bundle.getInt("id");
-        mBtTitleLeft.setVisibility(View.VISIBLE);
+       mBtTitleLeft.setVisibility(View.VISIBLE);
         if (mCid == 100) {
             mTvTitleName.setText("新品上市");
             mCid = 212;
         } else if (mCid == 200) {
             mTvTitleName.setText("热门单品");
             mCid = 121;
-
-        }else if (mCid == 300){
+        } else if (mCid == 300){
             mTvTitleName.setText("促销商品");
             mCid = 121;
         }else {
@@ -107,7 +107,6 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     }
 
     private void getNetData() {
-
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
                 .create(HttpApi.class).getDetailsData("1", "10", mOrderby, mCid).enqueue(new Callback<SearchGoodsBean>() {
 

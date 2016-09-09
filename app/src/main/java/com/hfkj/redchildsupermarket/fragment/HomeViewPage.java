@@ -14,7 +14,6 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.hfkj.redchildsupermarket.adapter.HomeVPAdapter;
@@ -23,13 +22,10 @@ import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import java.util.ArrayList;
 import java.util.List;
 
-import uk.co.senab.photoview.PhotoView;
-
 public class HomeViewPage extends ViewPager {
     private List<HomeVPBean.HomeTopicBean> pageList;
     private  Context                        mContext;
     private long mCurrentTimeMillis;
-    private List<ImageView> datas = new ArrayList<ImageView>();
     private HomeVPAdapter mHomeVPAdapter;
     public Handler mHandler=new Handler(){
         @Override
@@ -58,16 +54,6 @@ public class HomeViewPage extends ViewPager {
         super(context);
         this.pageList=pageList;
         this.mContext=context;
-        for (int i=0; i<pageList.size(); i++) {
-            PhotoView iv = new PhotoView(context);
-            ViewGroup.LayoutParams lp = new LayoutParams();
-            lp.height =LayoutParams.WRAP_CONTENT;
-            lp.width = LayoutParams.MATCH_PARENT;
-            iv.setLayoutParams(lp);
-           // iv.setScaleType(ImageView.ScaleType.FIT_XY);
-          //  iv.setImageResource(images[i]);
-            datas.add(iv);
-        }
         init();
     }
 
@@ -121,7 +107,7 @@ public class HomeViewPage extends ViewPager {
     public void start(){
 
         if (mHomeVPAdapter == null) {
-            mHomeVPAdapter = new HomeVPAdapter(pageList, mContext,datas);
+            mHomeVPAdapter = new HomeVPAdapter(pageList, mContext);
             this.setAdapter(mHomeVPAdapter);
         } else {
             mHomeVPAdapter.notifyDataSetChanged();
