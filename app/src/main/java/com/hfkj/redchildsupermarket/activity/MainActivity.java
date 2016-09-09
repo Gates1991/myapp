@@ -18,6 +18,8 @@ import com.hfkj.redchildsupermarket.fragment.HomeFragment;
 import com.hfkj.redchildsupermarket.fragment.MoreFragment;
 import com.hfkj.redchildsupermarket.fragment.SearchFragment;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -152,6 +154,22 @@ public class MainActivity extends FragmentActivity {
         );
         Bundle bundle = new Bundle();
         bundle.putInt("id",id);
+        fragment.setArguments(bundle);
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
+    public void addToBackStack(BaseFragment fragment, ArrayList list, int data) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("list",list);
+        bundle.putInt("data",data);
         fragment.setArguments(bundle);
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);

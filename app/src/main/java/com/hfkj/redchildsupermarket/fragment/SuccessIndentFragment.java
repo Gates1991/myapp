@@ -68,7 +68,6 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
         userid = SpUtil.getinfo(mContext, "login_user_id", "");
         //token  值
         String login_token = SpUtil.getinfo(mContext, "login_token", "");
-        token = Long.parseLong(login_token);
         //pagenum 值
         pageNum = 1;
         //pagesize值

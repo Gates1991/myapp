@@ -67,7 +67,8 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private List<ShoppingCarBean.CartBean> mShowList = new ArrayList<>();
     private CheckBox mChecked_all;
     private View mIv_allremove;
-    private boolean isCheckedAll;
+    private  AccountFragment accountFragment;
+    private int mTotalMoney;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,7 +134,10 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                 @Override
                 public void onClick(View v) {
                     //跳转到结算页面
-                    Toast.makeText(mContext,"结算页面被点击了",Toast.LENGTH_SHORT).show();
+                    if (accountFragment == null) {
+                        accountFragment = new AccountFragment();
+                    }
+                    ((MainActivity)mContext).addToBackStack(accountFragment, (ArrayList) mList,mTotalMoney);
                 }
             });
         } else {
@@ -169,7 +173,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         mRetrofit.create(HttpApi.class)
                 .getShopData("1473125231223", "14731252269010")
                 .enqueue(new Callback<ShoppingCarBean>() {
-
                     @Override
                     public void onResponse(Call<ShoppingCarBean> call, Response<ShoppingCarBean> response) {
                         if (response.isSuccessful()) {
@@ -182,7 +185,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                             mShopCarFinishAdapter.notifyDataSetChanged();
                             mLvShopCarShow.setAdapter(mShopCarShowAdapter);
                             mLvShopCarFinish.setAdapter(mShopCarFinishAdapter);
-
                             mLvShopCarFinish.setVisibility(View.GONE);
                             mRlBottom.setVisibility(View.GONE);
                             mShopCarFinishAdapter.setOnAddNum(CarFragment.this);
@@ -209,13 +211,13 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
     private void fillData(List<ShoppingCarBean.CartBean> list) {
         int totalNum = 0;
-        int totalMoney = 0;
+        mTotalMoney = 0;
         for (int i = 0; i < list.size(); i++) {
             totalNum += list.get(i).getPnum();
-            totalMoney += Integer.valueOf(list.get(i).getProductPrice()) * list.get(i).getPnum();
+            mTotalMoney += Integer.valueOf(list.get(i).getProductPrice()) * list.get(i).getPnum();
         }
         mShopTotalNum.setText(totalNum + "");
-        mShopTotalMoney.setText(totalMoney + "");
+        mShopTotalMoney.setText(mTotalMoney + "");
     }
 
     @Override
@@ -271,9 +273,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                         mList.get(position).setPnum(num);
                         fillData(mList);
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
-                       /* SystemClock.sleep(1500);
-                        showData();*/
-
                     }
                     Toast.makeText(mContext,"删减成功",Toast.LENGTH_SHORT).show();
                 }

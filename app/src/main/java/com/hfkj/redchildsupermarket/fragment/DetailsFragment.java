@@ -101,7 +101,6 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
 
     }
 
-    @Override
     public void initData() {
         getNetData();
     }

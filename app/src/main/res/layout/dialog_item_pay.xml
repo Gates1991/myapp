@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:gravity="center_vertical"
+              android:background="@drawable/dialog_item_bg"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+    <TextView
+        android:layout_marginLeft="14dp"
+        android:textSize="20sp"
+        android:id="@+id/tv_payway"
+        android:text="支付宝"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        />
+
+</LinearLayout>
