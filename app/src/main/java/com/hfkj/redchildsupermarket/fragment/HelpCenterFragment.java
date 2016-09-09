@@ -5,15 +5,28 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.bean.SearchRecommandResponse;
+import com.hfkj.redchildsupermarket.adapter.HelpAdapter;
+import com.hfkj.redchildsupermarket.bean.HelpCenterBean;
+import com.hfkj.redchildsupermarket.utils.Constant;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
-import retrofit2.http.Path;
 
 /**
  * @创建者 Shayne
@@ -23,9 +36,11 @@ import retrofit2.http.Path;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class HelpCenterFragment extends BaseFragment {
+public class HelpCenterFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private View mView;
+    private List<HelpCenterBean.HelpListBean> helpList = new ArrayList<>();
+    private ListView mLvhelp;
 
     @Nullable
     @Override
@@ -33,33 +48,69 @@ public class HelpCenterFragment extends BaseFragment {
         mView = inflater.inflate(R.layout.fragment_helpcenter, null);
         mMainActivity.isMainFrament = false;
         inintTitleView();
+        initData();
         return mView;
     }
 
     private void inintTitleView() {
 
-        ImageButton mImgbtn_left = (ImageButton) mView.findViewById(R.id.imgbtn_left);
-        mImgbtn_left.setVisibility(View.VISIBLE);
-        TextView mTv_title_left = (TextView) mView.findViewById(R.id.tv_title_left);
-        mTv_title_left.setText("返回");
-        TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_layout);
+        Button mbtn_left = (Button) mView.findViewById(R.id.bt_title_left);
+        mbtn_left.setVisibility(View.VISIBLE);
+
+        TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_name);
         mTv_title_layout.setText("帮助中心");
+
+        mLvhelp = (ListView) mView.findViewById(R.id.lv_help);
+        mbtn_left.setOnClickListener(this);
+
     }
 
     public void initData() {
+        new Retrofit
+                .Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(HttpApi.class)
+                .gethelp(0).enqueue(new Callback<HelpCenterBean>() {
+            @Override
+            public void onResponse(Call<HelpCenterBean> call, Response<HelpCenterBean> response) {
+                HelpCenterBean helpCenterBean = response.body();
+                parseRespomse(helpCenterBean);
+                System.out.println(helpCenterBean.toString());
+            }
 
+            @Override
+            public void onFailure(Call<HelpCenterBean> call, Throwable throwable) {
+                Toast.makeText(mContext, "网络异常,请重试", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void parseRespomse(HelpCenterBean helpCenterBean) {
+        helpList.clear();
+
+        helpList = helpCenterBean.getHelpList();
+
+
+        mLvhelp.setAdapter(new HelpAdapter(mContext,helpList));
+        mLvhelp.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View view) {
+        mMainActivity.popBackStack();
     }
 
     private interface HttpApi {
-
-        @POST("help")
-        Call<SearchRecommandResponse> getSearchRecommend(@Path("version") String version);// search/recommend
-        //如果url中含有斜线，那么不能把带斜线的值传入（斜线会变乱码）
-
-        //        //POST 请求PSOT参数
-        //        @FormUrlEncoded  //进行表单url编码
-        //        @POST("search")
-        //        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
+        @FormUrlEncoded
+        @POST(Constant.URL_HELP)
+        Call<HelpCenterBean> gethelp(@Field("version") int version);
 
     }
 }
