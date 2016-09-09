@@ -10,6 +10,8 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -120,10 +122,10 @@ public class SearchFragment extends BaseFragment {
                                         int groupPosition, int childPosition, long id) {
 
                 Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
-                if (childPosition<mData.size()) {
+                if (childPosition < mData.size()) {
 
                     etSearch.setText(mData.get(childPosition));
-                }else {
+                } else {
 
                     etSearch.setText(searchOld.get(childPosition));
                 }
@@ -234,21 +236,24 @@ public class SearchFragment extends BaseFragment {
         //创建组条目的view界面
         @Override
         public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup viewGroup) {
-            if (convertView == null) {
-                convertView = new TextView(getActivity().getApplicationContext());
+
+            convertView = (LinearLayout) View.inflate(getActivity(), R.layout.wowocoupons_parent_item, null);
+
+
+            TextView parentTextView = (TextView) convertView.findViewById(R.id.parentitem);
+            parentTextView.setText(title[groupPosition]);
+            ImageView parentImageViw = (ImageView) convertView.findViewById(R.id.arrow);
+            //判断isExpanded就可以控制是按下还是关闭，同时更换图片
+            if (isExpanded) {
+                parentImageViw.setImageResource(R.drawable.arrow_down);
+            } else {
+                parentImageViw.setImageResource(R.drawable.arrow);
             }
-            String groupText = title[groupPosition];
 
-            TextView tv = (TextView) convertView;
+            return convertView;
 
-            tv.setText(groupText);
-            tv.setTextColor(Color.RED);
-            tv.setBackgroundColor(Color.parseColor("#33000000"));
-            tv.setPadding(8, 8, 8, 8);
-            tv.setTextSize(18);
-            return tv;
+
         }
-
 
 
         //创建对应组对应子条目的view界面
