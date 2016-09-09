@@ -37,7 +37,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
 
         <Button
             android:id="@+id/bt_title_right"
@@ -49,7 +50,8 @@
             android:drawableRight="@mipmap/cloud_upload"
             android:text="筛选"
             android:textColor="@android:color/white"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            />
     </RelativeLayout>
 
 </merge>

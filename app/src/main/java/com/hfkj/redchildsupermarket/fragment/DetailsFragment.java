@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -55,13 +54,9 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     RadioGroup mRgSort;
     @Bind(R.id.lv_goods)
     ListView mLvGoods;
-    @Bind(R.id.bt_title_left)
-    Button mBtTitleLeft;
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
-    private ShangPingFragment mShangPingFragment;
-    private String mOrderby;
 
     @Nullable
     @Override
@@ -82,6 +77,10 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
             mTvTitleName.setText("热门单品");
             mCid = 121;
         } else {
+        }else if (mCid == 300){
+            mTvTitleName.setText("促销商品");
+            mCid = 121;
+        }else {
             mTvTitleName.setText("商品列表");
         }
 
@@ -96,32 +95,11 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         super.onCreate(savedInstanceState);
 
 
+
     }
 
     @Override
     public void initData() {
-
-        setSort();
-
-    }
-
-    private void setSort() {
-        int checkedRadioButtonId = mRgSort.getCheckedRadioButtonId();
-        switch (checkedRadioButtonId) {
-            case R.id.rb_sales:
-                mOrderby = "saleDown";
-                break;
-            case R.id.rb_price:
-                mOrderby = "priceDown";
-                break;
-            case R.id.rb_appraise:
-                mOrderby = "commentDown";
-                break;
-            case R.id.rb_uprack:
-                mOrderby = "shelvesDown";
-                break;
-
-        }
         getNetData();
     }
 

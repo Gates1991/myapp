@@ -97,14 +97,17 @@ public class HelpCenterFragment extends BaseFragment implements AdapterView.OnIt
         mLvhelp.setOnItemClickListener(this);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
-    }
+
 
     @Override
     public void onClick(View view) {
         mMainActivity.popBackStack();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//       String title = helpList.get(position).getTitle();
+        mMainActivity.addToBackStack(new HelpdetailFragment(),position);
     }
 
     private interface HttpApi {

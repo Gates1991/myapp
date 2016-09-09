@@ -51,8 +51,8 @@ public class Constant {
     public static final String URL_ADDRESS_GET = "addressDetail";
     public static final String URL_ADDRESSDE_FAULT = "addressdefault";
     public static final String URL_ADDRESS_DELETE = "addressdelete";
-    public static final String URL_HELP = "help";
-    public static final String URL_HELP_DETAIL = "help_detail";
+    public static final String URL_HELP = "help"; //帮助中心url
+    public static final String URL_HELPDETAIA = "help_detail"; //帮助中心详情页url
     public static final String CATEGORY_ID = "category_id";
     public static final String INTENT_EXTRA = "intent_extra";
     public static final String WHICH_ACTIVITY = "which_activity";

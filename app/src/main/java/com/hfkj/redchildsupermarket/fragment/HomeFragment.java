@@ -72,7 +72,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         ButterKnife.bind(this, view);
         mRg.setOnCheckedChangeListener(this);
         initData();
-
         return view;
     }
     /**
@@ -80,7 +79,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
      */
     @Override
     public void initData() {
-
         infoList.add("欢迎领导光临红孩子商城");
         infoList.add("喜迎国庆欢乐大酬宾");
         infoList.add("更多活动敬请关注红孩子商城");
@@ -155,7 +153,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 switch (position) {
                     case 0:
                         mRg.check(R.id.rb_1);
-
                         break;
                     case 1:
                         mRg.check(R.id.rb_2);
@@ -173,7 +170,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                         mRg.check(R.id.rb_6);
                         break;
                 }
-
             }
         });
     }
@@ -290,7 +286,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onResume() {
-
         super.onResume();
     }
 

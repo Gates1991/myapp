@@ -14,7 +14,6 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +38,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class LimitShoping extends BaseFragment implements AdapterView.OnItemClickListener {
+public class LimitShoping extends BaseFragment {
 
     @Bind(R.id.lv_limitshoping)
     ListView mLvLimitshoping;

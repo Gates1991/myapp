@@ -21,6 +21,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         //Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
+      //  Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
     }
 
     private class RedBaby implements Thread.UncaughtExceptionHandler{

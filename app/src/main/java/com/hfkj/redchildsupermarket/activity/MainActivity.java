@@ -165,10 +165,9 @@ public class MainActivity extends FragmentActivity {
                 R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
                 R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
         );
+
         Bundle bundle = new Bundle();
-
         bundle.putString("keyword",keyword);
-
         fragment.setArguments(bundle);
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);

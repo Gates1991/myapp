@@ -18,7 +18,7 @@ import com.hfkj.redchildsupermarket.R;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class AddAddressFragment extends BaseFragment {
+public class AddAddressFragment extends BaseFragment implements View.OnClickListener {
 
     private View mView;
 
@@ -35,6 +35,7 @@ public class AddAddressFragment extends BaseFragment {
 
         ImageButton mImgbtn_left = (ImageButton) mView.findViewById(R.id.imgbtn_left);
         mImgbtn_left.setVisibility(View.VISIBLE);
+        mImgbtn_left.setOnClickListener(this);
         ImageButton mImgbtn_right = (ImageButton) mView.findViewById(R.id.btn_right);
         mImgbtn_right.setVisibility(View.VISIBLE);
 
@@ -49,5 +50,14 @@ public class AddAddressFragment extends BaseFragment {
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.imgbtn_left:
+                mMainActivity.popBackStack();
+                break;
+        }
     }
 }
