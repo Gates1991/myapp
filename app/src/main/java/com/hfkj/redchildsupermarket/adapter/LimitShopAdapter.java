@@ -12,17 +12,18 @@ import android.content.Context;
 import android.graphics.Paint;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.bean.LimitShopintBean;
+import com.hfkj.redchildsupermarket.fragment.DetailsFragment;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
-
-import butterknife.OnClick;
 
 public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductListBean> {
 
@@ -52,12 +53,18 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
         viewHolder.mTvItemType .setText(mProductListBean.getName());
         viewHolder.mTvItemLimitPrice.setText(mProductListBean.getLimitPrice()+"¥");
         String time = getTimeFromInt(mProductListBean.getLeftTime());
-        System.out.println(time+position);
         viewHolder.mTvLimittime.setText(time);
         viewHolder.mTvItemPrice.setText("原价:"+mProductListBean.getPrice()+"¥");
         viewHolder.mTvItemPrice.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
-        System.out.println("11111");
-
+       viewHolder.bt_limitshoping = (Button) convertView.findViewById(R.id.bt_limitshop);
+        viewHolder.bt_limitshoping.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("呵呵哒");
+                DetailsFragment detailsFragment = new DetailsFragment();
+                ( (MainActivity) mContext).addToBackStack(detailsFragment,131);
+            }
+        });
         return convertView;
     }
 
@@ -67,6 +74,7 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
         TextView  mTvItemPrice;
         TextView  mTvItemLimitPrice;
         TextView  mTvLimittime;
+        Button  bt_limitshoping;
     }
 
     public String getTimeFromInt(long time) {
@@ -80,12 +88,4 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
         return "剩余"+ hour + "小时" + minute + "分" + second + "秒";
     }
 
-
-
-
-
-    @OnClick(R.id.bt_limitshop)
-    public void onClick() {
-
-    }
 }

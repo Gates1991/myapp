@@ -14,7 +14,6 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -39,7 +38,7 @@ import retrofit2.Retrofit;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public class LimitShoping extends BaseFragment implements AdapterView.OnItemClickListener {
+public class LimitShoping extends BaseFragment {
 
     @Bind(R.id.lv_limitshoping)
     ListView mLvLimitshoping;
@@ -72,7 +71,6 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
         initView();
         initData();
         mMainActivity.isMainFrament=false;
-        mLvLimitshoping.setOnItemClickListener(this);
         return view;
     }
 
@@ -125,10 +123,6 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
         mHandler.sendEmptyMessageDelayed(1, 1000);
     }
 
-    @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        //TODO: 2016/9/7
-    }
 
     private interface HttpLimitShoping {
         @GET("limitbuy")

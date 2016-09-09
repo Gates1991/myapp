@@ -5,6 +5,7 @@
               android:layout_height="match_parent">
     <include layout="@layout/title_bar"/>
     <ListView
+        android:descendantFocusability="blocksDescendants"
         android:id="@+id/lv_sales"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
