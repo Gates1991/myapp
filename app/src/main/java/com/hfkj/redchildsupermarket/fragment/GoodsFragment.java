@@ -71,6 +71,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         View view = View.inflate(mContext, R.layout.fragment_goods_item, null);
 
         ButterKnife.bind(this, view);
+
         Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
 
