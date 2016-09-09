@@ -18,6 +18,7 @@ import com.hfkj.redchildsupermarket.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * @创建者 Shayne
@@ -57,6 +58,10 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
 
     private RadioButton previousChecked;
     private CancelIndentFragment mCancelIndentFragment;
+   /* private String userid;
+    private long token;
+    private int pageNum;
+    private int pageSzie;*/
 
     @Nullable
     @Override
@@ -66,12 +71,19 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
         initTitleView();
         ButterKnife.bind(this, mView);
         indentRadio.setOnCheckedChangeListener(this);
+
+        //对接接口拿数据
+        // getSpValue();
+        //设默认选中项
+        rbSucessIndent.setChecked(true);
         return mView;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         initFragment();
 
     }
@@ -98,6 +110,7 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
     @Override
     public void initData() {
 
+
     }
 
     @Override
@@ -108,28 +121,48 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
 
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
+//
+//        android.app.FragmentManager fragmentManager = mMainActivity.getFragmentManager();
+//        android.app.FragmentTransaction transaction = fragmentManager.beginTransaction();
+
+        //拿sp中的当前登录token,userid
+
+       /* //userid 值
+        userid = SpUtil.getinfo(mContext, "login_user_id", "");
+        //token  值
+        String login_token =  SpUtil.getinfo(mContext, "login_token", "");
+        token = Long.parseLong(login_token);
+        //pagenum 值
+        pageNum = 1;
+        //pagesize值
+        pageSzie = 10;*/
+
         switch (checkedId) {
             case R.id.rb_SucessIndent:
                 rbSucessIndent.setTextColor(Color.BLACK);
-             //   rbSucessIndent.setBackgroundResource(R.drawable.id_segment_selected_1_bg);
+                //   rbSucessIndent.setBackgroundResource(R.drawable.id_segment_selected_1_bg);
                 setCheckedTextColor(rbSucessIndent);
                 changeFragment(mSuccessIndentFragment);
+
+
                 break;
             case R.id.rb_UnsucessIndent:
                 rbUnsucessIndent.setTextColor(Color.BLACK);
-             //   rbUnsucessIndent.setBackgroundResource(R.drawable.id_segment_selected_2_bg);
+                //   rbUnsucessIndent.setBackgroundResource(R.drawable.id_segment_selected_2_bg);
                 setCheckedTextColor(rbUnsucessIndent);
                 changeFragment(mUnsucessIndentFragment);
+
                 break;
             case R.id.rb_CancelIndent:
                 rbCancelIndent.setTextColor(Color.BLACK);
-             //   rbCancelIndent.setBackgroundResource(R.drawable.id_segment_selected_3_bg);
+                //   rbCancelIndent.setBackgroundResource(R.drawable.id_segment_selected_3_bg);
                 setCheckedTextColor(rbCancelIndent);
                 changeFragment(mCancelIndentFragment);
                 break;
 
         }
     }
+
 
     public void changeFragment(BaseFragment frag) {
         FragmentManager supportFragmentManager = mMainActivity.getSupportFragmentManager();
@@ -149,17 +182,10 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
     }
 
 
-/*
-    @OnClick({R.id.tv_SucessIndent, R.id.tv_UnsucessIndent, R.id.tv_CancelIndent})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_SucessIndent:  // 已完成订单
-                // Toast.makeText(mContext,"可以点",Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.tv_UnsucessIndent: //未完成订单
-                break;
-            case R.id.tv_CancelIndent: //取消订单
-                break;
-        }
-    }*/
+    @OnClick(R.id.imgbtn_left)
+    public void onClick() {
+        mMainActivity.popBackStack();
+    }
+
+
 }

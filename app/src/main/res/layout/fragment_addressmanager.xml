@@ -3,5 +3,12 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <include layout="@layout/layout_title_bar"/>
+    <ListView
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:id="@+id/lv_address"
+        android:layout_height="match_parent">
+
+    </ListView>
 
 </LinearLayout>
