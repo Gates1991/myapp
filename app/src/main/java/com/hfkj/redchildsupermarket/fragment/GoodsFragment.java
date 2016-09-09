@@ -74,9 +74,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
 
         Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
-
         mMainActivity.isMainFrament = false;
-
         sort = "saleDown";
         initView();
         initData();
@@ -84,9 +82,8 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initView() {
-        mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("搜索结果");
-
+        mBtTitleLeft.setVisibility(View.VISIBLE);
         //默认进来rbSales设置为true状态
         rbSales.setChecked(true);
         previousChecked = rbSales;

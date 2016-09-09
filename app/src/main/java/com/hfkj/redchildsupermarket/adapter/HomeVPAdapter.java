@@ -25,10 +25,12 @@ import java.util.List;
 public class HomeVPAdapter extends PagerAdapter{
     private List<HomeVPBean.HomeTopicBean> pageList;
     private Context                        mContext;
+   private  List<ImageView> datas;
 
-    public HomeVPAdapter(List<HomeVPBean.HomeTopicBean> pageList, Context context) {
+    public HomeVPAdapter(List<HomeVPBean.HomeTopicBean> pageList, Context context, List<ImageView> datas ) {
         this.pageList = pageList;
         mContext = context;
+        this.datas=datas;
     }
 
     @Override
@@ -43,7 +45,14 @@ public class HomeVPAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView iv = new ImageView(mContext);
+
+      /*  ImageView iv = new ImageView(mContext);
+        ViewPager.LayoutParams lp = new ViewPager.LayoutParams();
+        lp.height = ViewPager.LayoutParams.MATCH_PARENT;
+        lp.width = ViewPager.LayoutParams.MATCH_PARENT;
+        iv.setLayoutParams(lp);
+        container.addView(iv);*/
+        ImageView iv = datas.get(position);
         container.addView(iv);
         Glide.with(mContext).load(Constant.BASE_URL+pageList.get(position).getPic()).into(iv);
 

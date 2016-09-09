@@ -75,9 +75,15 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         }else if (mCid == 200){
             mTvTitleName.setText("热门单品");
             mCid = 121;
+        }else if (mCid == 300){
+            mTvTitleName.setText("促销商品");
+            mCid = 121;
         }else {
             mTvTitleName.setText("商品列表");
         }
+
+
+
 
         initData();
         mMainActivity.isMainFrament = false;

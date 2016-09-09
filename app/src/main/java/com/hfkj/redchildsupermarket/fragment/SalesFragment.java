@@ -13,6 +13,7 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SalesFragment extends BaseFragment implements View.OnClickListener {
+public class SalesFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
 
     private ListView mLv;
@@ -55,6 +56,7 @@ public class SalesFragment extends BaseFragment implements View.OnClickListener 
         bt_title_left.setVisibility(View.VISIBLE);
         tv_title_name.setText("促销快报");
         initData();
+        mLv.setOnItemClickListener(this);
         return view;
     }
 
@@ -98,5 +100,13 @@ public class SalesFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         mMainActivity.popBackStack();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                DetailsFragment detailsFragment = new DetailsFragment();
+                mMainActivity.addToBackStack(detailsFragment,300);
+
+
     }
 }

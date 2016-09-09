@@ -67,9 +67,6 @@ public class MoreFragment extends BaseFragment {
         initData();
         mContext = getActivity();
 
-
-
-
         return view;
     }
 
