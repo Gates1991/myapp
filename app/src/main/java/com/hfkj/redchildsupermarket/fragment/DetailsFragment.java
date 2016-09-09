@@ -86,7 +86,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
         }
 
         initData();
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         mLvGoods.setOnItemClickListener(this);
         return view;
     }

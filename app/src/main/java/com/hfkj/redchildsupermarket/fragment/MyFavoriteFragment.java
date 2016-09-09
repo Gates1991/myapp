@@ -26,7 +26,7 @@ public class MyFavoriteFragment extends  BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_myfavorite, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         return mView;
     }

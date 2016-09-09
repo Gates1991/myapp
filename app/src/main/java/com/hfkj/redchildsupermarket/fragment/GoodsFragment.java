@@ -74,7 +74,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
 
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
 
         sort = "saleDown";
         initView();

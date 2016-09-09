@@ -30,7 +30,7 @@ public class AboutFragment extends  BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstnceState) {
         mView = inflater.inflate(R.layout.fragment_about, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         initData();
         return mView;

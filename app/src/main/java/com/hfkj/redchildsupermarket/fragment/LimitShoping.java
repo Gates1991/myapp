@@ -71,7 +71,7 @@ public class LimitShoping extends BaseFragment implements AdapterView.OnItemClic
         ButterKnife.bind(this, view);
         initView();
         initData();
-        mMainActivity.isMainFrament=false;
+        mMainActivity.isMainFrament=2;
         mLvLimitshoping.setOnItemClickListener(this);
         return view;
     }

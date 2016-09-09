@@ -26,7 +26,7 @@ public class BrowseRecordFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_browserecord, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         inintTitleView();
         return mView;
     }

@@ -51,7 +51,7 @@ public class DetailsBean extends BaseResponse {
         private int marketPrice;
         private String name;
         private int price;
-        private int score;
+        private float score;
         private List<String> bigPic;
         private List<String> pics;
         /**
@@ -142,11 +142,11 @@ public class DetailsBean extends BaseResponse {
             this.price = price;
         }
 
-        public int getScore() {
+        public float getScore() {
             return score;
         }
 
-        public void setScore(int score) {
+        public void setScore(float score) {
             this.score = score;
         }
 
