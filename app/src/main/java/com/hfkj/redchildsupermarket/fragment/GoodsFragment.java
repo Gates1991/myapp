@@ -135,7 +135,6 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void parseRespomse1(SearchGoodsBean searchGoodsResponse) {
-        // TODO: 2016/9/7 json 数据解析处理
         mDatas.clear();
         mDatas = searchGoodsResponse.getProductList();
 

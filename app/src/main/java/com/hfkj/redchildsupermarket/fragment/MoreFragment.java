@@ -154,7 +154,8 @@ public class MoreFragment extends BaseFragment {
                 mMain_radio.setVisibility(View.INVISIBLE);*/
                 break;
             case R.id.browse_record://浏览记录
-                mMainActivity.addToBackStack(new BrowseRecordFragment());
+                //TODO  keyword  可以自己传递
+                mMainActivity.addToBackStack(new BrowseRecordFragment(),"玩具");
 
                 break;
             case R.id.help_center://帮助中心
