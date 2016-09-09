@@ -10,6 +10,10 @@ import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 /**
  * @创建者 Shayne
  * @创建时间 2016/9/8 2:01
@@ -18,8 +22,16 @@ import com.hfkj.redchildsupermarket.R;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class MyTicketFragment extends  BaseFragment {
+public class MyTicketFragment extends BaseFragment {
 
+    @Bind(R.id.imgbtn_left)
+    ImageButton imgbtnLeft;
+    @Bind(R.id.tv_title_layout)
+    TextView tvTitleLayout;
+    @Bind(R.id.btn_right)
+    ImageButton btnRight;
+    @Bind(R.id.tv_title_right)
+    TextView tvTitleRight;
     private View mView;
 
     @Nullable
@@ -28,6 +40,7 @@ public class MyTicketFragment extends  BaseFragment {
         mView = inflater.inflate(R.layout.fragment_myticket, null);
         mMainActivity.isMainFrament = false;
         initTitleView();
+        ButterKnife.bind(this, mView);
         return mView;
     }
 
@@ -44,5 +57,16 @@ public class MyTicketFragment extends  BaseFragment {
     @Override
     public void initData() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
+
+    @OnClick(R.id.imgbtn_left)
+    public void onClick() {
+        mMainActivity.popBackStack();
     }
 }

@@ -2,17 +2,30 @@ package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.adapter.AddressAdapter;
+import com.hfkj.redchildsupermarket.bean.MyAddressBean;
+import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
+import com.hfkj.redchildsupermarket.http.HttpApi;
+import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 /**
  * @创建者 Shayne
@@ -27,6 +40,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     @Bind(R.id.btn_right)
     ImageButton btnRight;
     private View mView;
+    private ListView mLv_address;
 
     @Nullable
     @Override
@@ -34,6 +48,8 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         mView = inflater.inflate(R.layout.fragment_addressmanager, null);
         mMainActivity.isMainFrament = false;
         initTitleView();
+        //联网拿数据
+        getAddressData();
         ButterKnife.bind(this, mView);
         return mView;
     }
@@ -52,21 +68,79 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         tv_title_right.setText("新增地址");
 
         TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_layout);
-        mTv_title_layout.setText("新增地址");
+        mTv_title_layout.setText("我的地址");
+        mLv_address = (ListView)mView.findViewById(R.id.lv_address);
+        mLv_address.setVerticalScrollBarEnabled(true);
     }
 
 
     @Override
     public void initData() {
-        //联网拿数据
-        getAddressData();
+
+
 
     }
 
     private void getAddressData() {
+        String userid = SpUtil.getinfo(mContext, "login_user_id", "");
+        String tokenString = SpUtil.getinfo(mContext, "login_token", "");
+        System.out.println(tokenString);
+        long token = Long.parseLong(tokenString);
+
+
+        //借口对接
+        Retrofit retrofit = new Retrofit
+                .Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        HttpApi httpApi = retrofit.create(HttpApi.class);
+        Call<MyAddressBean> call = httpApi.getAddressData(userid,token);
+
+        call.enqueue(new Callback<MyAddressBean>() {
+            @Override
+            public void onResponse(Call<MyAddressBean> call, Response<MyAddressBean> response) {
+                if (response.isSuccessful()) {
+                    //响应成功
+                    MyAddressBean myAddressBean = response.body();
+                        processRegisterBean(myAddressBean);
+                } else {
+                    Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyAddressBean> call, Throwable throwable) {
+                Toast.makeText(mContext,"对接失败",Toast.LENGTH_SHORT).show();
+
+            }
+        });
+
 
 
     }
+
+    private void processRegisterBean(MyAddressBean myAddressBean) {
+        if (TextUtils.equals("error", myAddressBean.response)) {
+            Toast.makeText(mContext, "ERRORCODE:" + myAddressBean.error.code + "MSG:" + myAddressBean.error.msg, Toast.LENGTH_SHORT).show();
+            //请重新登录(如果知道超时返回的code值就可以进行判断,在登录无效后,重新登录)
+            mMainActivity.addToBackStack(new UserLoginFrament());
+
+        } else {
+            //正常对接
+            //设置适配器 TODO
+            System.out.println("能走过来?");
+            System.out.println(myAddressBean);
+            mLv_address.setAdapter(new AddressAdapter(mContext, myAddressBean.getAddressList()));
+
+
+        }
+
+
+
+
+    }
+
 
     @Override
     public void onDestroyView() {
@@ -86,6 +160,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             case R.id.imgbtn_left:
                 mMainActivity.popBackStack();
                 break;
+
         }
     }
 }
