@@ -20,6 +20,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        //Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
       //  Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
     }
 

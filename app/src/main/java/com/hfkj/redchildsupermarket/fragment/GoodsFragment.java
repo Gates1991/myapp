@@ -71,10 +71,11 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
         View view = View.inflate(mContext, R.layout.fragment_goods_item, null);
 
         ButterKnife.bind(this, view);
-
         Bundle bundle = getArguments();//获取携带的数据
         keyword = bundle.getString("keyword");
-        mMainActivity.isMainFrament = false;
+
+        mMainActivity.isMainFrament = 2;
+
         sort = "saleDown";
         initView();
         initData();
@@ -82,8 +83,9 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initView() {
-        mTvTitleName.setText("搜索结果");
         mBtTitleLeft.setVisibility(View.VISIBLE);
+        mTvTitleName.setText("搜索结果");
+
         //默认进来rbSales设置为true状态
         rbSales.setChecked(true);
         previousChecked = rbSales;
@@ -132,6 +134,7 @@ public class GoodsFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void parseRespomse1(SearchGoodsBean searchGoodsResponse) {
+        // TODO: 2016/9/7 json 数据解析处理
         mDatas.clear();
         mDatas = searchGoodsResponse.getProductList();
 

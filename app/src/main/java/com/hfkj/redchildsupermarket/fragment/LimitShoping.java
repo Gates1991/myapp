@@ -70,7 +70,8 @@ public class LimitShoping extends BaseFragment {
         ButterKnife.bind(this, view);
         initView();
         initData();
-        mMainActivity.isMainFrament=false;
+        mMainActivity.isMainFrament=2;
+        mLvLimitshoping.setOnItemClickListener(this);
         return view;
     }
 
@@ -123,6 +124,10 @@ public class LimitShoping extends BaseFragment {
         mHandler.sendEmptyMessageDelayed(1, 1000);
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //TODO: 2016/9/7
+    }
 
     private interface HttpLimitShoping {
         @GET("limitbuy")

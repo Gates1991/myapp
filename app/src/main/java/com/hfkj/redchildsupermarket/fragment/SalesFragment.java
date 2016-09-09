@@ -52,7 +52,7 @@ public class SalesFragment extends BaseFragment implements View.OnClickListener,
          tv_title_name = (TextView) view.findViewById(R.id.tv_title_name);
         bt_title_left = (Button) view.findViewById(R.id.bt_title_left);
         bt_title_left.setOnClickListener(this);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         bt_title_left.setVisibility(View.VISIBLE);
         tv_title_name.setText("促销快报");
         initData();

@@ -95,7 +95,7 @@ public class UserLoginFrament extends BaseFragment {
         TextView mTv_title_left = (TextView) view.findViewById(R.id.tv_title_left);
         mTv_title_left.setText("返回");
 
-        mMainActivity.isMainFrament=false;
+        mMainActivity.isMainFrament=2;
 
         mContext = getActivity();
 

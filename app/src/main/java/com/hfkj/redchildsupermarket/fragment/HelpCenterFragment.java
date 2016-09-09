@@ -46,7 +46,7 @@ public class HelpCenterFragment extends BaseFragment implements AdapterView.OnIt
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstnceState) {
         mView = inflater.inflate(R.layout.fragment_helpcenter, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         inintTitleView();
         initData();
         return mView;

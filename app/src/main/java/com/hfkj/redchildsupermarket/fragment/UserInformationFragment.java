@@ -75,7 +75,6 @@ public class UserInformationFragment extends BaseFragment {
         supportFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
         ButterKnife.bind(this, mView);
 
-
         /**
          * 这个放哪?????
          */
@@ -204,6 +203,7 @@ public class UserInformationFragment extends BaseFragment {
         switch (view.getId()) {
             case R.id.imgbtn_left://返回
                 mMainActivity.clearBackStack();
+                //mMainActivity.popBackStack2();
                 break;
             case R.id.my_indent: // 我的订单
                 mMainActivity.addToBackStack(new MyIndentFragment());

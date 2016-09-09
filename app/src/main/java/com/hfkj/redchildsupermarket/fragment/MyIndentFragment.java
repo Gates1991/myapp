@@ -67,7 +67,7 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_myindent, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         ButterKnife.bind(this, mView);
         indentRadio.setOnCheckedChangeListener(this);

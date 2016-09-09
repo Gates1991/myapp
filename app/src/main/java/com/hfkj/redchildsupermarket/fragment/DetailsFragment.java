@@ -30,6 +30,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,20 +62,21 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_goods_item, null);
+        View view = inflater.inflate(R.layout.fragment__libiao, null);
 
         Bundle bundle = getArguments();
 
         ButterKnife.bind(this, view);
 
         mCid = bundle.getInt("id");
-
-        if (mCid ==100  ){
+        mBtTitleLeft.setVisibility(View.VISIBLE);
+        if (mCid == 100) {
             mTvTitleName.setText("新品上市");
             mCid = 212;
-        }else if (mCid == 200){
+        } else if (mCid == 200) {
             mTvTitleName.setText("热门单品");
             mCid = 121;
+        } else {
         }else if (mCid == 300){
             mTvTitleName.setText("促销商品");
             mCid = 121;
@@ -82,11 +84,8 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
             mTvTitleName.setText("商品列表");
         }
 
-
-
-
         initData();
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         mLvGoods.setOnItemClickListener(this);
         return view;
     }
@@ -106,7 +105,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
 
     private void getNetData() {
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
-                .create(HttpApi.class).getDetailsData("1","10","saleDown",mCid).enqueue(new Callback<SearchGoodsBean>() {
+                .create(HttpApi.class).getDetailsData("1", "10", mOrderby, mCid).enqueue(new Callback<SearchGoodsBean>() {
 
 
             @Override
@@ -140,20 +139,27 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        SearchGoodsBean.ProductListBean bean  = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
-
+        SearchGoodsBean.ProductListBean bean = (SearchGoodsBean.ProductListBean) parent.getItemAtPosition(position);
         int beanId = bean.getId();
-        ShangPingFragment shangPingFragment = new ShangPingFragment();
-        mMainActivity.addToBackStack(shangPingFragment,beanId);
+        if (mShangPingFragment == null) {
+            mShangPingFragment = new ShangPingFragment();
+        }
+        mMainActivity.addToBackStack(mShangPingFragment, beanId);
     }
+
+    @OnClick(R.id.bt_title_left)
+    public void onClick() {
+        mMainActivity.popBackStack();
+    }
+
 
     private interface HttpApi {
 
         @GET("productlist")
-        Call<SearchGoodsBean> getDetailsData(@Query("page") String page, @Query("pageNum") String pageNum, @Query("orderby") String orderby, @Query("cId")
-        int cId);
+        Call<SearchGoodsBean> getDetailsData(@Query("page") String page, @Query("pageNum") String pageNum, @Query
+                ("orderby") String orderby, @Query("cId")
+                                             int cId);
     }
-
 
 
 }

@@ -46,7 +46,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_addressmanager, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         //联网拿数据
         getAddressData();

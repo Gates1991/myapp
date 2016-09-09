@@ -38,7 +38,7 @@ public class MyTicketFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_myticket, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         ButterKnife.bind(this, mView);
         return mView;

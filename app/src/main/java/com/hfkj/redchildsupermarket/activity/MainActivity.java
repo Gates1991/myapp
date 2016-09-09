@@ -38,7 +38,7 @@ public class MainActivity extends FragmentActivity {
     @Bind(R.id.more)
     RadioButton mMore;
     //判断是否是主Fragment
-    public boolean isMainFrament = true;
+    public int isMainFrament = 1;
 
     private BaseFragment mFragHome;
     private BaseFragment mFragSearch;
@@ -197,7 +197,7 @@ public class MainActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-        if (isMainFrament){//是主的Fragment就退栈,不是主Fragment就清除栈顶
+        if (isMainFrament ==1){//是主的Fragment就退栈,不是主Fragment就清除栈顶
             long currentTimeMillis = System.currentTimeMillis();
             if (currentTimeMillis - currentClickTime >2000){
                 Toast.makeText(this, "再次点击则退出应用", Toast.LENGTH_SHORT).show();
@@ -205,12 +205,17 @@ public class MainActivity extends FragmentActivity {
             }else {
                 finish();
             }
-        }else {
+        }else if(isMainFrament ==2) {
             popBackStack();
-            isMainFrament = true;
+            isMainFrament = 1;
+        }else if(isMainFrament ==3){
+            popBackStack2();
+            isMainFrament = 2;
         }
 
+    }
 
-
+    public  void popBackStack2() {
+        supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
     }
 }

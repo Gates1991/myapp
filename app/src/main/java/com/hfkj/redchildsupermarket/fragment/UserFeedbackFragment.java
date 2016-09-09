@@ -33,7 +33,7 @@ public class UserFeedbackFragment extends  BaseFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstnceState) {
         mView = inflater.inflate(R.layout.fragment_userfeedback, null);
-        mMainActivity.isMainFrament = false;
+        mMainActivity.isMainFrament = 2;
         initTitleView();
         initData();
         return mView;

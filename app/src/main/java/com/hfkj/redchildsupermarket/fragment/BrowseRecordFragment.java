@@ -1,72 +1,34 @@
 package com.hfkj.redchildsupermarket.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.adapter.GoodsListAdapter;
-import com.hfkj.redchildsupermarket.bean.SearchGoodsBean;
-import com.hfkj.redchildsupermarket.utils.Constant;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
 
 /**
- * Created by 栁年 on 2016/9/7.
+ * @创建者 Shayne
+ * @创建时间 2016/9/6 18:23
+ * @描述着 ${TODO}
+ * @更新者 $Author$
+ * @更新时间 $Date$
+ * @更新描述 ${TODO}
  */
-public class BrowseRecordFragment extends BaseFragment implements View.OnClickListener {
+public class BrowseRecordFragment extends BaseFragment {
 
-    @Bind(R.id.rb_sales)
-    RadioButton rbSales;
-    @Bind(R.id.rb_price)
-    RadioButton rbPrice;
-    @Bind(R.id.rb_appraise)
-    RadioButton rbAppraise;
-    @Bind(R.id.rb_uprack)
-    RadioButton rbUprack;
-    @Bind(R.id.rg_sort)
-    RadioGroup rgSort;
-    @Bind(R.id.lv_goods)
-    ListView lvGoods;
-
-    @Bind(R.id.tv_title_name)
-    TextView mTvTitleName;
-    @Bind(R.id.bt_title_left)
-    Button mBtTitleLeft;
-
-    private RadioButton previousChecked;
-    private String keyword;
-
-    private List<SearchGoodsBean.ProductListBean> mDatas = new ArrayList();
-    private String sort;
-
+    private View mView;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mView = inflater.inflate(R.layout.fragment_browserecord, null);
+        mMainActivity.isMainFrament = 2;
+        inintTitleView();
+        return mView;
 
         View view = View.inflate(mContext, R.layout.fragment_browserecord, null);
 
