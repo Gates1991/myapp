@@ -136,9 +136,6 @@ public class InvoiceInfo extends BaseFragment  {
                 }else {
                     Toast.makeText(mContext,"发票抬头信息不能为空!",Toast.LENGTH_SHORT).show();
                 }
-               /* invoiceInfoBean.invoiceContent = mType;
-                sendResult(Activity.RESULT_OK,invoiceInfoBean);
-                ((MainActivity)mContext).popBackStack();*/
 
             }
         });

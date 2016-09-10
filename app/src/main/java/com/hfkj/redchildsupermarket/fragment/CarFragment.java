@@ -1,7 +1,6 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -56,7 +56,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     RelativeLayout mRlBottom;
     private TextView    tvTitle;
     private ImageButton mIb_shop_view;
-    private boolean                        hasShopping = true;
     private List<ShoppingCarBean.CartBean> mList       = new ArrayList<>();
     private ShopCarShowAdapter   mShopCarShowAdapter;
     private ShopCarFinishAdapter mShopCarFinishAdapter;
@@ -72,6 +71,11 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private int mTotalMoney;
     private String mUserid;
     private String mTokenString;
+    private LinearLayout mLl_hasShopping;
+    private LinearLayout mLl_noShopping;
+    private int mTotalNum;
+    private boolean hasShopping = false;
+
 
 
     @Override
@@ -79,108 +83,110 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                              Bundle savedInstanceState) {
         mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
         mTokenString = SpUtil.getinfo(mContext, "login_token", "");
-      //  long token = Long.parseLong(tokenString);
-       /* if (!TextUtils.isEmpty(userid) && !TextUtils.isEmpty(tokenString)) {
-            //获取网络数据显示
-        }*/
-
-        View view = null;
-        if (hasShopping) {
-            view = inflater.inflate(R.layout.fragment_hasshopping, null);
-            ButterKnife.bind(this, view);
-            mImgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
-            mBtn_right = (ImageButton) view.findViewById(R.id.btn_right);
-            mImgbtn_left.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //跳转到编辑页面
-                    if (!isFinish) {
-                        mTvTitleLeft.setText("完成");
-                        mLvShopCarFinish.setVisibility(View.VISIBLE);
-                        isFinish = true;
-                        mRlBottom.setVisibility(View.VISIBLE);
-                        mLvShopCarShow.setVisibility(View.GONE);
-                    }else {
-                        mTvTitleLeft.setText("编辑");
-                        isFinish = false;
-                        mRlBottom.setVisibility(View.GONE);
-                        mLvShopCarFinish.setVisibility(View.GONE);
-                        showData();
-                        mLvShopCarShow.setVisibility(View.VISIBLE);
-                        mChecked_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (mChecked_all.isChecked()) {
-                                    for (int i = 0; i < mList.size() ; i++) {
-                                        mList.get(i).setChecked(true);
-                                    }
-                                }else {
-                                    for (int i = 0; i < mList.size() ; i++) {
-                                        mList.get(i).setChecked(false);
-                                    }
-                                }
-                                mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
-                            }
-                        }
-                        );
-                        mIv_allremove.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                //获取选中项的cid,然后post到服务器删除
-                                //遍历集合,获取每个cid
-                                if (mChecked_all.isChecked()) {
-                                    //跳转到空购物车页面
-                                    hasShopping = false;
-                                    Toast.makeText(mContext,"确定全部删除吗",Toast.LENGTH_SHORT).show();
-                                }else {
-
-                                }
-                            }
-                        });
-                    }
-
-                }
-            });
-            mBtn_right.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //跳转到结算页面
-                    if (accountFragment == null) {
-                        accountFragment = new AccountFragment();
-                    }
-                    ((MainActivity)mContext).addToBackStack(accountFragment, (ArrayList) mList,mTotalMoney);
-                }
-            });
-        } else {
-            view = goToNoShopping(inflater);
-        }
-        mChecked_all = (CheckBox) view.findViewById(R.id.checked_all);
-        mIv_allremove = view.findViewById(R.id.iv_allremove);
+        //long token = Long.parseLong(tokenString);
+        View view = inflater.inflate(R.layout.fragment_hasshopping, null);
         ButterKnife.bind(this, view);
-        initData();
-        return view;
-    }
-
-    @NonNull
-    private View goToNoShopping(LayoutInflater inflater) {
-        View view;
-        view = inflater.inflate(R.layout.fragment_noshopping, null);
-        mIb_shop_view = (ImageButton) view.findViewById(R.id.ib_shop_view);
-        mIb_shop_view.setOnClickListener(new View.OnClickListener() {
+        mImgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
+        mBtn_right = (ImageButton) view.findViewById(R.id.btn_right);
+        mLl_hasShopping = (LinearLayout) view.findViewById(R.id.ll_hasshopping);
+        mLl_noShopping = (LinearLayout) view.findViewById(R.id.ll_noshpping);
+        mImgbtn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity activity = (MainActivity) mContext;
-                activity.getBrand().setChecked(true);
+                //跳转到编辑页面
+                if (!isFinish) {
+                    mTvTitleLeft.setText("完成");
+                    mLvShopCarFinish.setVisibility(View.VISIBLE);
+                    isFinish = true;
+                    mRlBottom.setVisibility(View.VISIBLE);
+                    mLvShopCarShow.setVisibility(View.GONE);
+                } else {
+                    mTvTitleLeft.setText("编辑");
+                    isFinish = false;
+                    mRlBottom.setVisibility(View.GONE);
+                    mLvShopCarFinish.setVisibility(View.GONE);
+                    showData();
+                    mLvShopCarShow.setVisibility(View.VISIBLE);
+                    mChecked_all.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                                @Override
+                                                                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                                    if (mChecked_all.isChecked()) {
+                                                                        for (int i = 0; i < mList.size(); i++) {
+                                                                            mList.get(i).setChecked(true);
+                                                                        }
+                                                                    } else {
+                                                                        for (int i = 0; i < mList.size(); i++) {
+                                                                            mList.get(i).setChecked(false);
+                                                                        }
+                                                                    }
+                                                                    mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
+                                                                }
+                                                            }
+                    );
+                    mIv_allremove.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //获取选中项的cid,然后post到服务器删除
+                            //遍历集合,获取每个cid
+                            if (mChecked_all.isChecked()) {
+                                //跳转到空购物车页面
+                                hasShopping = false;
+                                Toast.makeText(mContext, "确定全部删除吗", Toast.LENGTH_SHORT).show();
+                            } else {
+
+                            }
+                        }
+                    });
+                }
+
             }
         });
+        mBtn_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到结算页面
+                if ( ((MainActivity)mContext).isReplaceing) {
+                    return;
+                }
+                if (accountFragment == null) {
+                    accountFragment = new AccountFragment();
+                }
+                if (!accountFragment.isAdded()) {
+                    ((MainActivity) mContext).addToBackStack(accountFragment, (ArrayList) mList, mTotalMoney);
+                }
+            }
+        });
+
+        mChecked_all = (CheckBox) view.findViewById(R.id.checked_all);
+        mIv_allremove = view.findViewById(R.id.iv_allremove);
+
+        ButterKnife.bind(this, view);
+        initData();
+        if ("".equals(mUserid) || "".equals(mTokenString)) {
+            //显示空购物车界面
+            mLl_hasShopping.setVisibility(View.GONE);
+            mLl_noShopping.setVisibility(View.VISIBLE);
+
+            mIb_shop_view = (ImageButton) view.findViewById(R.id.ib_shop_view);
+            mIb_shop_view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //跳转到"分类页面完成"
+                    ((MainActivity) mContext).addToBackStack(new BrandFragment());
+                }
+            });
+        }else {
+            mLl_hasShopping.setVisibility(View.VISIBLE);
+            mLl_noShopping.setVisibility(View.GONE);
+        }
         return view;
     }
 
     public void initData() {
-
-
         //从服务器获取数据
-        mList.clear();
+        if (mList != null) {
+            mList.clear();
+        }
         getRetrfit();
         mRetrofit.create(HttpApi.class)
                 .getShopData(mTokenString, mUserid)
@@ -190,7 +196,9 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                         if (response.isSuccessful()) {
                             ShoppingCarBean carBean = response.body();
                             mList = carBean.getCart();
-                            fillData(mList);
+                            if (mList != null && mList.size() != 0) {
+                                fillData(mList);
+                            }
                             mShopCarShowAdapter = new ShopCarShowAdapter(mContext, mList);
                             mShopCarShowAdapter.notifyDataSetChanged();
                             mShopCarFinishAdapter = new ShopCarFinishAdapter(mContext, mList);
@@ -222,14 +230,14 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     }
 
     private void fillData(List<ShoppingCarBean.CartBean> list) {
-        int totalNum = 0;
+        mTotalNum = 0;
         mTotalMoney = 0;
-        for (int i = 0; i < list.size(); i++) {
-            totalNum += list.get(i).getPnum();
-            mTotalMoney += Integer.valueOf(list.get(i).getProductPrice()) * list.get(i).getPnum();
-        }
-        mShopTotalNum.setText(totalNum + "");
-        mShopTotalMoney.setText(mTotalMoney + "");
+            for (int i = 0; i < list.size(); i++) {
+                mTotalNum += list.get(i).getPnum();
+                mTotalMoney += Integer.valueOf(list.get(i).getProductPrice()) * list.get(i).getPnum();
+            }
+            mShopTotalNum.setText(mTotalNum + "");
+            mShopTotalMoney.setText(mTotalMoney + "");
     }
 
     @Override
@@ -265,8 +273,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                         mList.get(position).setPnum(num);
                         fillData(mList);
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
-                        /*SystemClock.sleep(1500);
-                        showData();*/
                         Toast.makeText(mContext, "添加成功", Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(mContext,"超过该商品的最大购买数量",Toast.LENGTH_SHORT).show();
@@ -325,7 +331,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         //从服务器获取数据
         mShowList.clear();
         mRetrofit.create(HttpApi.class)
-                .getShopData("1473125231223", "14731252269010")
+                .getShopData(mTokenString, mUserid)
                 .enqueue(new Callback<ShoppingCarBean>() {
                     @Override
                     public void onResponse(Call<ShoppingCarBean> call, Response<ShoppingCarBean> response) {

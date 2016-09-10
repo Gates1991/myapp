@@ -35,7 +35,12 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 
 /**
- * Created by 栁年 on 2016/9/7.
+ * @创建者 Shayne
+ * @创建时间 2016/9/6 18:23
+ * @描述着 ${TODO}
+ * @更新者 $Author$
+ * @更新时间 $Date$
+ * @更新描述 ${TODO}
  */
 public class BrowseRecordFragment extends BaseFragment implements View.OnClickListener {
 
