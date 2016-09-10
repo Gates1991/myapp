@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -13,12 +14,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.adapter.AddressAdapter;
 import com.hfkj.redchildsupermarket.bean.MyAddressBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.http.HttpApi;
 import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
+
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -42,6 +46,9 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     ImageButton btnRight;
     private View mView;
     private ListView mLv_address;
+    private Bundle mBundle;
+    private MyAddressBean mMyAddressBean;
+    public static final int RESPONSE_CODE = 0x010;
 
     @Nullable
     @Override
@@ -50,10 +57,19 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         mMainActivity.isMainFrament = 2;
         initTitleView();
         //联网拿数据
+
         getAddressData();
         ButterKnife.bind(this, mView);
         return mView;
     }
+
+    private void getDataFromAccountFrment() {
+        mBundle = getArguments();
+        boolean isOrder = mBundle.getBoolean("isOrder");
+        System.out.println(isOrder);
+
+    }
+
 
     @Override
     public void onResume() {
@@ -111,8 +127,8 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             public void onResponse(Call<MyAddressBean> call, Response<MyAddressBean> response) {
                 if (response.isSuccessful()) {
                     //响应成功
-                    MyAddressBean myAddressBean = response.body();
-                        processRegisterBean(myAddressBean);
+                    mMyAddressBean = response.body();
+                        processRegisterBean(mMyAddressBean);
                 } else {
                     Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
                 }
@@ -171,8 +187,32 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //TODO 跳转到条目编辑界面 modification
-        mMainActivity.addToBackStack(new ModificationFragment());
+        boolean isOrderPage = SpUtil.getBoolean(mContext, "isOrderPage", false);
+        if (isOrderPage) {
+            Toast.makeText(mContext,"订单页面跳转",Toast.LENGTH_SHORT).show();
+            Collections.reverse(mMyAddressBean.getAddressList());
+            MyAddressBean.AddressListBean addressListBean = mMyAddressBean.getAddressList().get(position);
+            //携带此对象到订单页面
+            SpUtil.saveBoolean(mContext,"isOrderPage",false);
+            sendResult(addressListBean);
+        }else {
+            mMainActivity.addToBackStack(new ModificationFragment());
+        }
 
 
     }
+
+    private void sendResult( MyAddressBean.AddressListBean addressListBean) {
+        if (getTargetFragment() == null) {
+            return;
+        }
+        Intent i = new Intent();
+        i.putExtra("name",addressListBean.getName());
+        i.putExtra("phone",addressListBean.getPhoneNumber());
+        i.putExtra("address",addressListBean.getAddressDetail());
+        getTargetFragment().onActivityResult(AccountFragment.REQUEST_CODE2,RESPONSE_CODE,i);
+        ((MainActivity)mContext).popBackStack();
+    }
+
+
 }

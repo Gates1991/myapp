@@ -161,6 +161,19 @@ public class MainActivity extends FragmentActivity {
         transaction.commit();
 
     }
+    public void addToBackStack(BaseFragment targetFragment,BaseFragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+        Bundle bundle = new Bundle();
+        transaction.hide(fragment).add(R.id.fl_content,targetFragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
     public void addToBackStack(BaseFragment fragment, ArrayList list, int data) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(

@@ -147,7 +147,7 @@ public class InvoiceInfo extends BaseFragment  {
         }
             Intent i = new Intent();
             i.putExtra("bean",invoiceInfoBean);
-            getTargetFragment().onActivityResult(AccountFragment.REQUEST_CODE,RESPONSE_CODE,i);
+            getTargetFragment().onActivityResult(AccountFragment.REQUEST_CODE1,RESPONSE_CODE,i);
 
     }
 

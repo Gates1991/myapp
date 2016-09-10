@@ -17,6 +17,7 @@ import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.adapter.ShopCarShowAdapter;
 import com.hfkj.redchildsupermarket.bean.InvoiceInfoBean;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 import com.hfkj.redchildsupermarket.view.ShowPayWayDialog;
 
 import java.util.ArrayList;
@@ -66,11 +67,13 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private TextView mTv_deliver_time;
     private TextView mTv_payway;
     private InvoiceInfo invoiceInfo;
-    public static final int REQUEST_CODE = 0x001;
+    public static final int REQUEST_CODE1 = 0x001;
+    public static final int REQUEST_CODE2 = 0x002;
     public static final int RESULT_CODE = 0x101;
     private TextView mTv_invoice_type;
     private TextView mTv_invoice_rise;
     private TextView mTv_invoice_content;
+    private AddressManagerFragment mAddressManagerFragment;
 
     @Nullable
     @Override
@@ -148,7 +151,13 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.rl_address:
-                ((MainActivity)mContext).addToBackStack(new AddressManagerFragment());
+                //申明一个boolean的成员变量来记录是哪一个页面跳转给地址页的
+                if (mAddressManagerFragment == null) {
+                    mAddressManagerFragment = new AddressManagerFragment();
+                }
+                mAddressManagerFragment.setTargetFragment(AccountFragment.this,REQUEST_CODE2);
+                ((MainActivity)mContext).addToBackStack(mAddressManagerFragment,AccountFragment.this);
+                SpUtil.saveBoolean(mContext,"isOrderPage",true);
                 break;
             case R.id.rl_pay_way:
                 if (showPayWayDialog == null) {
@@ -181,7 +190,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                    // invoiceInfo = new InvoiceInfo();
                      invoiceInfo = InvoiceInfo.newInstance();
                 }
-                invoiceInfo.setTargetFragment(AccountFragment.this,REQUEST_CODE);
+                invoiceInfo.setTargetFragment(AccountFragment.this,REQUEST_CODE1);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(
                         R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
@@ -204,10 +213,18 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         if(data == null) {
             return;
         }
-        InvoiceInfoBean bean = (InvoiceInfoBean) data.getSerializableExtra("bean");
-        mTv_invoice_type.setText("发票类型:\t"+ bean.invoiceType);
-        mTv_invoice_rise.setText("发票抬头:\t"+ bean.invoiceTop);
-        mTv_invoice_content.setText("发票内容:\t"+bean.invoiceContent);
+        if (requestCode == REQUEST_CODE1) {
+            InvoiceInfoBean bean = (InvoiceInfoBean) data.getSerializableExtra("bean");
+            mTv_invoice_type.setText("发票类型:\t" + bean.invoiceType);
+            mTv_invoice_rise.setText("发票抬头:\t" + bean.invoiceTop);
+            mTv_invoice_content.setText("发票内容:\t" + bean.invoiceContent);
+        }
+        if (requestCode == REQUEST_CODE2) {
+            mTvName.setText("姓名:\t"+data.getStringExtra("name"));
+            mTvTelephone.setText("电话:\t"+data.getStringExtra("phone"));
+            mTvAddressDetial.setText("详细地址:\t"+data.getStringExtra("address"));
+
+        }
     }
 
 }
