@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -14,10 +15,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.bean.DefuAddrBean;
+import com.hfkj.redchildsupermarket.bean.DelAddBean;
 import com.hfkj.redchildsupermarket.bean.GetAddBean;
+import com.hfkj.redchildsupermarket.bean.MyAddressBean;
+import com.hfkj.redchildsupermarket.bean.SaveAddBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.http.HttpApi;
+import com.hfkj.redchildsupermarket.utils.CityPicker;
 import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.ScrollerNumberPicker;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import butterknife.Bind;
@@ -36,7 +43,7 @@ import retrofit2.Retrofit;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class ModificationFragment extends BaseFragment {
+public class ModificationFragment extends BaseFragment implements View.OnClickListener {
     @Bind(R.id.imgbtn_left)
     ImageButton imgbtnLeft;
     @Bind(R.id.tv_title_left)
@@ -63,16 +70,35 @@ public class ModificationFragment extends BaseFragment {
     Button btDeleteAdd;
     @Bind(R.id.bt_setDefu)
     Button btSetDefu;
-    private long token_get;
+
     private String login_user_id;
     private GetAddBean getAddBean;
-    private String login_token;
+    private long login_token;
     private String mConsignee;
     private String mPhone;
     private String mCity;
     private String mAddress;
     private String mEmail;
-    private int id_get;
+
+
+    private Dialog dialog;
+    private CityPicker cityPicker;
+    private String pro;
+    private String cit;
+    private String pcc;
+    private String con;
+
+    private String pro1;
+    private String cit1;
+    private String con1;
+    private int mid;
+
+
+
+    private MyAddressBean.AddressListBean addresslistBean;
+    private int id_address;
+    private int id;
+    private long login_token_1;
 
     @Override
     public void initData() {
@@ -98,21 +124,26 @@ public class ModificationFragment extends BaseFragment {
     private void getAddDatas() {
         login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
         //token
-        String login_token = SpUtil.getinfo(mContext, "login_token", null);
-        //   id_get = saveAddBean.getAddressList().get(0).getId();
-        String id_address = SpUtil.getinfo(mContext, "id_address", null);
+//        String login_token = SpUtil.getinfo(mContext, "login_token", null);
+        login_token =  SpUtil.getLonginfo(mContext, "login_token", 0);
 
-        System.out.println(id_address);
-        if (!TextUtils.isEmpty(id_address)) {
+        //id_get =
 
-            id_get = Integer.parseInt(id_address);
-        }
-        token_get = Long.parseLong(login_token);
+        id_address = addresslistBean.getId();
+
+        //    id_address = SpUtil.getIntinfo(mContext, "addressID", 0);
+
+//        System.out.println(id_address);
+//        if (!TextUtils.isEmpty(id_address)) {
+//
+//            id_get = Integer.parseInt(id_address);
+//        }
+
         new Retrofit.Builder().baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(HttpApi.class)
-                .getAddData(login_user_id, token_get, id_get)
+                .getAddData(login_user_id, login_token, id_address)
                 .enqueue(new Callback<GetAddBean>() {
                     @Override
                     public void onResponse(Call<GetAddBean> call, Response<GetAddBean> response) {
@@ -124,6 +155,10 @@ public class ModificationFragment extends BaseFragment {
                                 System.out.println("获取地址成功");
                                 //TODO
                                 System.out.println(getAddBean.getAddress());
+                                /**
+                                //拿到地址薄id,给默认地址接口使用
+                                 */
+                                mid = getAddBean.getAddress().getId();
 
                                 setData();
                             }
@@ -136,7 +171,7 @@ public class ModificationFragment extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<GetAddBean> call, Throwable throwable) {
-
+                        Toast.makeText(mContext, "获取数据失败", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -176,100 +211,217 @@ public class ModificationFragment extends BaseFragment {
             case R.id.imgbtn_left:
                 mMainActivity.popBackStack();
                 break;
-            case R.id.btn_right:
-                mMainActivity.addToBackStack(new AddressManagerFragment());
+            case R.id.btn_right://保存
+//                mMainActivity.addToBackStack(new AddressManagerFragment());
 
-//                id = 0;
-//                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
-//                //token
+                /**
+                 * 测试保存接口
+                 */
+
+                id = id_address;
+                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
+                login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
+                //token
 //                login_token = SpUtil.getinfo(mContext, "login_token", null);
-//                //姓名
-//                mConsignee = etConsignee.getText().toString().trim();
-//
-//                mPhone = etPhone.getText().toString().trim();
-//                //收货人
-//                mConsignee = this.etConsignee.getText().toString().trim();
-//                //手机
-//                mPhone = this.etPhone.getText().toString().trim();
-//                //省市区
-//                mCity = tvCity.getText().toString().trim();
-//                //详细地址
-//                mAddress = etAddress.getText().toString().trim();
-//                //邮编
-//                mEmail = email.getText().toString().trim();
-//
-//                if (mConsignee.isEmpty() || mPhone.isEmpty() || mCity.isEmpty() || mAddress.isEmpty() || mEmail.isEmpty()) {
-//                    Toast.makeText(mContext, "请填写完整信息", Toast.LENGTH_SHORT).show();
-//                } else {
-//                   saveAddress();
-//                    System.out.println("能不能保存");
-//                }
-                break;
-            case R.id.bt_deleteAdd:
+//                long token_get = Long.parseLong(login_token);
+                //姓名
+                mConsignee = etConsignee.getText().toString().trim();
 
+                mPhone = etPhone.getText().toString().trim();
+                //收货人
+                mConsignee = this.etConsignee.getText().toString().trim();
+                //手机
+                mPhone = this.etPhone.getText().toString().trim();
+                //省市区
+                mCity = tvCity.getText().toString().trim();
+                //详细地址
+                mAddress = etAddress.getText().toString().trim();
+                //邮编
+                mEmail = email.getText().toString().trim();
 
+                if (mConsignee.isEmpty() || mPhone.isEmpty() || mCity.isEmpty() || mAddress.isEmpty() || mEmail.isEmpty()) {
+                    Toast.makeText(mContext, "请填写完整信息", Toast.LENGTH_SHORT).show();
+                } else {
+                   saveAddress();
+                    System.out.println("能不能保存");
+                }
                 break;
             case R.id.bt_setDefu:
+                /**
+                 * 设置默认地址接口
+                 */
+
+                new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                        .build().create(HttpApi.class)
+                        .getDefuAddr(mid,login_token_1,login_user_id)
+                        .enqueue(new Callback<DefuAddrBean>() {
+                            @Override
+                            public void onResponse(Call<DefuAddrBean> call, Response<DefuAddrBean> response) {
+                                if (response.isSuccessful()) {
+                                    DefuAddrBean defuAddrBean = response.body();
+                                    if (TextUtils.equals("error", defuAddrBean.response)) {
+                                        Toast.makeText(mContext, "ERRORCODE:" + defuAddrBean.error + "MSG:" + defuAddrBean.error.msg, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(mContext,"设置成功",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } else {
+                                    Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<DefuAddrBean> call, Throwable throwable) {
+                                Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
                 break;
+
+            case R.id.bt_deleteAdd:
+
+                /**
+                 * 设置删除地址接口
+                 */
+                new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                        .build().create(HttpApi.class)
+                        .getdelAdd(mid, login_token_1,login_user_id)
+                        .enqueue(new Callback<DelAddBean>() {
+                            @Override
+                            public void onResponse(Call<DelAddBean> call, Response<DelAddBean> response) {
+                                if (response.isSuccessful()) {
+                                    DelAddBean delAddBean = response.body();
+                                    if (TextUtils.equals("error", delAddBean.response)) {
+                                        Toast.makeText(mContext, "ERRORCODE:" + delAddBean.error + "MSG:" + delAddBean.error.msg, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(mContext,"删除成功",Toast.LENGTH_SHORT).show();
+                                        mMainActivity.popBackStack();
+                                    }
+
+                                } else {
+                                    Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<DelAddBean> call, Throwable throwable) {
+                                Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+                break;
+
+
+            case R.id.bt_dialog:
+                cit1 = cit;
+                pro1 = pro;
+                con1 = con;
+                dialog.dismiss();
         }
     }
 
 
-//    private void saveAddress() {
-//        new Retrofit.Builder()
-//                .baseUrl(Constant.BASE_URL)
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-//                .create(HttpApi.class)
-//                .addresssave(id, login_token, login_user_id, mConsignee, mPhone, cit1, pro1, con1, mAddress, mEmail)
-//                .enqueue(new Callback<SaveAddBean>() {
-//                    @Override
-//                    public void onResponse(Call<SaveAddBean> call, Response<SaveAddBean> response) {
-//                        if (response.isSuccessful()) {
-//                            SaveAddBean saveAddBean = response.body();
-//                            processLoginBean(saveAddBean);
-//                        } else {
-//                            Toast.makeText(mContext, "获取数据失败~", Toast.LENGTH_SHORT).show();
-//                        }
-//
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<SaveAddBean> call, Throwable throwable) {
-//                        Toast.makeText(mContext, "响应失败~", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//
-//    }
-//
-//    private void processLoginBean(SaveAddBean saveAddBean) {
-//
-//        if (TextUtils.equals("error", saveAddBean.response)) {
-//            Toast.makeText(mContext, "ERRORCODE:" + saveAddBean.error + "MSG:" + saveAddBean.error.msg, Toast.LENGTH_SHORT).show();
-//
-//        } else {
-//            //获取地址
-//            id_get = saveAddBean.getAddressList().get(0).getId();
-//            String id_Str = String.valueOf(id_get);
-//            SpUtil.saveinfo(mContext, "id_address", id_Str);
-//            token_get = Long.parseLong(login_token);
-//            //String id_String = String.valueOf(id);
-//            // SpUtil.saveinfo(mContext,"addressid",id_String);
-//            // System.out.println("保存能走到?");
-//
-//            //获取地址接口
-//            //  getAddDatas();
-//            mMainActivity.addToBackStack(new AddressManagerFragment());
-//
-//
-//        }
-//
-//
-//    }
+    private void saveAddress() {
+        new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(HttpApi.class)
+                .addresssave(id, login_token_1, login_user_id, mConsignee, mPhone, cit1, pro1, con1, mAddress, mEmail)
+                .enqueue(new Callback<SaveAddBean>() {
+                    @Override
+                    public void onResponse(Call<SaveAddBean> call, Response<SaveAddBean> response) {
+                        if (response.isSuccessful()) {
+                            SaveAddBean saveAddBean = response.body();
 
-    @OnClick(R.id.ll_pcd_address)
-    public void onClick() {
+                            processLoginBean(saveAddBean);
+                        } else {
+                            Toast.makeText(mContext, "获取数据失败~", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<SaveAddBean> call, Throwable throwable) {
+                        Toast.makeText(mContext, "响应失败~", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+    }
+
+    private void processLoginBean(SaveAddBean saveAddBean) {
+
+        if (TextUtils.equals("error", saveAddBean.response)) {
+            Toast.makeText(mContext, "ERRORCODE:" + saveAddBean.error + "MSG:" + saveAddBean.error.msg, Toast.LENGTH_SHORT).show();
+
+        } else {
+            //获取地址
+           // id_get = saveAddBean.getAddressList().get(0).getId();
+         //   String id_Str = String.valueOf(id_get);
+         //   SpUtil.saveinfo(mContext, "id_address", id_Str);
+          //  token_get = Long.parseLong(login_token);
+            //String id_String = String.valueOf(id);
+            // SpUtil.saveinfo(mContext,"addressid",id_String);
+            // System.out.println("保存能走到?");
+
+            //获取地址接口
+            //  getAddDatas();
+            mMainActivity.popBackStack();
+          //  mMainActivity.addToBackStack(new AddressManagerFragment());
+
+
+        }
 
 
     }
+
+    @OnClick(R.id.ll_pcd_address)
+    public void onClick() {
+        //彈出三級聯動的對話框
+        dialog = new Dialog(mContext);
+        dialog.setContentView(R.layout.address_layout_dialog);
+        Button bt_dialog = (Button) dialog.findViewById(R.id.bt_dialog);
+        bt_dialog.setOnClickListener(this);
+
+
+        cityPicker = (CityPicker) dialog.findViewById(R.id.citypicker);
+        final ScrollerNumberPicker mprovincePicker = (ScrollerNumberPicker) dialog.findViewById(R.id.province);
+        final ScrollerNumberPicker mcityPicker = (ScrollerNumberPicker) dialog.findViewById(R.id.city);
+        final ScrollerNumberPicker mcounyPicker = (ScrollerNumberPicker) dialog.findViewById(R.id.couny);
+        cityPicker.setOnSelectingListener(new CityPicker.OnSelectingListener() {
+
+
+            @Override
+            public void selected(boolean selected) {
+                System.out.println("selected: " + selected);
+                System.out.println("selected_code: " + cityPicker.getCity_code_string());
+                System.out.println("selected_str: " + cityPicker.getCity_string());
+                System.out.println(mprovincePicker.getSelectedText());
+                System.out.println(mcityPicker.getSelectedText());
+                System.out.println(mcounyPicker.getSelectedText());
+                pro = mprovincePicker.getSelectedText();
+                cit = mcityPicker.getSelectedText();
+                con = mcounyPicker.getSelectedText();
+                pcc = cityPicker.getCity_string();
+                //数据回填到表中
+                tvCity.setText(cityPicker.getCity_string());
+            }
+
+        });
+        dialog.show();
+
+
+    }
+
+
+    public void setitemBean(MyAddressBean.AddressListBean addressListBean) {
+
+        this.addresslistBean = addressListBean;
+        System.out.println("12133131");
+    }
 }
+

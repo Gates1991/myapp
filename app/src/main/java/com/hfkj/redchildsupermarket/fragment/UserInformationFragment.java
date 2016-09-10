@@ -87,9 +87,9 @@ public class UserInformationFragment extends BaseFragment {
     private void getdata() {
 
         String userid = SpUtil.getinfo(mContext, "login_user_id", "");
-        String tokenString = SpUtil.getinfo(mContext, "login_token", "");
-        System.out.println(tokenString);
-       long token = Long.parseLong(tokenString);
+        long token = SpUtil.getLonginfo(mContext, "login_token", 0);
+     //   System.out.println(tokenString);
+     //  long token = Long.parseLong(tokenString);
 
 
         //借口对接

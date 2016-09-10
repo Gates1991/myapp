@@ -70,7 +70,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
     private String cit;
     private String pcc;
     private String login_user_id;
-    private String login_token;
+    private long login_token;
     private String mname;
     private String mPhone;
     private String mcit;
@@ -137,7 +137,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
                 id = 0;
                 login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
                 //token
-                login_token = SpUtil.getinfo(mContext, "login_token", null);
+                login_token = SpUtil.getLonginfo(mContext, "login_token", 0);
                 //姓名
                 mConsignee = etConsignee.getText().toString().trim();
 
@@ -270,10 +270,14 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
         } else {
             //获取地址
             id_get = saveAddBean.getAddressList().get(0).getId();
-            String id_Str = String.valueOf(id_get);
-            System.out.println(id_Str);
-            SpUtil.saveinfo(mContext,"id_address",id_Str);
-            token_get = Long.parseLong(login_token);
+//            List<Integer>  id=new ArrayList<>();
+//            id.add(id_get);
+//            String id_Str = String.valueOf(id_get);
+//            System.out.println(id_Str);
+//            SpUtil.saveinfo(mContext,"id_address",id_Str);
+//
+
+          //  token_get = Long.parseLong(login_token);
             //String id_String = String.valueOf(id);
            // SpUtil.saveinfo(mContext,"addressid",id_String);
             // System.out.println("保存能走到?");

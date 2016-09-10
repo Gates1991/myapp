@@ -1,6 +1,8 @@
 package com.hfkj.redchildsupermarket.http;
 
 import com.hfkj.redchildsupermarket.bean.CancelBean;
+import com.hfkj.redchildsupermarket.bean.DefuAddrBean;
+import com.hfkj.redchildsupermarket.bean.DelAddBean;
 import com.hfkj.redchildsupermarket.bean.GetAddBean;
 import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.bean.InformationBean;
@@ -156,7 +158,7 @@ public interface HttpApi {
 
     @FormUrlEncoded
     @POST("addresssave")
-    Call<SaveAddBean> addresssave(@Field(value = "id",encoded = true) Integer id,@Field(value = "token",encoded = true) String token ,
+    Call<SaveAddBean> addresssave(@Field(value = "id",encoded = true) Integer id,@Field(value = "token",encoded = true) Long token ,
                                   @Field(value = "userid",encoded = true) String userid,@Field(value = "name",encoded = true) String name,
                                   @Field(value = "phoneNumber",encoded = true) String phoneNumber,@Field(value = "city",encoded = true) String city,
                                   @Field(value = "province",encoded = true) String province,@Field(value = "addressArea",encoded = true) String addressArea,
@@ -174,5 +176,22 @@ public interface HttpApi {
 
     @GET("addressDetail")
     Call<GetAddBean> getAddData(@Query("userid") String userid, @Query("token") Long token,@Query("addressid") Integer id );
+
+    /**
+     * 获取默认地址接口
+     * @param id
+     * @param token
+     * @param userid
+     * @return
+     */
+
+
+    @GET("addressdefault")
+    Call<DefuAddrBean> getDefuAddr(@Query("id") int id,@Query("token") Long token,@Query("userid") String userid);
+
+
+
+    @GET("addressdelete")
+    Call<DelAddBean>  getdelAdd(@Query("id") int id,@Query("token") Long token,@Query("userid") String userid);
 
 }

@@ -46,9 +46,12 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     ImageButton btnRight;
     private View mView;
     private ListView mLv_address;
+    private MyAddressBean myAddressBean;
     private Bundle mBundle;
-    private MyAddressBean mMyAddressBean;
     public static final int RESPONSE_CODE = 0x010;
+    private MyAddressBean mMyAddressBean;
+    private MyAddressBean.AddressListBean addressListBean;
+
 
     @Nullable
     @Override
@@ -57,7 +60,6 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         mMainActivity.isMainFrament = 2;
         initTitleView();
         //联网拿数据
-
         getAddressData();
         ButterKnife.bind(this, mView);
         return mView;
@@ -108,9 +110,9 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
 
     private void getAddressData() {
         String userid = SpUtil.getinfo(mContext, "login_user_id", "");
-        String tokenString = SpUtil.getinfo(mContext, "login_token", "");
-        System.out.println(tokenString);
-        long token = Long.parseLong(tokenString);
+        long token = SpUtil.getLonginfo(mContext, "login_token", 0);
+//        System.out.println(tokenString);
+//        long token = Long.parseLong(tokenString);
 
 
         //借口对接
@@ -128,9 +130,12 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
                 if (response.isSuccessful()) {
                     //响应成功
                     mMyAddressBean = response.body();
-                        processRegisterBean(mMyAddressBean);
+                    processRegisterBean(mMyAddressBean);
+                    myAddressBean = response.body();
+                        processRegisterBean(myAddressBean);
                 } else {
                     Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
+                    //MyAddressBean.AddressListBean addressListBean = myAddressBean.getAddressList().get(0);
                 }
             }
 
@@ -157,7 +162,9 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             System.out.println("能走过来?");
             System.out.println(myAddressBean);
             mLv_address.setAdapter(new AddressAdapter(mContext, myAddressBean.getAddressList()));
+            addressListBean = myAddressBean.getAddressList().get(0);
 
+            System.out.println("abcdf");
         }
     }
 
@@ -196,8 +203,18 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             SpUtil.saveBoolean(mContext,"isOrderPage",false);
             sendResult(addressListBean);
         }else {
-            mMainActivity.addToBackStack(new ModificationFragment());
+
+          //  mMainActivity.addToBackStack(new ModificationFragment());
+            MyAddressBean.AddressListBean addressListBean = (MyAddressBean.AddressListBean) parent.getItemAtPosition(parent.getCount()-1-position);
+            ModificationFragment modificationFragment = new ModificationFragment();
+
+            mMainActivity.addToBackStack(modificationFragment);
+            modificationFragment.setitemBean(addressListBean);
         }
+
+//        int addressid = myAddressBean.getAddressList().get(0).getId();
+//
+//        SpUtil.saveIntinfo(mContext,"addressID",addressid);
 
 
     }
