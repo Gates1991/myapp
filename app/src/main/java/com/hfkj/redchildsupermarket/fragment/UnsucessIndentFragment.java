@@ -62,8 +62,9 @@ public class UnsucessIndentFragment extends BaseFragment implements AdapterView.
         //userid 值
         userid = SpUtil.getinfo(mContext, "login_user_id", "");
         //token  值
-        String login_token =  SpUtil.getinfo(mContext, "login_token", "");
-        token = Long.parseLong(login_token);
+        long token = SpUtil.getLonginfo(mContext, "login_token", 0);
+
+//        token = Long.parseLong(login_token);
         //pagenum 值
         pageNum = 1;
         //pagesize值

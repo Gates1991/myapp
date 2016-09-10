@@ -82,4 +82,45 @@ public class SpUtil {
         return mSp.getInt(key, defvalue);
     }
 
+
+
+
+    //保存信息数据
+    public static void saveIntinfo(Context context, String key, int value) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        mSp.edit().putInt(key, value).commit();
+    }
+
+
+    //获取信息数据
+    public static int getIntinfo(Context context, String key, int defValue) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        int result = mSp.getInt(key, defValue);
+        return result;
+    }
+
+
+
+    //保存信息数据
+    public static void saveLonginfo(Context context, String key, long value) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        mSp.edit().putLong(key, value).commit();
+    }
+
+
+    //获取信息数据
+    public static long getLonginfo(Context context, String key, long defValue) {
+        if (mSp == null) {
+            mSp = context.getSharedPreferences(SP_NAME, Context.MODE_PRIVATE);
+        }
+        long result = mSp.getLong(key, defValue);
+        return result;
+    }
+
 }

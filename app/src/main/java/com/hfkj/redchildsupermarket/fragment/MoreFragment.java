@@ -172,8 +172,8 @@ public class MoreFragment extends BaseFragment {
     private void islogin() {
         //拿sp中的login时的token值
         String login_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
-        String login_token = SpUtil.getinfo(mContext, "login_token", "");
-        if (login_user_id.isEmpty() || login_token.isEmpty()) {
+        long login_token = SpUtil.getLonginfo(mContext, "login_token", 0);
+        if (login_user_id.isEmpty() || login_token == 0) {
             //跳转到登录界面
             addToBackStack(new UserLoginFrament());
         } else {

@@ -169,7 +169,8 @@ public class UserLoginFrament extends BaseFragment {
             System.out.println(loginBean.toString());
 
             SpUtil.saveinfo(mContext,"login_user_id",userInfo.getUser_id());
-            SpUtil.saveinfo(mContext,"login_token", String.valueOf(userInfo.getToken()));
+//            SpUtil.saveinfo(mContext,"login_token", String.valueOf(userInfo.getToken()));
+            SpUtil.saveLonginfo(mContext,"login_token",userInfo.getToken());
             System.out.println(userInfo.getUser_id()+"lo");
             System.out.println(userInfo.getToken()+"lo");
 
