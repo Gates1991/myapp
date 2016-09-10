@@ -1,6 +1,7 @@
 package com.hfkj.redchildsupermarket.http;
 
 import com.hfkj.redchildsupermarket.bean.CancelBean;
+import com.hfkj.redchildsupermarket.bean.GetAddBean;
 import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.bean.InformationBean;
 import com.hfkj.redchildsupermarket.bean.LoginBean;
@@ -8,6 +9,7 @@ import com.hfkj.redchildsupermarket.bean.MyAddressBean;
 import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
 import com.hfkj.redchildsupermarket.bean.SalesBean;
+import com.hfkj.redchildsupermarket.bean.SaveAddBean;
 import com.hfkj.redchildsupermarket.http.response.ResponseHomeBigViewModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseProductListModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseSearchHotKeywordModel;
@@ -126,7 +128,7 @@ public interface HttpApi {
     //  Call<IndentBean> orderlist(@Field("type") Integer type, @Field("token") Long token,@Query("userid") String userid,@Query("pageNum") Integer pagenum,@Query("pageSize") Integer pagesize);
     @FormUrlEncoded
     @POST("orderlist")
-    Call<IndentBean> orderlist(@Query("userid") String userid, @Field("token") Long token, @Query("page") Integer pagenum, @Query("pageNum") Integer pagesize, @Field("type") Integer type);
+    Call<IndentBean> orderlist(@Field("userid") String userid, @Field("token") Long token, @Field("page") Integer pagenum, @Field("pageNum") Integer pagesize, @Field("type") Integer type);
 
 
     /**
@@ -137,5 +139,40 @@ public interface HttpApi {
      */
     @GET("addresslist")
     Call<MyAddressBean> getAddressData(@Query("userid") String userid, @Query("token") Long token );
+
+    /**
+     *
+     * @param token
+     * @param userid
+     * @param name
+     * @param phoneNumber
+     * @param city
+     * @param province
+     * @param addressArea
+     * @param addressDeatil
+     * @param zipCode
+     * @return
+     */
+
+    @FormUrlEncoded
+    @POST("addresssave")
+    Call<SaveAddBean> addresssave(@Field(value = "id",encoded = true) Integer id,@Field(value = "token",encoded = true) String token ,
+                                  @Field(value = "userid",encoded = true) String userid,@Field(value = "name",encoded = true) String name,
+                                  @Field(value = "phoneNumber",encoded = true) String phoneNumber,@Field(value = "city",encoded = true) String city,
+                                  @Field(value = "province",encoded = true) String province,@Field(value = "addressArea",encoded = true) String addressArea,
+                                  @Field(value = "addressDetail",encoded = true) String addressDeatil,@Field(value = "zipCode",encoded = true) String zipCode);
+
+
+    /**
+     * 获取地址接口
+     * @param userid
+     * @param token
+     * @param id
+     * @return
+     */
+
+
+    @GET("addressDetail")
+    Call<GetAddBean> getAddData(@Query("userid") String userid, @Query("token") Long token,@Query("addressid") Integer id );
 
 }

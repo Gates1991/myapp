@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,7 +36,7 @@ import retrofit2.Retrofit;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class AddressManagerFragment extends BaseFragment implements View.OnClickListener {
+public class AddressManagerFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     @Bind(R.id.btn_right)
     ImageButton btnRight;
@@ -52,6 +53,13 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         getAddressData();
         ButterKnife.bind(this, mView);
         return mView;
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        getAddressData();
     }
 
     private void initTitleView() {
@@ -71,6 +79,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         mTv_title_layout.setText("我的地址");
         mLv_address = (ListView)mView.findViewById(R.id.lv_address);
         mLv_address.setVerticalScrollBarEnabled(true);
+        mLv_address.setOnItemClickListener(this);
     }
 
 
@@ -133,12 +142,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             System.out.println(myAddressBean);
             mLv_address.setAdapter(new AddressAdapter(mContext, myAddressBean.getAddressList()));
 
-
         }
-
-
-
-
     }
 
 
@@ -162,5 +166,13 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
                 break;
 
         }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        //TODO 跳转到条目编辑界面 modification
+        mMainActivity.addToBackStack(new ModificationFragment());
+
+
     }
 }

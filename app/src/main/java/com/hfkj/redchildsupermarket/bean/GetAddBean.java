@@ -2,43 +2,40 @@ package com.hfkj.redchildsupermarket.bean;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
-
 /**
  * @创建者 Shayne
- * @创建时间 2016/9/9 2:43
+ * @创建时间 2016/9/10 9:18
  * @描述着 ${TODO}
  * @更新者 $Author$
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class MyAddressBean extends  BaseResponse {
+public class GetAddBean extends  BaseResponse {
 
     /**
-     * addressArea : 密云县
-     * addressDetail : sdfsd
-     * city : 县
+     * addressArea : 市辖区
+     * addressDetail : wqerq
+     * city : 芜湖市
      * default : false
-     * id : 146
-     * name : ssf
-     * phoneNumber : sdfsd
-     * province : 北京市
+     * id : 159
+     * name : qwerq
+     * phoneNumber : wqer
+     * province : 安徽省
      * userid : 147323808575613
-     * zipCode : sfdsdf
+     * zipCode : wqer
      */
 
-    private List<AddressListBean> addressList;
+    private AddressBean address;
 
-
-    public List<AddressListBean> getAddressList() {
-        return addressList;
+    public AddressBean getAddress() {
+        return address;
     }
 
-    public void setAddressList(List<AddressListBean> addressList) {
-        this.addressList = addressList;
+    public void setAddress(AddressBean address) {
+        this.address = address;
     }
 
-    public static class AddressListBean {
+    public static class AddressBean {
         private String addressArea;
         private String addressDetail;
         private String city;

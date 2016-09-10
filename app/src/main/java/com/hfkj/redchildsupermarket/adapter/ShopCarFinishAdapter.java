@@ -7,7 +7,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
@@ -57,7 +56,7 @@ public class ShopCarFinishAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-       ViewHolder mViewHolder = null;
+         final ViewHolder mViewHolder ;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.shopcar_finish_item, null);
             mViewHolder = new ViewHolder(convertView);
@@ -81,15 +80,15 @@ public class ShopCarFinishAdapter extends BaseAdapter {
         mViewHolder.mCbCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"被选中了",Toast.LENGTH_SHORT).show();
-                int id = mData.get(position).getId();
-                if (!mData.get(position).isChecked()) {
+              //  int id = mData.get(position).getId();
+                if (mViewHolder.mCbCheck.isChecked()) {
                     mData.get(position).setChecked(true);
                 }else {
                     mData.get(position).setChecked(false);
                 }
             }
         });
+        mViewHolder.mCbCheck.setChecked(mData.get(position).isChecked());
         return convertView;
     }
     public void setOnAddNum(View.OnClickListener onAddNum) {
