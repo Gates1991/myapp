@@ -1,6 +1,7 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.MyGridAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.SpUtil;
 import com.hfkj.redchildsupermarket.view.CustomScorollView;
 import com.hfkj.redchildsupermarket.view.MyGridView;
 
@@ -58,6 +60,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private CustomScorollView mCustomScorollView;
     private  List<String> infoList=new ArrayList<>();
     private MyGridView mGridview;
+    private String mLogin_user_id;
+    private String mLogin_token;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -66,9 +70,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         mGridview = (MyGridView) view.findViewById(R.id.gridview);
 
         mCustomScorollView = (CustomScorollView) view.findViewById(R.id.csv);
-
         ButterKnife.bind(this, view);
-        mRg.setOnCheckedChangeListener(this);
+      mRg.setOnCheckedChangeListener(this);
         initData();
         return view;
     }
@@ -133,9 +136,11 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             rl.addView(mViewPage);
         }
 
+
         mViewPage.setOnViewPageChange(new HomeViewPage.onViewPageChangeListener() {
             @Override
             public void onViewPageChange(int position) {
+
                 switch (position) {
                     case 0:
                         mRg.check(R.id.rb_1);
@@ -185,8 +190,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 mMainActivity.addToBackStack(fragment);
                 break;
             case 5:
-                fragment = new UserLoginFrament();
-                mMainActivity.addToBackStack(fragment);
+                mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
+                mLogin_token = SpUtil.getinfo(mContext, "login_token", "");
+                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                    mMainActivity.addToBackStack(new UserLoginFrament());
+                } else {
+                    Toast.makeText(mContext, "已经登录了", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
     }
@@ -245,7 +255,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 },3000);
                 break;
             case R.id.rb_6:
-                mViewPage.setCurrentItem(6,false);
+                mViewPage.setCurrentItem(5,false);
                 mViewPage.mHandler.removeCallbacksAndMessages(null);
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override

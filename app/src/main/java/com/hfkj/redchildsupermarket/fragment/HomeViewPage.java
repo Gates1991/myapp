@@ -14,12 +14,10 @@ import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.hfkj.redchildsupermarket.adapter.HomeVPAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeViewPage extends ViewPager {
@@ -33,11 +31,15 @@ public class HomeViewPage extends ViewPager {
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0:
+
                     int currentItem = HomeViewPage.this.getCurrentItem();
                     if (pageList.size() != 0) {
                         int pos = (currentItem+1)%pageList.size();
                         HomeViewPage.this.setCurrentItem(pos);
                     }
+                   /* int currentItem = HomeViewPage.this.getCurrentItem();
+                    System.out.println(currentItem);
+                   HomeViewPage.this.setCurrentItem(currentItem+1);*/
                     mHandler.sendEmptyMessageDelayed(0,2000);
                     break;
             }
@@ -80,11 +82,14 @@ public class HomeViewPage extends ViewPager {
         this.addOnPageChangeListener(new OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
             @Override
             public void onPageSelected(int position) {
                 if (mOnViewPageChangeListener != null) {
+                   /* position%=pageList.size();
+                    if (position<0){
+                        position = pageList.size()+position;
+                    }*/
                     mOnViewPageChangeListener.onViewPageChange(position);
                 }
             }
@@ -112,12 +117,12 @@ public class HomeViewPage extends ViewPager {
         } else {
             mHomeVPAdapter.notifyDataSetChanged();
         }
-        mHandler.sendEmptyMessageDelayed(0,2000);
+        System.out.println("9999");
+       mHandler.sendEmptyMessageDelayed(0,0);
 
     }
     public void stop(){
         mHandler.removeCallbacksAndMessages(null);
         }
-
 
 }
