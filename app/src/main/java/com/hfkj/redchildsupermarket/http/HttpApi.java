@@ -12,6 +12,7 @@ import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
 import com.hfkj.redchildsupermarket.bean.SalesBean;
 import com.hfkj.redchildsupermarket.bean.SaveAddBean;
+import com.hfkj.redchildsupermarket.bean.UnfinishOrderDetailBean;
 import com.hfkj.redchildsupermarket.http.response.ResponseHomeBigViewModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseProductListModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseSearchHotKeywordModel;
@@ -193,5 +194,9 @@ public interface HttpApi {
 
     @GET("addressdelete")
     Call<DelAddBean>  getdelAdd(@Query("id") int id,@Query("token") Long token,@Query("userid") String userid);
+
+    @FormUrlEncoded
+    @POST("orderlist")
+    Call<UnfinishOrderDetailBean> getUnfinishOrderDetailData(@Field("userid") String userid, @Field("token") Long token,@Field("page") Integer pagenum, @Field("pageNum") Integer pagesize,@Field("type") Integer type);
 
 }

@@ -100,7 +100,7 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
     private int id;
     private long login_token_1;
 
-    @Override
+
     public void initData() {
 
     }

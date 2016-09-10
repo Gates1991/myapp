@@ -59,7 +59,6 @@ public class SuccessIndentContentFragment extends BaseFragment {
         RelativeLayout mRlContinue = (RelativeLayout) view.findViewById(R.id.rl_continue);
     }
 
-    @Override
     public void initData() {
 
     }
