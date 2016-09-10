@@ -110,10 +110,6 @@ public class UnsucessIndentFragment extends BaseFragment implements AdapterView.
                 });
     }
 
-    @Override
-    public void initData() {
-
-    }
 
     @Override
     public void onDestroyView() {
@@ -124,5 +120,7 @@ public class UnsucessIndentFragment extends BaseFragment implements AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(mContext,"能跳",Toast.LENGTH_SHORT).show();
+        UnfinishOrderDetailFragement unfinishOrderDetailFragement = new UnfinishOrderDetailFragement();
+        mMainActivity.addToBackStack(unfinishOrderDetailFragement);
     }
 }

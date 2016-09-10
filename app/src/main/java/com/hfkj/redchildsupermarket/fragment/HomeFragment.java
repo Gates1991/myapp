@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private  List<String> infoList=new ArrayList<>();
     private MyGridView mGridview;
     private String mLogin_user_id;
-    private long mLogin_token;
+    private Long mLogin_token;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -78,7 +78,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     /**
      * 初始化数据
      */
-    @Override
+
     public void initData() {
         infoList.add("欢迎领导光临红孩子商城");
         infoList.add("喜迎国庆欢乐大酬宾");

@@ -101,7 +101,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     }
 
 
-    @Override
+
     public void initData() {
 
 

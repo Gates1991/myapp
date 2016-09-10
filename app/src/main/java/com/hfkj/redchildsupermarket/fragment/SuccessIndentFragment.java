@@ -115,7 +115,7 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
                 });
     }
 
-    @Override
+
     public void initData() {
 
     }

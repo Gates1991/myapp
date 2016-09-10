@@ -65,7 +65,7 @@ public class PayFragment extends BaseFragment {
         return view;
     }
 
-    @Override
+
     public void initData() {
         mOrder_money.setText(mTotalPay+"元");
         int pageNum = 1;

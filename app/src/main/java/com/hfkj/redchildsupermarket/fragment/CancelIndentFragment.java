@@ -112,7 +112,7 @@ public class CancelIndentFragment extends BaseFragment implements AdapterView.On
                     });
         }
 
-        @Override
+
         public void initData() {
 
         }

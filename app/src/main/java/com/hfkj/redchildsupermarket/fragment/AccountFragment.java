@@ -108,7 +108,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         return view;
     }
 
-    @Override
+
     public void initData() {
         payWayData.clear();
         deliverData.clear();
