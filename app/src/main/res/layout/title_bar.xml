@@ -52,6 +52,33 @@
             android:textColor="@android:color/white"
             android:visibility="gone"
             />
+        <RelativeLayout
+            android:id="@+id/rl_sc"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+            <Button
+                android:layout_centerHorizontal="true"
+                android:id="@+id/bt_right"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/sc"
+                />
+            <TextView
+
+                android:id="@+id/tv_sc"
+                android:layout_below="@+id/bt_right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:layout_centerHorizontal="true"
+                />
+
+        </RelativeLayout>
+
+
     </RelativeLayout>
 
 </merge>

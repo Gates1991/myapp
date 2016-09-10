@@ -101,29 +101,58 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
     private ScrollView mScroll;
     private TextView mTvNumber;
     private Dialog mDialog;
+    private Button mButton;
+    private RelativeLayout mRl_sc;
+    private TextView mTv_sc;
+    private boolean isCollect = false;
+    private boolean mLoding;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shangping, null);
-        mEdCommodityNum = (EditText) view.findViewById(R.id.ed_commodity_num);
-        mVp = (ViewPager) view.findViewById(R.id.vp_icon);
-        mScroll = (ScrollView) view.findViewById(R.id.sv_scroll);
+        ButterKnife.bind(this, view);
+        initView(view);
         Bundle bundle = getArguments();
         mMainActivity.isMainFrament = 3;
         mPid = bundle.getInt("id");
         initData();
-        ButterKnife.bind(this, view);
+        return view;
+    }
+
+    private void initView(View view) {
+        mEdCommodityNum = (EditText) view.findViewById(R.id.ed_commodity_num);
+        mVp = (ViewPager) view.findViewById(R.id.vp_icon);
+        mScroll = (ScrollView) view.findViewById(R.id.sv_scroll);
+        mRl_sc = (RelativeLayout) view.findViewById(R.id.rl_sc);
+        mButton = (Button) view.findViewById(R.id.bt_right);
+        mTv_sc = (TextView) view.findViewById(R.id.tv_sc);
+        mRl_sc.setVisibility(View.VISIBLE);
+
+
         mBtTitleLeft.setVisibility(View.VISIBLE);
         mTvTitleName.setText("商品详情");
-
-        return view;
+        mButton.setOnClickListener(this);
     }
 
     @Override
     public void initData() {
         getNetData();
+        mLoding = isLoding();
+
+
+    }
+
+    private boolean isLoding() {
+        //获取登陆信息
+        mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
+        mLogin_token = String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
+        if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public void getNetData() {
@@ -134,6 +163,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                 DetailsBean detailsBean = response.body();
                 parseRespomse(detailsBean);
                 getNetData2();
+
             }
 
             @Override
@@ -171,9 +201,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         //商品评分
         float score = product.getScore();
         mRatingBar1.setRating(score);
-        //获取登陆信息
-        mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
-        mLogin_token = SpUtil.getinfo(mContext, "login_token", "");
+
 
         //
         List<String> pics = product.getPics();
@@ -193,12 +221,11 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
 
                             CommentBean commentBean = response.body();
                             List<CommentBean.ProductBean> product = commentBean.getProduct();
+                            mConmmentData.clear();
                             mConmmentData.addAll(product);
                             mLvComment.setAdapter(new CommentAdapter(mContext, mConmmentData));
-
-                            setListViewHeightBasedOnChildren(mLvComment);
                             mScroll.scrollTo(0, 0);
-
+                            setListViewHeightBasedOnChildren(mLvComment);
                         } else {
                             System.out.println(response.errorBody());
                         }
@@ -242,14 +269,14 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         switch (view.getId()) {
             case R.id.rl_color:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                    showColorDialog(mPnum);
+                showColorDialog(mPnum);
                 break;
             case R.id.bt_car:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                if (Integer.valueOf(mPnum) < 1||mPnum.isEmpty()) {
+                if (Integer.valueOf(mPnum) < 1 || mPnum.isEmpty()) {
                     Toast.makeText(mContext, "请输入正确的商品数量", Toast.LENGTH_SHORT).show();
                 } else {
-                    if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                    if (!mLoding) {
                         mMainActivity.addToBackStack(new UserLoginFrament());
                     } else {
                         postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
@@ -260,7 +287,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.bt_now:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                if (Integer.valueOf(mPnum) < 1||mPnum.isEmpty()) {
+                if (Integer.valueOf(mPnum) < 1 || mPnum.isEmpty()) {
                     Toast.makeText(mContext, "请输入正确的商品数量", Toast.LENGTH_SHORT).show();
                 } else {
                     showColorDialog(mPnum);
@@ -282,7 +309,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.btn_addCars:
                 int num3 = Integer.valueOf(mTvNumber.getText().toString());
-                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                if (!mLoding) {
                     mMainActivity.addToBackStack(new UserLoginFrament());
                 } else {
                     postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(num3), mId, 0);
@@ -290,6 +317,26 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                     mDialog.dismiss();
                     mEdCommodityNum.setText("1");
                 }
+                break;
+            case R.id.bt_right:
+                if (!isCollect) {
+                    mButton.setBackgroundResource(R.drawable.ysc);
+                   // mTv_sc.setText("已收藏");
+                    if (mLoding){
+                        postCollectData(mId,mLogin_token,mLogin_user_id);
+                        showDialog2();
+                    }else {
+                        mMainActivity.addToBackStack(new UserLoginFrament());
+                    }
+
+                    isCollect = true;
+                } else {
+                    mButton.setBackgroundResource(R.drawable.sc);
+                    //mTv_sc.setText("收藏");
+                    Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
+                    isCollect = false;
+                }
+
                 break;
         }
     }
@@ -341,6 +388,25 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                     }
                 }).show();
     }
+    private void showDialog2() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setMessage("商品加入收藏夹成功,是否去收藏夹看看").setPositiveButton("去收藏夹", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                mMainActivity.addToBackStack(new MyFavoriteFragment());
+            }
+        })
+                .setNegativeButton("继续购物", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //Toast.makeText(mContext, "继续购物", Toast.LENGTH_SHORT).show();
+
+                    }
+                }).show();
+    }
+
 
     private interface HttpApi {
 
@@ -360,6 +426,9 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                                            @Field("pid") int pid,
                                            @Field("cid") int cid);
 
+        @GET("addfavorites")
+        Call<BaseResponse> addCollectData(@Query("pid") int pid, @Query("token") String token, @Query("userid")
+        String userid);
     }
 
     private void postData2Server(String s, String s1, int num, int pid, int id) {
@@ -378,5 +447,19 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         });
     }
 
+    private void postCollectData(int pid, String token, String userid) {
+        new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+                .create(HttpApi.class).addCollectData(pid, token, userid).enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+                //Toast.makeText(mContext, "加入收藏夹成功", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+
+            }
+        });
+    }
 
 }
