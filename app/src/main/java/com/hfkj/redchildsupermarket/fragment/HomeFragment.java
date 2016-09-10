@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
 import com.hfkj.redchildsupermarket.adapter.MyGridAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
@@ -56,9 +55,6 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
     public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
 
-    private List<ItemBean> itemDatas = new ArrayList<>();
-
-    private HomeLVAdapter mHomeLVAdapter;
     private CustomScorollView mCustomScorollView;
     private  List<String> infoList=new ArrayList<>();
     private MyGridView mGridview;
@@ -86,25 +82,13 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         infoList.add("更多活动敬请关注红孩子商城");
          mCustomScorollView.setList(infoList);
         mCustomScorollView.startScroll();
-
-        initListView();
+        mGridview.setAdapter(new MyGridAdapter(mContext));
         getNetData();
         if (mGridview != null) {
             mGridview.setOnItemClickListener(this);
         }
     }
 
-    private void initListView() {
-       /* if (itemDatas != null && itemDatas.size() == 0) {
-            for (int i = 0; i < itemPic.length; i++) {
-                itemDatas.add(new ItemBean(itemTitel[i], itemPic[i]));
-            }
-        }*/
-        mHomeLVAdapter = new HomeLVAdapter(mContext, itemDatas);
-        mGridview.setAdapter(new MyGridAdapter(mContext));
-        mHomeLVAdapter.notifyDataSetChanged();
-
-    }
 
     private void getNetData() {
         Retrofit retrofit = new Retrofit.Builder()
@@ -296,13 +280,4 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
 
-    public class ItemBean {
-        public String itemTitle;
-        public int    icon;
-
-        public ItemBean(String title, int id) {
-            this.itemTitle = title;
-            this.icon = id;
-        }
-    }
 }
