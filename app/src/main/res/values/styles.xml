@@ -75,5 +75,15 @@
         <item name="android:windowExitAnimation">@anim/input_method_exit</item>
     </style>
 
+    <style name="CustomDatePickerDialog" parent="@style/AppTheme">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+    <!-- ActionSheet进出动画 -->
+    <style name="mystyle" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
 
 </resources>

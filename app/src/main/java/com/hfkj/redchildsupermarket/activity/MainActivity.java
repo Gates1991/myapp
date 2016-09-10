@@ -97,6 +97,7 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         supportFragmentManager = getSupportFragmentManager();
         initFragment();
         mMainRadio.setOnCheckedChangeListener(listener);

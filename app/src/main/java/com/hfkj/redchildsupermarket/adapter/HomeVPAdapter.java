@@ -44,23 +44,17 @@ public class HomeVPAdapter extends PagerAdapter{
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-
-      /*  ImageView iv = new ImageView(mContext);
-        ViewPager.LayoutParams lp = new ViewPager.LayoutParams();
-        lp.height = ViewPager.LayoutParams.MATCH_PARENT;
-        lp.width = ViewPager.LayoutParams.MATCH_PARENT;
-        iv.setLayoutParams(lp);
-        container.addView(iv);*/
         ImageView iv = new ImageView(mContext);
         iv.setScaleType(ImageView.ScaleType.FIT_XY);
-        container.addView(iv);
-        Glide.with(mContext).load(Constant.BASE_URL+pageList.get(position).getPic()).into(iv);
 
+
+        Glide.with(mContext).load(Constant.BASE_URL+pageList.get(position).getPic()).into(iv);
+        container.addView(iv);
         return iv;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
+            container.removeView((View) object);
     }
 }

@@ -41,11 +41,11 @@ import retrofit2.http.Path;
 public class SearchFragment extends BaseFragment {
 
     @Bind(R.id.et_search)
-    EditText etSearch;
+    EditText           etSearch;
     @Bind(R.id.tv_title_name)
-    TextView mTvTitleName;
+    TextView           mTvTitleName;
     @Bind(R.id.bt_search)
-    Button btSearch;
+    Button             btSearch;
     @Bind(R.id.el_search)
     ExpandableListView elSearch;
 
@@ -78,7 +78,7 @@ public class SearchFragment extends BaseFragment {
         searchOld = new LinkedList<>();
         sp_keyword = SpUtil.getinfo(mContext, Constant.SEARCH_KEYWORD, "");
         if (TextUtils.isEmpty(sp_keyword)) {
-
+                // TODO: 2016/9/10
         } else {
             String[] split = sp_keyword.split(regex);
             for (int i = 0; i < split.length; i++) {
@@ -86,7 +86,6 @@ public class SearchFragment extends BaseFragment {
 
                     searchOld.add(split[i]);
                 }
-
             }
         }
     }
@@ -262,17 +261,17 @@ public class SearchFragment extends BaseFragment {
         //创建对应组对应子条目的view界面
         @Override
         public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup viewGroup) {
-            if (convertView==null) {
+            if (convertView == null) {
                 TextView tv = new TextView(getActivity().getApplicationContext());
                 tv.setBackgroundResource(R.drawable.shape_search_et);
-                tv.setPadding(30,12,0,0);
-                convertView=tv;
+                tv.setPadding(30, 12, 0, 0);
+                convertView = tv;
             }
             TextView tv = (TextView) convertView;
             tv.setTextColor(Color.parseColor("#55000000"));
 
-//            ViewGroup.LayoutParams params = new LinearLayout.LayoutParams();
-//            convertView.setLayoutParams(params);
+            //            ViewGroup.LayoutParams params = new LinearLayout.LayoutParams();
+            //            convertView.setLayoutParams(params);
             tv.setTextSize(14);
             if (groupPosition == 0) {
                 tv.setText(mData.get(childPosition));
@@ -334,8 +333,6 @@ public class SearchFragment extends BaseFragment {
         //        Call<SearchGoodsBean> search(@Field("page") int page, @Field("pageNum") int pageNum, @Field("orderby") String orderby, @Field("keyword") String keyword);
 
     }
-
-
 
 
     private void setListViewHeightBasedOnChildren(ListView listView) {

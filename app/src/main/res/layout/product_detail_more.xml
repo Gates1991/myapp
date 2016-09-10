@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+    <TextView
+        android:id="@+id/color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/darker_gray"
+        android:text="颜色"/>
+    <RadioGroup
+        android:id="@+id/radio_color"
+        android:layout_below="@+id/color"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/bt_red"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="红色"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"/>
+          <!--  style="@style/ProductButtonBar"
+            android:background="@drawable/selector_detail_more"/>-->
+        <RadioButton
+            android:id="@+id/bt_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="绿色"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"/>
+          <!--  style="@style/ProductButtonBar"
+            android:background="@drawable/selector_detail_more"/>-->
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/darker_gray"
+        android:text="尺寸"/>
+    <RadioGroup
+        android:id="@+id/radio_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <RadioButton
+            android:id="@+id/bt_m"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="M"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"/>
+          <!--  style="@style/ProductButtonBar"
+            android:background="@drawable/selector_detail_more"/>-->
+        <RadioButton
+            android:id="@+id/bt_xxl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXL"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"/>
+          <!--  style="@style/ProductButtonBar"
+            android:background="@drawable/selector_detail_more"/>-->
+        <RadioButton
+            android:id="@+id/bt_xxxl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="XXXL"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal"/>
+         <!--   style="@style/ProductButtonBar"
+            android:background="@drawable/selector_detail_more"/>-->
+    </RadioGroup>
+    </LinearLayout>
+    <TextView
+        android:layout_below="@id/layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        android:textColor="@android:color/darker_gray"
+        android:layout_margin="15dp"
+        android:text="数量"/>
+    <LinearLayout
+        android:id="@+id/shopcar_details_item_ll_num"
+        android:layout_below="@+id/layout"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tv_minus"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+
+            android:gravity="center"
+            android:textSize="18sp"
+            android:textColor="@android:color/background_dark"
+            android:text="—"/>
+        <!--  android:background="@drawable/selector_shopcar_btn_right"-->
+
+        <TextView
+            android:id="@+id/tv_number"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:textSize="16sp"
+            android:background="@mipmap/segment_normal_2_bg"
+            android:gravity="center"
+            android:singleLine="true"
+            android:maxLength="3"
+            android:focusable="true"
+            android:textColor="@android:color/background_dark"
+            android:text="1"/>
+        <TextView
+            android:id="@+id/tv_add"
+            android:layout_width="30dp"
+            android:layout_height="20dp"
+            android:textSize="18sp"
+
+            android:gravity="center"
+            android:textColor="@android:color/background_dark"
+            android:text="+"/>
+<!--
+        android:background="@drawable/selector_shopcar_btn_left"
+-->
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_addCars"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#f00"
+        android:padding="15dp"
+        android:textSize="16sp"
+        android:text="加入购物车"
+        android:textColor="@android:color/white"/>
+<!--
+    android:background="@drawable/selector_details_btn_addcar1"？
+-->
+</RelativeLayout>
