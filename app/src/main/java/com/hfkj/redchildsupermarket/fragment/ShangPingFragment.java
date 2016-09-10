@@ -9,27 +9,32 @@ package com.hfkj.redchildsupermarket.fragment;/*
  */
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.CommentAdapter;
+import com.hfkj.redchildsupermarket.adapter.shangPingAdapter;
 import com.hfkj.redchildsupermarket.bean.BaseResponse;
 import com.hfkj.redchildsupermarket.bean.CommentBean;
 import com.hfkj.redchildsupermarket.bean.DetailsBean;
@@ -54,14 +59,14 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public class ShangPingFragment extends BaseFragment {
+public class ShangPingFragment extends BaseFragment implements View.OnClickListener {
 
     @Bind(R.id.bt_title_left)
     Button mBtTitleLeft;
     @Bind(R.id.tv_title_name)
     TextView mTvTitleName;
-    @Bind(R.id.iv_icon)
-    ImageView mIvIcon;
+    /* @Bind(R.id.iv_icon)
+     ImageView mIvIcon;*/
     @Bind(R.id.tv_name)
     TextView mTvName;
     @Bind(R.id.tv_marketPrice)
@@ -92,6 +97,10 @@ public class ShangPingFragment extends BaseFragment {
     private String mPnum;
     private String mLogin_user_id;
     private String mLogin_token;
+    private ViewPager mVp;
+    private ScrollView mScroll;
+    private TextView mTvNumber;
+    private Dialog mDialog;
 
     @Nullable
     @Override
@@ -99,6 +108,8 @@ public class ShangPingFragment extends BaseFragment {
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_shangping, null);
         mEdCommodityNum = (EditText) view.findViewById(R.id.ed_commodity_num);
+        mVp = (ViewPager) view.findViewById(R.id.vp_icon);
+        mScroll = (ScrollView) view.findViewById(R.id.sv_scroll);
         Bundle bundle = getArguments();
         mMainActivity.isMainFrament = 3;
         mPid = bundle.getInt("id");
@@ -138,7 +149,7 @@ public class ShangPingFragment extends BaseFragment {
         DetailsBean.ProductBean product = detailsBean.getProduct();
         //大图
         List<String> bigPic = product.getBigPic();
-        Glide.with(mContext).load(Constant.BASE_URL + bigPic.get(0)).into(mIvIcon);
+        // Glide.with(mContext).load(Constant.BASE_URL + bigPic.get(0)).into(mIvIcon);
         //商品名
         String name = product.getName();
         mTvName.setText(name);
@@ -157,12 +168,18 @@ public class ShangPingFragment extends BaseFragment {
         mTvComment.setText("(" + commentCount + "人评论)");
         //商品id;
         mId = product.getId();
+        //商品评分
         float score = product.getScore();
         mRatingBar1.setRating(score);
-
-
+        //获取登陆信息
         mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
         mLogin_token = SpUtil.getinfo(mContext, "login_token", "");
+
+        //
+        List<String> pics = product.getPics();
+        mVp.setAdapter(new shangPingAdapter(mContext, pics));
+
+
     }
 
     public void getNetData2() {
@@ -178,7 +195,9 @@ public class ShangPingFragment extends BaseFragment {
                             List<CommentBean.ProductBean> product = commentBean.getProduct();
                             mConmmentData.addAll(product);
                             mLvComment.setAdapter(new CommentAdapter(mContext, mConmmentData));
+
                             setListViewHeightBasedOnChildren(mLvComment);
+                            mScroll.scrollTo(0, 0);
 
                         } else {
                             System.out.println(response.errorBody());
@@ -218,51 +237,92 @@ public class ShangPingFragment extends BaseFragment {
         ButterKnife.unbind(this);
     }
 
-    @OnClick({R.id.rl_color, R.id.bt_car, R.id.bt_now,R.id.bt_title_left})
+    @OnClick({R.id.rl_color, R.id.bt_car, R.id.bt_now, R.id.bt_title_left})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_color:
-               /* Dialog dialog = new Dialog(getActivity(), R.style.CustomDatePickerDialog);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // must be called before set content
-                dialog.setContentView(R.layout.layout_dialog);
-                dialog.setCanceledOnTouchOutside(true);
-
-                // 设置宽度为屏宽、靠近屏幕底部。
-                Window window = dialog.getWindow();
-                WindowManager.LayoutParams wlp = window.getAttributes();
-                wlp.gravity = Gravity.BOTTOM;
-                wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
-                wlp.height =480;
-                wlp.alpha = 0.9f;
-                window.setWindowAnimations(R.style.mystyle);
-                window.setAttributes(wlp);
-
-                dialog.show();*/
-
+                mPnum = mEdCommodityNum.getText().toString().trim();
+                    showColorDialog(mPnum);
                 break;
             case R.id.bt_car:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
-                    mMainActivity.addToBackStack(new UserLoginFrament());
+                if (Integer.valueOf(mPnum) < 1||mPnum.isEmpty()) {
+                    Toast.makeText(mContext, "请输入正确的商品数量", Toast.LENGTH_SHORT).show();
                 } else {
-                    postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
-                    showDialog();
+                    if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                        mMainActivity.addToBackStack(new UserLoginFrament());
+                    } else {
+                        postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
+                        showDialog();
+                    }
                 }
+
                 break;
             case R.id.bt_now:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
-                    mMainActivity.addToBackStack(new UserLoginFrament());
+                if (Integer.valueOf(mPnum) < 1||mPnum.isEmpty()) {
+                    Toast.makeText(mContext, "请输入正确的商品数量", Toast.LENGTH_SHORT).show();
                 } else {
-                    postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
-                    mMainActivity.addToBackStack(new CarFragment());
+                    showColorDialog(mPnum);
                 }
                 break;
             case R.id.bt_title_left:
                 mMainActivity.popBackStack2();
                 break;
+            case R.id.tv_add:
+                int num = Integer.valueOf(mTvNumber.getText().toString()) + 1;
+                mTvNumber.setText(num + "");
+                break;
+            case R.id.tv_minus:
+                int num1 = Integer.valueOf(mTvNumber.getText().toString()) - 1;
+                if (num1 < 1) {
+                    num1 = 1;
+                }
+                mTvNumber.setText(num1 + "");
+                break;
+            case R.id.btn_addCars:
+                int num3 = Integer.valueOf(mTvNumber.getText().toString());
+                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                    mMainActivity.addToBackStack(new UserLoginFrament());
+                } else {
+                    postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(num3), mId, 0);
+                    Toast.makeText(mContext, "加入购物车成功", Toast.LENGTH_SHORT).show();
+                    mDialog.dismiss();
+                    mEdCommodityNum.setText("1");
+                }
+                break;
         }
     }
+
+    private void showColorDialog(String pnum) {
+        mDialog = new Dialog(getActivity(), R.style.CustomDatePickerDialog);
+
+        mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // must be called before set content
+        mDialog.setContentView(R.layout.product_detail_more);
+        mDialog.setCanceledOnTouchOutside(true);
+
+        // 设置宽度为屏宽、靠近屏幕底部。
+        Window window = mDialog.getWindow();
+        WindowManager.LayoutParams wlp = window.getAttributes();
+        wlp.gravity = Gravity.BOTTOM;
+        wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+        wlp.height = 480;
+        wlp.alpha = 0.9f;
+        window.setWindowAnimations(R.style.mystyle);
+        window.setAttributes(wlp);
+
+        mDialog.show();
+
+        mTvNumber = (TextView) mDialog.findViewById(R.id.tv_number);
+        mTvNumber.setText(pnum);
+        Button bt = (Button) mDialog.findViewById(R.id.btn_addCars);
+        TextView tvMinus = (TextView) mDialog.findViewById(R.id.tv_minus);
+        TextView tvAdd = (TextView) mDialog.findViewById(R.id.tv_add);
+        tvMinus.setOnClickListener(this);
+        tvAdd.setOnClickListener(this);
+        bt.setOnClickListener(this);
+    }
+
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setMessage("商品加入购物车成功,是否去购物车结算").setPositiveButton("去购物车", new DialogInterface.OnClickListener() {
@@ -317,4 +377,6 @@ public class ShangPingFragment extends BaseFragment {
             }
         });
     }
+
+
 }
