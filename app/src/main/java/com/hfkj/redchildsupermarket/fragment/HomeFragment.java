@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -13,9 +12,11 @@ import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.HomeLVAdapter;
+import com.hfkj.redchildsupermarket.adapter.MyGridAdapter;
 import com.hfkj.redchildsupermarket.bean.HomeVPBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.view.CustomScorollView;
+import com.hfkj.redchildsupermarket.view.MyGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +36,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Bind(R.id.rl)
     public RelativeLayout rl;//放viewpage的布局
 
-    @Bind(R.id.lv_home)
-    public ListView mLv;
+   /* @Bind(R.id.lv_home)
+    public ListView mLv;*/
     @Bind(R.id.rg)
     RadioGroup  mRg;
     @Bind(R.id.rb_1)
@@ -56,17 +57,18 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
 
     private List<ItemBean> itemDatas = new ArrayList<>();
-    private int[]          itemPic   = {R.mipmap.home_classify_01, R.mipmap.home_classify_02, R.mipmap.home_classify_03,
-            R.mipmap.home_classify_04, R.mipmap.home_classify_05};
-    private String[]       itemTitel = {"限时抢购", "促销快报", "新品上市", "热门单品", "推荐品牌"};
+
     private HomeLVAdapter mHomeLVAdapter;
     private CustomScorollView mCustomScorollView;
     private  List<String> infoList=new ArrayList<>();
+    private MyGridView mGridview;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, null);
-        mLv = (ListView) view.findViewById(R.id.lv_home);
+      //  mLv = (ListView) view.findViewById(R.id.lv_home);
+        mGridview = (MyGridView) view.findViewById(R.id.gridview);
+
         mCustomScorollView = (CustomScorollView) view.findViewById(R.id.csv);
 
         ButterKnife.bind(this, view);
@@ -87,19 +89,19 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
 
         initListView();
         getNetData();
-        if (mLv != null) {
-            mLv.setOnItemClickListener(this);
+        if (mGridview != null) {
+            mGridview.setOnItemClickListener(this);
         }
     }
 
     private void initListView() {
-        if (itemDatas != null && itemDatas.size() == 0) {
+       /* if (itemDatas != null && itemDatas.size() == 0) {
             for (int i = 0; i < itemPic.length; i++) {
                 itemDatas.add(new ItemBean(itemTitel[i], itemPic[i]));
             }
-        }
+        }*/
         mHomeLVAdapter = new HomeLVAdapter(mContext, itemDatas);
-        mLv.setAdapter(mHomeLVAdapter);
+        mGridview.setAdapter(new MyGridAdapter(mContext));
         mHomeLVAdapter.notifyDataSetChanged();
 
     }
@@ -196,6 +198,10 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 break;
             case 4:
                 fragment = new recommendBrandFragment();
+                mMainActivity.addToBackStack(fragment);
+                break;
+            case 5:
+                fragment = new UserLoginFrament();
                 mMainActivity.addToBackStack(fragment);
                 break;
         }
