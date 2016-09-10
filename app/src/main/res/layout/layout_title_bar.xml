@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="55dp"
-    android:background="@drawable/head_bg"
+    android:layout_height="@dimen/title_height"
+    android:background="@mipmap/head_bg"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="0dp"
+        android:layout_weight="1"
         android:layout_height="wrap_content">
 
         <ImageButton
@@ -16,20 +18,20 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:background="@drawable/selector_title_left_btn"
+            android:background="@mipmap/goback_mmin"
             android:scaleType="centerInside"
             android:visibility="invisible" />
 
         <TextView
+            android:textSize="14sp"
             android:layout_centerInParent="true"
             android:id="@+id/tv_title_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
             android:textColor="#fff"
 
             />
-    </RelativeLayout>
+    </LinearLayout>
 
 
     <RelativeLayout
