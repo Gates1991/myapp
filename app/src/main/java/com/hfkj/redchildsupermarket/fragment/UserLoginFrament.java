@@ -153,7 +153,7 @@ public class UserLoginFrament extends BaseFragment {
 
                     @Override
                     public void onFailure(Call<LoginBean> call, Throwable throwable) {
-
+                        Toast.makeText(mContext, "获取数据失败", Toast.LENGTH_SHORT).show();
                     }
                 });
 

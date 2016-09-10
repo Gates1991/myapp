@@ -38,7 +38,7 @@ public class AddressAdapter extends CommonAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        MyAddressBean.AddressListBean addressListBean = (MyAddressBean.AddressListBean) getItem(position);
+        MyAddressBean.AddressListBean addressListBean = (MyAddressBean.AddressListBean) getItem(mDatas.size()-position-1);
         holder.tv_name.setText(addressListBean.getName());
         holder.tv_num.setText(addressListBean.getPhoneNumber());
         holder.tv_addr.setText(addressListBean.getProvince()+","+addressListBean.getCity()+","+addressListBean.getAddressArea());

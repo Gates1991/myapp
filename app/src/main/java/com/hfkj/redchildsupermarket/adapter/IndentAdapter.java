@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.bean.IndentBean;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,7 +73,11 @@ public class IndentAdapter extends BaseAdapter {
         //状态
         String state = whatState(stateValue);
         holder.tv_state.setText("状态:"+state);
-        holder.tv_indentTime.setText("时间:"+state);
+        long time = orderListBean.getTime();
+        Date d = new Date(time);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String Time = sdf.format(d);
+        holder.tv_indentTime.setText("时间:"+Time);
 
         //TODO 设置时间
 
