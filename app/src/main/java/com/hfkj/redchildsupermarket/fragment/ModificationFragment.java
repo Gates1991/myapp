@@ -112,7 +112,31 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
         ButterKnife.bind(this, view);
 
         initView();
+        initNetData();
         return view;
+    }
+
+    private void initNetData() {
+        id = id_address;
+        login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
+        login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
+        //token
+//                login_token = SpUtil.getinfo(mContext, "login_token", null);
+//                long token_get = Long.parseLong(login_token);
+        //姓名
+        mConsignee = etConsignee.getText().toString().trim();
+
+        mPhone = etPhone.getText().toString().trim();
+        //收货人
+        mConsignee = this.etConsignee.getText().toString().trim();
+        //手机
+        mPhone = this.etPhone.getText().toString().trim();
+        //省市区
+        mCity = tvCity.getText().toString().trim();
+        //详细地址
+        mAddress = etAddress.getText().toString().trim();
+        //邮编
+        mEmail = email.getText().toString().trim();
     }
 
     @Override
@@ -218,26 +242,26 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                  * 测试保存接口
                  */
 
-                id = id_address;
-                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
-                login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
-                //token
-//                login_token = SpUtil.getinfo(mContext, "login_token", null);
-//                long token_get = Long.parseLong(login_token);
-                //姓名
-                mConsignee = etConsignee.getText().toString().trim();
-
-                mPhone = etPhone.getText().toString().trim();
-                //收货人
-                mConsignee = this.etConsignee.getText().toString().trim();
-                //手机
-                mPhone = this.etPhone.getText().toString().trim();
-                //省市区
-                mCity = tvCity.getText().toString().trim();
-                //详细地址
-                mAddress = etAddress.getText().toString().trim();
-                //邮编
-                mEmail = email.getText().toString().trim();
+//                id = id_address;
+//                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
+//                login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
+//                //token
+////                login_token = SpUtil.getinfo(mContext, "login_token", null);
+////                long token_get = Long.parseLong(login_token);
+//                //姓名
+//                mConsignee = etConsignee.getText().toString().trim();
+//
+//                mPhone = etPhone.getText().toString().trim();
+//                //收货人
+//                mConsignee = this.etConsignee.getText().toString().trim();
+//                //手机
+//                mPhone = this.etPhone.getText().toString().trim();
+//                //省市区
+//                mCity = tvCity.getText().toString().trim();
+//                //详细地址
+//                mAddress = etAddress.getText().toString().trim();
+//                //邮编
+//                mEmail = email.getText().toString().trim();
 
                 if (mConsignee.isEmpty() || mPhone.isEmpty() || mCity.isEmpty() || mAddress.isEmpty() || mEmail.isEmpty()) {
                     Toast.makeText(mContext, "请填写完整信息", Toast.LENGTH_SHORT).show();
@@ -247,40 +271,6 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                 }
                 break;
             case R.id.bt_setDefu:
-                /**
-                 * 设置默认地址接口
-                 */
-
-                new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create())
-                        .build().create(HttpApi.class)
-                        .getDefuAddr(mid,login_token_1,login_user_id)
-                        .enqueue(new Callback<DefuAddrBean>() {
-                            @Override
-                            public void onResponse(Call<DefuAddrBean> call, Response<DefuAddrBean> response) {
-                                if (response.isSuccessful()) {
-                                    DefuAddrBean defuAddrBean = response.body();
-                                    if (TextUtils.equals("error", defuAddrBean.response)) {
-                                        Toast.makeText(mContext, "ERRORCODE:" + defuAddrBean.error + "MSG:" + defuAddrBean.error.msg, Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(mContext,"设置成功",Toast.LENGTH_SHORT).show();
-                                    }
-
-                                } else {
-                                    Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-
-                            @Override
-                            public void onFailure(Call<DefuAddrBean> call, Throwable throwable) {
-                                Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
-                            }
-                        });
-
-
-                break;
-
-            case R.id.bt_deleteAdd:
 
                 /**
                  * 设置删除地址接口
@@ -311,6 +301,43 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                                 Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
                             }
                         });
+
+
+
+                break;
+
+            case R.id.bt_deleteAdd:
+
+                /**
+                 * 设置默认地址接口
+                 */
+
+                new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create())
+                        .build().create(HttpApi.class)
+                        .getDefuAddr(mid,login_token_1,login_user_id)
+                        .enqueue(new Callback<DefuAddrBean>() {
+                            @Override
+                            public void onResponse(Call<DefuAddrBean> call, Response<DefuAddrBean> response) {
+                                if (response.isSuccessful()) {
+                                    DefuAddrBean defuAddrBean = response.body();
+                                    if (TextUtils.equals("error", defuAddrBean.response)) {
+                                        Toast.makeText(mContext, "ERRORCODE:" + defuAddrBean.error + "MSG:" + defuAddrBean.error.msg, Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(mContext,"设置成功",Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } else {
+                                    Toast.makeText(mContext,"响应失败",Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+
+                            @Override
+                            public void onFailure(Call<DefuAddrBean> call, Throwable throwable) {
+                                Toast.makeText(mContext,"获取数据失败",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
 
 
                 break;

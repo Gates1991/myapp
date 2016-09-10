@@ -175,7 +175,7 @@ public class UserLoginFrament extends BaseFragment {
             System.out.println(userInfo.getToken()+"lo");
 
             Toast.makeText(mContext, "LOGIN", Toast.LENGTH_SHORT).show();
-            addToBackStack(new UserInformationFragment());
+            mMainActivity.popBackStack();
         }
 
 
