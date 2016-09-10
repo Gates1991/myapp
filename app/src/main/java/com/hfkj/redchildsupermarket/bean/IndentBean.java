@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -10,7 +11,7 @@ import java.util.List;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class IndentBean extends BaseResponse {
+public class IndentBean extends BaseResponse implements Serializable{
 
     /**
      * orderList : [{"addressid":"145","carts":[{"id":53,"orderid":"201609080154241","pid":1,"pnum":2,"ppid":0,"productImageUrl":"/images/topic/product/1.jpg","productName":"灰色孕妇服","productPrice":"50","state":2,"user_id":"147323808575613"}],"couponid":"1","deliveryType":1,"id":37,"invoiceContent":"办公用品","invoiceTitle":"悟空","invoiceType":0,"orderid":"201609080154241","paymentType":0,"price":50,"state":1,"time":1473270864610,"user_id":"147323808575613"}]

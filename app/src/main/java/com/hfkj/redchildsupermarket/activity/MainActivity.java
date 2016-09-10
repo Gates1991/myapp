@@ -12,6 +12,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
+import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.fragment.BaseFragment;
 import com.hfkj.redchildsupermarket.fragment.BrandFragment;
 import com.hfkj.redchildsupermarket.fragment.CarFragment;
@@ -87,9 +88,7 @@ public class MainActivity extends FragmentActivity {
         }
     };
     private FragmentManager supportFragmentManager;
-    private long            mTimeMillis;
-    private long mCurrentTimeMillis;
-    private boolean isFirst;
+
     private long currentClickTime;
 
     @Override
@@ -206,6 +205,25 @@ public class MainActivity extends FragmentActivity {
 
         Bundle bundle = new Bundle();
         bundle.putString("keyword",keyword);
+        fragment.setArguments(bundle);
+
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
+    public void addToBackStack2(BaseFragment fragment, IndentBean bean,int i) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setCustomAnimations(
+                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
+                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
+        );
+
+        Bundle bundle = new Bundle();
+
+        bundle.putSerializable("indent",bean);
+        bundle.putInt("position",i);
         fragment.setArguments(bundle);
 
         transaction.replace(R.id.fl_content, fragment);

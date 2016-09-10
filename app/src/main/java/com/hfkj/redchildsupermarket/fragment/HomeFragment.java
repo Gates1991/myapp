@@ -61,7 +61,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private  List<String> infoList=new ArrayList<>();
     private MyGridView mGridview;
     private String mLogin_user_id;
-    private String mLogin_token;
+    private long mLogin_token;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -191,8 +191,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 break;
             case 5:
                 mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
-                mLogin_token = SpUtil.getinfo(mContext, "login_token", "");
-                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                mLogin_token = SpUtil.getLonginfo(mContext, "login_token", 0);
+                if (TextUtils.isEmpty(mLogin_user_id) || mLogin_token==0) {
                     mMainActivity.addToBackStack(new UserLoginFrament());
                 } else {
                     Toast.makeText(mContext, "已经登录了", Toast.LENGTH_SHORT).show();

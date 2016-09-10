@@ -129,6 +129,8 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mContext,"能跳",Toast.LENGTH_SHORT).show();
+        SuccessIndentContentFragment fragment = new SuccessIndentContentFragment();
+        IndentBean indentBean = new IndentBean();
+        mMainActivity.addToBackStack2(fragment,indentBean,position);
     }
 }

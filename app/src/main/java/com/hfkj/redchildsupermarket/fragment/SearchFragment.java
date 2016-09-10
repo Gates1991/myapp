@@ -136,7 +136,6 @@ public class SearchFragment extends BaseFragment {
             }
         });
 
-
     }
 
     //获取热门搜索的数据
