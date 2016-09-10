@@ -8,6 +8,7 @@ import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -24,6 +25,7 @@ import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import butterknife.Bind;
@@ -65,15 +67,15 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private ImageButton mBtn_right;
     private Retrofit mRetrofit;
     private List<ShoppingCarBean.CartBean> mShowList = new ArrayList<>();
-    private CheckBox mChecked_all;
-    private View mIv_allremove;
-    private  AccountFragment accountFragment;
-    private int mTotalMoney;
-    private String mUserid;
-    private String mTokenString;
-    private LinearLayout mLl_hasShopping;
-    private LinearLayout mLl_noShopping;
-    private int mTotalNum;
+    private CheckBox        mChecked_all;
+    private ImageView       mIv_allremove;
+    private AccountFragment accountFragment;
+    private int             mTotalMoney;
+    private String          mUserid;
+    private String          mTokenString;
+    private LinearLayout    mLl_hasShopping;
+    private LinearLayout    mLl_noShopping;
+    private int             mTotalNum;
     private boolean hasShopping = false;
 
 
@@ -84,7 +86,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
         mTokenString = SpUtil.getinfo(mContext, "login_token", "");
         //long token = Long.parseLong(tokenString);
-        View view = inflater.inflate(R.layout.fragment_hasshopping, null);
+        final View view = inflater.inflate(R.layout.fragment_hasshopping, null);
         ButterKnife.bind(this, view);
         mImgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
         mBtn_right = (ImageButton) view.findViewById(R.id.btn_right);
@@ -129,11 +131,30 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                             //获取选中项的cid,然后post到服务器删除
                             //遍历集合,获取每个cid
                             if (mChecked_all.isChecked()) {
-                                //跳转到空购物车页面
-                                hasShopping = false;
-                                Toast.makeText(mContext, "确定全部删除吗", Toast.LENGTH_SHORT).show();
+                                showNonShoppingView(view);
+                                for (int i = 0; i < mList.size(); i++) {
+                                    //循环调用删除方法
+                                    deleteShopping(mTokenString,mUserid,String.valueOf(mList.get(i).getId()));
+                                }
                             } else {
+                                //只删除列表中的选中项
+                                String deleIndex = "";
+                                Iterator<ShoppingCarBean.CartBean> it = mList.iterator();
+                                while (it.hasNext()) {
+                                    ShoppingCarBean.CartBean next = it.next();
+                                    if (next.isChecked()) {
+                                        deleIndex = deleIndex + next.getId() + "-";
+                                        it.remove();
+                                    }
+                                }
+                                    if (!"".equals(deleIndex)) {
+                                        String inFactIndex = deleIndex.substring(0, deleIndex.length() - 1);
+                                        deleteShopping(mTokenString, mUserid, inFactIndex);
 
+                                    }
+
+                                fillData(mList);
+                                mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
                             }
                         }
                     });
@@ -151,35 +172,45 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                 if (accountFragment == null) {
                     accountFragment = new AccountFragment();
                 }
-                if (!accountFragment.isAdded()) {
-                    ((MainActivity) mContext).addToBackStack(accountFragment, (ArrayList) mList, mTotalMoney);
+                if (mTotalNum > 0 ) {
+                    if (!accountFragment.isAdded()) {
+                        ((MainActivity) mContext).addToBackStack(accountFragment, (ArrayList) mList, mTotalMoney);
+                    }
+                }else {
+                    Toast.makeText(mContext,"购物车为空,请去商品详情逛逛吧!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
         mChecked_all = (CheckBox) view.findViewById(R.id.checked_all);
-        mIv_allremove = view.findViewById(R.id.iv_allremove);
+        mIv_allremove = (ImageView) view.findViewById(R.id.iv_allremove);
 
         ButterKnife.bind(this, view);
+       /* mLvShopCarShow.setEmptyView(View.inflate(mContext,R.layout.dialog_pay_way,null));*/
         initData();
         if ("".equals(mUserid) || "".equals(mTokenString)) {
             //显示空购物车界面
-            mLl_hasShopping.setVisibility(View.GONE);
-            mLl_noShopping.setVisibility(View.VISIBLE);
-
-            mIb_shop_view = (ImageButton) view.findViewById(R.id.ib_shop_view);
-            mIb_shop_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //跳转到"分类页面完成"
-                    ((MainActivity) mContext).addToBackStack(new BrandFragment());
-                }
-            });
+            showNonShoppingView(view);
         }else {
             mLl_hasShopping.setVisibility(View.VISIBLE);
             mLl_noShopping.setVisibility(View.GONE);
+
         }
         return view;
+    }
+
+    private void showNonShoppingView(View view) {
+        mLl_hasShopping.setVisibility(View.GONE);
+        mLl_noShopping.setVisibility(View.VISIBLE);
+
+        mIb_shop_view = (ImageButton) view.findViewById(R.id.ib_shop_view);
+        mIb_shop_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //跳转到"分类页面完成"
+                ((MainActivity) mContext).addToBackStack(new BrandFragment());
+            }
+        });
     }
 
     public void initData() {
@@ -201,6 +232,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                             }
                             mShopCarShowAdapter = new ShopCarShowAdapter(mContext, mList);
                             mShopCarShowAdapter.notifyDataSetChanged();
+                         // mLvShopCarShow.setEmptyView(View.inflate(mContext,R.layout.dialog_pay_way,null));
                             mShopCarFinishAdapter = new ShopCarFinishAdapter(mContext, mList);
                             mShopCarFinishAdapter.notifyDataSetChanged();
                             mLvShopCarShow.setAdapter(mShopCarShowAdapter);
@@ -209,6 +241,9 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                             mRlBottom.setVisibility(View.GONE);
                             mShopCarFinishAdapter.setOnAddNum(CarFragment.this);
                             mShopCarFinishAdapter.setOnSubNum(CarFragment.this);
+                            if (mTotalNum == 0) {
+                                mLvShopCarShow.setEmptyView(View.inflate(mContext, R.layout.dialog_pay_way, null));
+                            }
                         }
                     }
 
@@ -313,6 +348,20 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
             }
         });
     }
+    private void deleteShopping(String s, String s1,String i) {
+        mRetrofit.create(EditApi.class)
+                .deleteShopping(s,s1,i).enqueue(new Callback<BaseResponse>() {
+          @Override
+          public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+
+          }
+
+          @Override
+          public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+              Toast.makeText(mContext,"网络异常",Toast.LENGTH_SHORT).show();
+          }
+      });
+    }
     public interface HttpApi {
         @FormUrlEncoded  //进行表单url编码
         @POST(Constant.URL_CART)
@@ -326,6 +375,11 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                            @Field("pnum") int pnum,
                                            @Field("pid") int pid,
                                            @Field("cid") int cid);
+        @FormUrlEncoded
+        @POST(Constant.URL_CART_DELETE)
+        Call<BaseResponse> deleteShopping(@Field("token") String token,
+                                            @Field("userid") String userid,
+                                            @Field("cids") String cid);
     }
     public void showData() {
         //从服务器获取数据
