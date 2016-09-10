@@ -12,7 +12,6 @@ import com.hfkj.redchildsupermarket.bean.RecommandExpandBean;
 import com.hfkj.redchildsupermarket.bean.RegisterBean;
 import com.hfkj.redchildsupermarket.bean.SalesBean;
 import com.hfkj.redchildsupermarket.bean.SaveAddBean;
-import com.hfkj.redchildsupermarket.bean.UnfinishOrderDetailBean;
 import com.hfkj.redchildsupermarket.http.response.ResponseHomeBigViewModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseProductListModel;
 import com.hfkj.redchildsupermarket.http.response.ResponseSearchHotKeywordModel;
@@ -197,6 +196,6 @@ public interface HttpApi {
 
     @FormUrlEncoded
     @POST("orderlist")
-    Call<UnfinishOrderDetailBean> getUnfinishOrderDetailData(@Field("userid") String userid, @Field("token") Long token,@Field("page") Integer pagenum, @Field("pageNum") Integer pagesize,@Field("type") Integer type);
+    Call<IndentBean> getUnfinishOrderDetailData(@Field("userid") String userid, @Field("token") Long token,@Field("page") Integer pagenum, @Field("pageNum") Integer pagesize,@Field("type") Integer type);
 
 }

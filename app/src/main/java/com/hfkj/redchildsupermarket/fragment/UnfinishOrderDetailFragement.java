@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.UnFinishAdapter;
-import com.hfkj.redchildsupermarket.bean.UnfinishOrderDetailBean;
+import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.http.HttpApi;
 import com.hfkj.redchildsupermarket.utils.RetrofitUtil;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
@@ -80,8 +80,8 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
     TextView       mTv;
     @Bind(R.id.rl_continue)
     RelativeLayout mRlContinue;
-    private List<UnfinishOrderDetailBean.OrderListBean> mOrderList=new ArrayList<>();
-    private List<UnfinishOrderDetailBean.OrderListBean.CartsBean> mCarts=new ArrayList<>();
+    private List<IndentBean.OrderListBean> mOrderList=new ArrayList<>();
+    private List<IndentBean.OrderListBean.CartsBean> mCarts=new ArrayList<>();
 
     @Nullable
     @Override
@@ -114,25 +114,25 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
         String login_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
         long login_token = SpUtil.getLonginfo(mContext, "login_token", 0);
         HttpApi httpApi = RetrofitUtil.createHttpApiInstance();
-        Call<UnfinishOrderDetailBean> call = httpApi.getUnfinishOrderDetailData(login_user_id, login_token, 5, 2, 0);
-        call.enqueue(new Callback<UnfinishOrderDetailBean>() {
+        Call<IndentBean> call = httpApi.getUnfinishOrderDetailData(login_user_id, login_token, 5, 2, 0);
+        call.enqueue(new Callback<IndentBean>() {
             @Override
-            public void onResponse(Call<UnfinishOrderDetailBean> call, Response<UnfinishOrderDetailBean> response) {
+            public void onResponse(Call<IndentBean> call, Response<IndentBean> response) {
                 if (response.isSuccessful()) {
-                    UnfinishOrderDetailBean unfinishOrderDetailBean = response.body();
+                    IndentBean unfinishOrderDetailBean = response.body();
                     parseNetData(unfinishOrderDetailBean);
                 }
             }
 
             @Override
-            public void onFailure(Call<UnfinishOrderDetailBean> call, Throwable throwable) {
+            public void onFailure(Call<IndentBean> call, Throwable throwable) {
 
             }
         });
 
     }
 
-    private void parseNetData(UnfinishOrderDetailBean unfinishOrderDetailBean) {
+    private void parseNetData(IndentBean unfinishOrderDetailBean) {
         mOrderList = unfinishOrderDetailBean.getOrderList();
         mCarts = mOrderList.get(0).getCarts();
         //加载页面数据

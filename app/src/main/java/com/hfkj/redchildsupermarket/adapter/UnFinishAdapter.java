@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.bean.UnfinishOrderDetailBean;
+import com.hfkj.redchildsupermarket.bean.IndentBean;
 import com.hfkj.redchildsupermarket.utils.Constant;
 
 import java.util.List;
@@ -24,9 +24,9 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class UnFinishAdapter extends CommonAdapter<UnfinishOrderDetailBean.OrderListBean.CartsBean> {
+public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.CartsBean> {
 
-    public UnFinishAdapter(Context context, List<UnfinishOrderDetailBean.OrderListBean.CartsBean> datas) {
+    public UnFinishAdapter(Context context, List<IndentBean.OrderListBean.CartsBean> datas) {
         super(context, datas);
     }
 
@@ -40,7 +40,7 @@ public class UnFinishAdapter extends CommonAdapter<UnfinishOrderDetailBean.Order
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        UnfinishOrderDetailBean.OrderListBean.CartsBean cartsBean = mDatas.get(position);
+        IndentBean.OrderListBean.CartsBean cartsBean = mDatas.get(position);
         viewHolder.mTvTitle.setText(cartsBean.getProductName());
         //viewHolder.mIvGoodsIcon
         Glide.with(mContext).load(Constant.BASE_URL+cartsBean.getProductImageUrl()).into(viewHolder.mIvGoodsIcon);
