@@ -155,7 +155,7 @@ public class ShangPingFragment extends BaseFragment {
         //评论数量
         int commentCount = product.getCommentCount();
         mTvComment.setText("(" + commentCount + "人评论)");
-        //商品id
+        //商品id;
         mId = product.getId();
         float score = product.getScore();
         mRatingBar1.setRating(score);
@@ -222,6 +222,23 @@ public class ShangPingFragment extends BaseFragment {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.rl_color:
+               /* Dialog dialog = new Dialog(getActivity(), R.style.CustomDatePickerDialog);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE); // must be called before set content
+                dialog.setContentView(R.layout.layout_dialog);
+                dialog.setCanceledOnTouchOutside(true);
+
+                // 设置宽度为屏宽、靠近屏幕底部。
+                Window window = dialog.getWindow();
+                WindowManager.LayoutParams wlp = window.getAttributes();
+                wlp.gravity = Gravity.BOTTOM;
+                wlp.width = WindowManager.LayoutParams.MATCH_PARENT;
+                wlp.height =480;
+                wlp.alpha = 0.9f;
+                window.setWindowAnimations(R.style.mystyle);
+                window.setAttributes(wlp);
+
+                dialog.show();*/
+
                 break;
             case R.id.bt_car:
                 mPnum = mEdCommodityNum.getText().toString().trim();
@@ -236,7 +253,7 @@ public class ShangPingFragment extends BaseFragment {
                 mPnum = mEdCommodityNum.getText().toString().trim();
                 if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
                     mMainActivity.addToBackStack(new UserLoginFrament());
-                }else {
+                } else {
                     postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
                     mMainActivity.addToBackStack(new CarFragment());
                 }

@@ -12,6 +12,8 @@ import android.app.Application;
 import android.os.Environment;
 import android.os.Process;
 
+import com.squareup.leakcanary.LeakCanary;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
@@ -20,8 +22,9 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        //Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
+        LeakCanary.install(this);
       //  Thread.setDefaultUncaughtExceptionHandler(new RedBaby());
+
     }
 
     private class RedBaby implements Thread.UncaughtExceptionHandler{
