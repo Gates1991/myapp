@@ -242,26 +242,26 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                  * 测试保存接口
                  */
 
-//                id = id_address;
-//                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
-//                login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
-//                //token
-////                login_token = SpUtil.getinfo(mContext, "login_token", null);
-////                long token_get = Long.parseLong(login_token);
-//                //姓名
-//                mConsignee = etConsignee.getText().toString().trim();
-//
-//                mPhone = etPhone.getText().toString().trim();
-//                //收货人
-//                mConsignee = this.etConsignee.getText().toString().trim();
-//                //手机
-//                mPhone = this.etPhone.getText().toString().trim();
-//                //省市区
-//                mCity = tvCity.getText().toString().trim();
-//                //详细地址
-//                mAddress = etAddress.getText().toString().trim();
-//                //邮编
-//                mEmail = email.getText().toString().trim();
+                id = id_address;
+                login_user_id = SpUtil.getinfo(mContext, "login_user_id", null);
+                login_token_1 = SpUtil.getLonginfo(mContext, "login_token", 0);
+                //token
+//                login_token = SpUtil.getinfo(mContext, "login_token", null);
+//                long token_get = Long.parseLong(login_token);
+                //姓名
+                mConsignee = etConsignee.getText().toString().trim();
+
+                mPhone = etPhone.getText().toString().trim();
+                //收货人
+                mConsignee = this.etConsignee.getText().toString().trim();
+                //手机
+                mPhone = this.etPhone.getText().toString().trim();
+                //省市区
+                mCity = tvCity.getText().toString().trim();
+                //详细地址
+                mAddress = etAddress.getText().toString().trim();
+                //邮编
+                mEmail = email.getText().toString().trim();
 
                 if (mConsignee.isEmpty() || mPhone.isEmpty() || mCity.isEmpty() || mAddress.isEmpty() || mEmail.isEmpty()) {
                     Toast.makeText(mContext, "请填写完整信息", Toast.LENGTH_SHORT).show();
