@@ -27,7 +27,6 @@ public class ShopCarFinishAdapter extends BaseAdapter {
 
     private Context                        mContext;
     private List<ShoppingCarBean.CartBean> mData;
-    private ViewHolder                     mViewHolder;
     private ImageView                    previousItem ;
     private View.OnClickListener onAddNum;    //加商品数量接口
     private View.OnClickListener onSubNum;    //减商品数量接口
@@ -39,7 +38,11 @@ public class ShopCarFinishAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        if (mData != null) {
+            return mData.size();
+        }
+        return  0;
+
     }
 
     @Override
@@ -54,7 +57,7 @@ public class ShopCarFinishAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        mViewHolder = null;
+       ViewHolder mViewHolder = null;
         if (convertView == null) {
             convertView = View.inflate(mContext, R.layout.shopcar_finish_item, null);
             mViewHolder = new ViewHolder(convertView);

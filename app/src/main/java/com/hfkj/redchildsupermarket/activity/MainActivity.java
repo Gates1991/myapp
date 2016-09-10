@@ -2,6 +2,7 @@ package com.hfkj.redchildsupermarket.activity;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -48,6 +49,8 @@ public class MainActivity extends FragmentActivity {
     private BaseFragment mFragCar;
     private BaseFragment mFragMore;
     private RadioButton  previousChecked;
+    public boolean isReplaceing = false;
+    private Handler mHandler = new Handler();
 
     private RadioGroup.OnCheckedChangeListener listener = new RadioGroup.OnCheckedChangeListener() {
         @Override
@@ -114,9 +117,6 @@ public class MainActivity extends FragmentActivity {
         FragmentTransaction transaction = supportFragmentManager.beginTransaction();
         transaction.replace(R.id.fl_content, frag);
         transaction.commit();
-
-       // frag.initData();
-
     }
 
     private void setCheckedTextColor(RadioButton radioButton) {
@@ -170,10 +170,17 @@ public class MainActivity extends FragmentActivity {
         bundle.putSerializable("list",list);
         bundle.putInt("data",data);
         fragment.setArguments(bundle);
+        isReplaceing = true;
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);
         mMainRadio.setVisibility(View.GONE);
         transaction.commit();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                isReplaceing = false;
+            }
+        }, 500);
 
     }
     public void addToBackStack(BaseFragment fragment,String keyword) {
@@ -186,6 +193,7 @@ public class MainActivity extends FragmentActivity {
         Bundle bundle = new Bundle();
         bundle.putString("keyword",keyword);
         fragment.setArguments(bundle);
+
         transaction.replace(R.id.fl_content, fragment);
         transaction.addToBackStack(null);
         mMainRadio.setVisibility(View.GONE);
@@ -208,9 +216,6 @@ public class MainActivity extends FragmentActivity {
         supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
     }
 
-    public RadioButton getBrand() {
-        return mBrand;
-    }
 
     @Override
     public void onBackPressed() {

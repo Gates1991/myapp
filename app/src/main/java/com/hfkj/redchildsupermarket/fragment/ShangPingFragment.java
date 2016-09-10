@@ -234,8 +234,12 @@ public class ShangPingFragment extends BaseFragment {
                 break;
             case R.id.bt_now:
                 mPnum = mEdCommodityNum.getText().toString().trim();
-                postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
-                mMainActivity.addToBackStack(new CarFragment());
+                if (TextUtils.isEmpty(mLogin_user_id) || TextUtils.isEmpty(mLogin_token)) {
+                    mMainActivity.addToBackStack(new UserLoginFrament());
+                }else {
+                    postData2Server(mLogin_token, mLogin_user_id, Integer.valueOf(mPnum), mId, 0);
+                    mMainActivity.addToBackStack(new CarFragment());
+                }
                 break;
             case R.id.bt_title_left:
                 mMainActivity.popBackStack2();

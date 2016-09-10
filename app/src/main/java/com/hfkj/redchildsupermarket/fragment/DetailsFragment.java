@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -57,7 +58,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     private int mCid;
     private List<SearchGoodsBean.ProductListBean> mProductListBeen = new ArrayList<>();
     private GoodsListAdapter mAdapter;
-    private Button mBtTitleLeft;
+    private Button           mBtTitleLeft;
     private String mOrderby="saleDown";
     private ShangPingFragment mShangPingFragment;
 
@@ -66,7 +67,7 @@ public class DetailsFragment extends BaseFragment implements AdapterView.OnItemC
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle
             savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment__libiao, null);
-        mBtTitleLeft = view.findViewById(R.id.bt_title_left);
+        mBtTitleLeft = (Button)view.findViewById(R.id.bt_title_left);
         Bundle bundle = getArguments();
 
         ButterKnife.bind(this, view);

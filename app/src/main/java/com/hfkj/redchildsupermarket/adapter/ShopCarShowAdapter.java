@@ -33,7 +33,10 @@ public class ShopCarShowAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return mData.size();
+        if (mData != null ) {
+            return mData.size();
+        }
+        return  0;
     }
 
     @Override
