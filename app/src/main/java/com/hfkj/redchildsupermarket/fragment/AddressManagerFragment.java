@@ -65,12 +65,6 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         return mView;
     }
 
-    private void getDataFromAccountFrment() {
-        mBundle = getArguments();
-        boolean isOrder = mBundle.getBoolean("isOrder");
-        System.out.println(isOrder);
-
-    }
 
 
     @Override

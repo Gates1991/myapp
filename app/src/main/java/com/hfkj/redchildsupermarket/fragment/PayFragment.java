@@ -45,6 +45,7 @@ public class PayFragment extends BaseFragment {
     private int mTotalPay;
     private String orderId ;
     private TextView mOrder_money;
+    private TextView mTv_title_name;
 
     @Nullable
 
@@ -61,12 +62,14 @@ public class PayFragment extends BaseFragment {
         Bundle bundle = getArguments();
         mTotalPay = bundle.getInt("id");
         mOrder_money = (TextView) view.findViewById(R.id.order_money);
+        mTv_title_name = (TextView) view.findViewById(R.id.tv_title_name);
         initData();
         return view;
     }
 
 
     public void initData() {
+        mTv_title_name.setText("支付");
         mOrder_money.setText(mTotalPay+"元");
         int pageNum = 1;
         int pageSzie = 10;

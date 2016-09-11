@@ -1,6 +1,7 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,7 +77,9 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private LinearLayout    mLl_hasShopping;
     private LinearLayout    mLl_noShopping;
     private int             mTotalNum;
-
+    private LinearLayout mLl_title;
+    private RelativeLayout mRl_edit;
+    private RelativeLayout mRl_account;
 
 
     @Override
@@ -84,13 +87,15 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                              Bundle savedInstanceState) {
         mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
         mTokenString =String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
-        //long token = Long.parseLong(tokenString);
         final View view = inflater.inflate(R.layout.fragment_hasshopping, null);
         ButterKnife.bind(this, view);
         mImgbtn_left = (ImageButton) view.findViewById(R.id.imgbtn_left);
         mBtn_right = (ImageButton) view.findViewById(R.id.btn_right);
         mLl_hasShopping = (LinearLayout) view.findViewById(R.id.ll_hasshopping);
         mLl_noShopping = (LinearLayout) view.findViewById(R.id.ll_noshpping);
+        mLl_title = (LinearLayout) view.findViewById(R.id.ll_title);
+        mRl_edit = (RelativeLayout) view.findViewById(R.id.rl_edit);
+        mRl_account = (RelativeLayout) view.findViewById(R.id.rl_account);
         mImgbtn_left.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,9 +156,12 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                         deleteShopping(mTokenString, mUserid, inFactIndex);
 
                                     }
-
                                 fillData(mList);
-                                mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
+                                if(mTotalMoney == 0) {
+                                    showNonShoppingView(view);
+                                }else {
+                                    mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
+                                }
                             }
                         }
                     });
@@ -187,16 +195,26 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         ButterKnife.bind(this, view);
        /* mLvShopCarShow.setEmptyView(View.inflate(mContext,R.layout.dialog_pay_way,null));*/
         initData();
-        if ("".equals(mUserid) || "".equals(mTokenString)) {
-            //显示空购物车界面
-            showNonShoppingView(view);
-        }else {
-            mLl_hasShopping.setVisibility(View.VISIBLE);
-            mLl_noShopping.setVisibility(View.GONE);
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if ("".equals(mUserid) || "".equals(mTokenString) || mTotalNum ==0) {
+                    //显示空购物车界面
+                    showNonShoppingView(view);
+                } else {
+                    mRl_account.setVisibility(View.VISIBLE);
+                    mRl_edit.setVisibility(View.VISIBLE);
+                    mLl_title.setVisibility(View.VISIBLE);
+                    mLl_hasShopping.setVisibility(View.VISIBLE);
+                    mLl_noShopping.setVisibility(View.GONE);
 
-        }
+                }
+            }
+        }, 100);
+
         return view;
     }
+
 
     private void showNonShoppingView(View view) {
         mLl_hasShopping.setVisibility(View.GONE);
@@ -230,10 +248,8 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 fillData(mList);
                             }
                             mShopCarShowAdapter = new ShopCarShowAdapter(mContext, mList);
-                            mShopCarShowAdapter.notifyDataSetChanged();
                          // mLvShopCarShow.setEmptyView(View.inflate(mContext,R.layout.dialog_pay_way,null));
                             mShopCarFinishAdapter = new ShopCarFinishAdapter(mContext, mList);
-                            mShopCarFinishAdapter.notifyDataSetChanged();
                             mLvShopCarShow.setAdapter(mShopCarShowAdapter);
                             mLvShopCarFinish.setAdapter(mShopCarFinishAdapter);
                             mLvShopCarFinish.setVisibility(View.GONE);
@@ -253,6 +269,8 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                 });
 
     }
+
+
 
     private Retrofit getRetrfit() {
         mRetrofit = new Retrofit
@@ -293,7 +311,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         switch (v.getId()) {
 
             case R.id.iv_button_add:
-
                 if (tag != null && tag instanceof Integer) {
                     int position = (int) tag;
                     ShoppingCarBean.CartBean cartBean = mList.get(position);
@@ -306,12 +323,14 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
+                      //  mShopCarFinishAdapter.notifyDataSetChanged();
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
                         Toast.makeText(mContext, "添加成功", Toast.LENGTH_SHORT).show();
                     }else {
                         Toast.makeText(mContext,"超过该商品的最大购买数量",Toast.LENGTH_SHORT).show();
                     }
                 }
+
                 break;
             case R.id.iv_button_cut:
                 if (tag != null && tag instanceof  Integer) {
@@ -325,6 +344,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
+                        mShopCarFinishAdapter.notifyDataSetChanged();
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
                     }
                     Toast.makeText(mContext,"删减成功",Toast.LENGTH_SHORT).show();

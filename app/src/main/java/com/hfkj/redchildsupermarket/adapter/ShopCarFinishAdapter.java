@@ -29,6 +29,7 @@ public class ShopCarFinishAdapter extends BaseAdapter {
     private ImageView                    previousItem ;
     private View.OnClickListener onAddNum;    //加商品数量接口
     private View.OnClickListener onSubNum;    //减商品数量接口
+    public  TextView                       mTotal;
 
     public ShopCarFinishAdapter(Context context, List<ShoppingCarBean.CartBean> list) {
         this.mContext = context;
@@ -66,6 +67,7 @@ public class ShopCarFinishAdapter extends BaseAdapter {
             mViewHolder.mTvProductName.setText(bean.getProductName());
             mViewHolder.mProductPrice.setText("价格:" + bean.getProductPrice());
             mViewHolder.mTvShopNumTotal.setText(bean.getPnum()+"");
+            mTotal = (TextView) convertView.findViewById(R.id.tv_shop_num_total);
             mViewHolder.mProductTotalMoney.setText("小计:" + Integer.valueOf(bean.getProductPrice()) * bean.getPnum());
             mViewHolder.mIvButtonAdd.setOnClickListener(onAddNum);
             mViewHolder.mIvButtonCut.setOnClickListener(onSubNum);
@@ -98,6 +100,18 @@ public class ShopCarFinishAdapter extends BaseAdapter {
         this.onSubNum = onSubNum;
     }
 
+
+
+
+  /*  public void setOnNumberEditChange(OnNumberEditChange onNumberEditChange) {
+       this.OnNumberEditChange = onNumberEditChange;
+
+    }
+
+    public interface OnNumberEditChange {
+        void onAdd(int postion);
+        void onSub(int postion);
+    }*/
 
 
     static class ViewHolder {

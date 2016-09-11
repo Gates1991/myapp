@@ -15,7 +15,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="55dp"
-                android:background="@drawable/head_bg"
+                android:background="@mipmap/head_bg"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -23,7 +23,7 @@
                 android:layout_centerInParent="true"
                 android:text="购物车"
                 android:textColor="#fff"
-                android:textSize="@dimen/top_title"/>
+                android:textSize="22sp"/>
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,19 +62,22 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              android:descendantFocusability="blocksDescendants">
+           >
     <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="55dp"
-              android:background="@drawable/head_bg"
+              android:background="@mipmap/head_bg"
               android:gravity="center_vertical"
               android:orientation="horizontal">
 
     <RelativeLayout
+        android:id="@+id/rl_edit"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:focusableInTouchMode="false"
             android:contextClickable="true"
             android:id="@+id/imgbtn_left"
             android:layout_width="wrap_content"
@@ -111,12 +114,14 @@
             android:singleLine="true"
             android:text="购物车"
             android:textColor="#fff"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
     </RelativeLayout>
 
 
     <RelativeLayout
+        android:id="@+id/rl_account"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -142,6 +147,8 @@
 
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/ll_title"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/shape_shop_top"
@@ -215,6 +222,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <CheckBox
+            android:focusableInTouchMode="false"
             android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -228,6 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
         <ImageView
+            android:focusableInTouchMode="false"
             android:clickable="true"
             android:id="@+id/iv_allremove"
             android:layout_centerVertical="true"
