@@ -173,6 +173,16 @@ public class MainActivity extends FragmentActivity {
         transaction.commit();
 
     }
+    public void addToBackStackForPay(BaseFragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fl_content, fragment);
+        transaction.addToBackStack(null);
+        mMainRadio.setVisibility(View.GONE);
+        transaction.commit();
+
+    }
+
     public void addToBackStack(BaseFragment fragment, ArrayList list, int data) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.setCustomAnimations(

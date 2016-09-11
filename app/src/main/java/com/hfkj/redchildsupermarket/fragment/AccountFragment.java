@@ -90,11 +90,14 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private int mPayWay;
     private int mDeliverTime;
     private InvoiceInfoBean mBean;
+    private String mInvoiceTitle;
+    private String mInvoiceContent;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, null);
+        ((MainActivity)mContext).isMainFrament = 2;
 
         ButterKnife.bind(this, view);
         mTv_title_name = (TextView) view.findViewById(R.id.tv_title_name);
@@ -235,16 +238,19 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                     int paymentType = mPayWay;
                     int deliveryType = mDeliverTime;
                     int invoiceType = 0;
-                    if ("电子发票".equals(mBean.invoiceType)) {
-                        invoiceType = 1;
-                    } else if ("普通发票".equals(mBean.invoiceType)) {
-                        invoiceType = 2;
+                    if (mBean != null) {
+                        if ("电子发票".equals(mBean.invoiceType)) {
+                            invoiceType = 1;
+                        } else if ("普通发票".equals(mBean.invoiceType)) {
+                            invoiceType = 2;
+                        }
+                        mInvoiceTitle = mBean.invoiceTop;
+                        mInvoiceContent = mBean.invoiceContent;
                     }
-                    String invoiceTitle = mBean.invoiceTop;
-                    String invoiceContent = mBean.invoiceContent;
+
                     int couponid = 1;
                     postOrderInfo2Server(cids, token, useid, mAddressid, paymentType,
-                            deliveryType, invoiceType, invoiceTitle, invoiceContent, couponid);
+                            deliveryType, invoiceType, mInvoiceTitle, mInvoiceContent, couponid);
                     ((MainActivity) mContext).addToBackStack(PayFragment.newInstance(), mTotalPay);
                     Toast.makeText(mContext, "订单提交成功", Toast.LENGTH_SHORT).show();
                 }

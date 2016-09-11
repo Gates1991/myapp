@@ -46,8 +46,10 @@ public class GetFavoriteData {
             public void onResponse(retrofit2.Call<FavoriteBean> call, Response<FavoriteBean> response) {
                 FavoriteBean favoriteBean = response.body();
                 List<FavoriteBean.ProductListBean> ctList = favoriteBean.getProductList();
-                productList.addAll(ctList);
+                if (productList != null && ctList != null) {
+                    productList.addAll(ctList);
                     mComplateListener.OnComplated(productList);
+                }
             }
 
             @Override

@@ -56,6 +56,7 @@ public class PayFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pay, null);
+        ((MainActivity)mContext).isMainFrament = 3;
         mUseid = SpUtil.getinfo(mContext, "login_user_id", "");
         mToken = String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
         ButterKnife.bind(this, view);
@@ -127,9 +128,11 @@ public class PayFragment extends BaseFragment {
                             switch (view.getId()) {
                                 case R.id.iv_pay:
                                     //跳到订单详情界面
+                                    mMainActivity.popBackStack();
                                     payComplete(Long.parseLong(mToken),mUseid,orderId,"itheima@itcast.cn","itheima123456",mTotalPay);
-                                    ((MainActivity)mContext).addToBackStack(new MyIndentFragment());
+                                    ((MainActivity)mContext).addToBackStackForPay(new MyIndentFragment());
                                     Toast.makeText(mContext,"支付完成",Toast.LENGTH_SHORT).show();
+
                                     mDialog.dismiss();
                                     break;
                                 case R.id.iv_cancel:
@@ -176,4 +179,6 @@ public class PayFragment extends BaseFragment {
 
     }
 
-}
+
+
+    }

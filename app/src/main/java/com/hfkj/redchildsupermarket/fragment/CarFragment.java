@@ -85,6 +85,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ((MainActivity)mContext).isMainFrament = 1;
         mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
         mTokenString =String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
         final View view = inflater.inflate(R.layout.fragment_hasshopping, null);
@@ -210,7 +211,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
                 }
             }
-        }, 100);
+        }, 200);
 
         return view;
     }
@@ -323,7 +324,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
-                      //  mShopCarFinishAdapter.notifyDataSetChanged();
+                     //   mShopCarFinishAdapter.notifyDataSetChanged();
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
                         Toast.makeText(mContext, "添加成功", Toast.LENGTH_SHORT).show();
                     }else {
@@ -344,7 +345,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
-                        mShopCarFinishAdapter.notifyDataSetChanged();
+                   //     mShopCarFinishAdapter.notifyDataSetChanged();
                         mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
                     }
                     Toast.makeText(mContext,"删减成功",Toast.LENGTH_SHORT).show();
