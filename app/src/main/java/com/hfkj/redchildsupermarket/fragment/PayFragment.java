@@ -124,7 +124,7 @@ public class PayFragment extends BaseFragment {
                             switch (view.getId()) {
                                 case R.id.iv_pay:
                                     //跳到订单详情界面
-                                    payComplete(Long.parseLong(mToken),mUseid,orderId,"itheima@itcast.cn","itheima123456",171);
+                                    payComplete(Long.parseLong(mToken),mUseid,orderId,"itheima@itcast.cn","itheima123456",mTotalPay);
                                     ((MainActivity)mContext).addToBackStack(new MyIndentFragment());
                                     Toast.makeText(mContext,"支付完成",Toast.LENGTH_SHORT).show();
                                     mDialog.dismiss();

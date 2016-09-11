@@ -162,7 +162,9 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             System.out.println("能走过来?");
             System.out.println(myAddressBean);
             mLv_address.setAdapter(new AddressAdapter(mContext, myAddressBean.getAddressList()));
-            addressListBean = myAddressBean.getAddressList().get(0);
+            if (myAddressBean.getAddressList() != null && myAddressBean.getAddressList().size() > 0) {
+                addressListBean = myAddressBean.getAddressList().get(0);
+            }
 
             System.out.println("abcdf");
         }
