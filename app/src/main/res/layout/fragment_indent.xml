@@ -277,8 +277,8 @@
                 android:layout_centerVertical="true"
                 android:src="@drawable/selector_delete_order_btn"/>
 
-            <TextView
-                android:id="@+id/tv_delete"
+            <Button
+                android:id="@+id/bt_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

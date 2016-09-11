@@ -64,7 +64,7 @@ public class IndentAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        IndentBean.OrderListBean orderListBean = getItem(mdatas.size()-1-position);
+        IndentBean.OrderListBean orderListBean = getItem(position);
 
         holder.tv_intentNum.setText("订单编号:"+orderListBean.getOrderid());
         holder.tv_intentPrice.setText("订单总额:"+orderListBean.getPrice());

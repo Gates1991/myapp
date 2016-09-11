@@ -25,6 +25,8 @@ import com.hfkj.redchildsupermarket.R;
 import com.hfkj.redchildsupermarket.adapter.UnFinishAdapter;
 import com.hfkj.redchildsupermarket.bean.BaseResponse;
 import com.hfkj.redchildsupermarket.bean.IndentBean;
+import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
+import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.utils.RetrofitUtil;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
@@ -36,6 +38,10 @@ import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
 public class UnfinishOrderDetailFragement extends BaseFragment implements View.OnClickListener {
 
@@ -76,8 +82,9 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
     //tv_pay_total
     @Bind(R.id.rl_cancel)
             RelativeLayout mRlCancel;
-    Button mTvCancel;
+    Button mTvCancel;//
     Button bt_goon;
+    Button bt_delete;
     @Bind(R.id.rl_continue)
     RelativeLayout mRlContinue;
     private List<IndentBean.OrderListBean.CartsBean> mCarts = new ArrayList<>();
@@ -86,6 +93,8 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
     private long                     mLogin_token;
     private int                      mProductPrice;
     private IndentBean.OrderListBean mOrderListBean;
+    private String mLogin_user_id1;
+    private long mLogin_token1;
 
     @Nullable
     @Override
@@ -98,50 +107,88 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
         mLogin_token = SpUtil.getLonginfo(mContext, "login_token", 0);
         mTvCancel = (Button) view.findViewById(R.id.tv_cancel);
         bt_goon = (Button) view.findViewById(R.id.tv_goon);
+        bt_delete = (Button) view.findViewById(R.id.tv_delete);
         bt_title_left.setOnClickListener(this);
-        mMainActivity.isMainFrament = 2;
+        mMainActivity.isMainFrament = 3;
         bt_title_left.setVisibility(View.VISIBLE);
         tv_title_name.setText("订单详情");
         ButterKnife.bind(this, view);
+        mLogin_user_id1 = SpUtil.getinfo(mContext, "login_user_id", "");
+        mLogin_token1 = SpUtil.getLonginfo(mContext, "login_token", 0);
         mTvCancel.setOnClickListener(this);
         bt_goon.setOnClickListener(this);
+        bt_delete.setOnClickListener(this);
         initData();
         return view;
     }
 
     private void initData() {
         mCarts = mOrderListBean.getCarts();
-
-        System.out.println("订单的商品数量"+mCarts.size());
-
+        //“state”,         //0 未结算，1：已经结算 2:已经取消
+        System.out.println("state"+mOrderListBean.getState());
+        if (mOrderListBean.getState() == 0) {
+            mTvCancel.setVisibility(View.VISIBLE);
+            bt_goon.setVisibility(View.VISIBLE);
+            bt_delete.setVisibility(View.GONE);
+        } else  {
+            mTvCancel.setVisibility(View.GONE);
+            bt_goon.setVisibility(View.GONE);
+            bt_delete.setVisibility(View.VISIBLE);
+        }
         addData();
     }
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.bt_title_left:
                 mMainActivity.popBackStack();
                 break;
             case R.id.tv_cancel:
                 cancelNet();
-                mMainActivity.popBackStack();
+                mMainActivity.popBackStack2();
                 break;
             case R.id.tv_goon:
                 PayFragment payFragment = new PayFragment();
                 mMainActivity.addToBackStack(payFragment, mProductPrice);
                 break;
+            case R.id.tv_delete:
+                deleteIdent();
+                mMainActivity.popBackStack2();
+                break;
         }
+    }
+    public void deleteIdent() {
+        String orderid = mOrderListBean.getOrderid();
+        new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+                .create(HttpApi.class).deleteIdent( mLogin_user_id, mLogin_token,orderid).enqueue(new Callback<BaseResponse>() {
+            @Override
+            public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<BaseResponse> call, Throwable throwable) {
+
+            }
+        });
+    }
+
+    interface HttpApi {
+        @FormUrlEncoded
+        @POST("orderdelete")
+        Call<BaseResponse> deleteIdent(@Field("userid") String userid, @Field("token") long token, @Field("orderid")
+        String orderid);
     }
 
 
     private void cancelNet() {
-        String login_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
-        long login_token = SpUtil.getLonginfo(mContext, "login_token", 0);
+
         String orderid = mOrderListBean.getOrderid();
         com.hfkj.redchildsupermarket.http.HttpApi httpApi = RetrofitUtil.createHttpApiInstance();
 
-        Call<BaseResponse> call = httpApi.cancelList(orderid, login_user_id, login_token);
+        Call<BaseResponse> call = httpApi.cancelList(orderid, mLogin_user_id, mLogin_token);
         call.enqueue(new Callback<BaseResponse>() {
             @Override
             public void onResponse(Call<BaseResponse> call, Response<BaseResponse> response) {

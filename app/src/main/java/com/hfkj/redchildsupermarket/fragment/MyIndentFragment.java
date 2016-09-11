@@ -41,8 +41,7 @@ import retrofit2.Retrofit;
  * @更新时间 $Date$
  * @更新描述 ${TODO}
  */
-public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener, AdapterView
-        .OnItemClickListener {
+public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheckedChangeListener, AdapterView.OnItemClickListener {
 
 
     @Bind(R.id.imgbtn_left)
@@ -96,6 +95,10 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
 
 
         indentRadio.setOnCheckedChangeListener(this);
+
+        //对接接口拿数据
+        // getSpValue();
+        //设默认选中项
         rbSucessIndent.setChecked(true);
         mListView.setOnItemClickListener(this);
         return mView;
