@@ -136,7 +136,6 @@ public class UserRegisterFragment extends BaseFragment {
 
 
     private void sendServer() {
-        System.out.println(mEmailData+mPwData+"1234");
         new Retrofit.Builder()
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -157,8 +156,6 @@ public class UserRegisterFragment extends BaseFragment {
 
                     }
 
-
-
                     @Override
                     public void onFailure(Call<RegisterBean> call, Throwable throwable) {
                         Toast.makeText(mContext,"网络异常!",Toast.LENGTH_SHORT).show();
@@ -177,7 +174,6 @@ public class UserRegisterFragment extends BaseFragment {
             Toast.makeText(mContext,"ERRORCODE:"+registerBean.error.code+"MSG:"+registerBean.error.msg,Toast.LENGTH_SHORT).show();
 
         } else {
-            System.out.println(userInfo.toString());
             //先将token和useid保存到sp中
             SpUtil.saveinfo(mContext,"register_user_id",userInfo.getUser_id());
             SpUtil.saveinfo(mContext,"register_token", String.valueOf(userInfo.getToken()));

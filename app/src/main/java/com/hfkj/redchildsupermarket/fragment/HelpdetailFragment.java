@@ -79,7 +79,6 @@ public class HelpdetailFragment extends BaseFragment implements View.OnClickList
                 HelpDetailBean Bean = response.body();
                 List<HelpDetailBean.HelpDetailListBean> detailListBean = Bean.getHelpDetailList();
 
-                System.out.println(detailListBean.toString());
 
                 mTv_center.setText(detailListBean.get(0).getTitle()+"\n\n"+detailListBean.get(0).getContent());
 

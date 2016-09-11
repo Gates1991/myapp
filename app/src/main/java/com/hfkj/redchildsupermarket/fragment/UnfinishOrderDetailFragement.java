@@ -125,7 +125,7 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
     private void initData() {
         mCarts = mOrderListBean.getCarts();
         //“state”,         //0 未结算，1：已经结算 2:已经取消
-        System.out.println("state"+mOrderListBean.getState());
+
         if (mOrderListBean.getState() == 0) {
             mTvCancel.setVisibility(View.VISIBLE);
             bt_goon.setVisibility(View.VISIBLE);

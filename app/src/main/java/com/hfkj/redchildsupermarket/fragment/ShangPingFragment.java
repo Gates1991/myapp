@@ -258,8 +258,6 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                             mLvComment.setAdapter(new CommentAdapter(mContext, mConmmentData));
                             mScroll.scrollTo(0, 0);
                             setListViewHeightBasedOnChildren(mLvComment);
-                        } else {
-                            System.out.println(response.errorBody());
                         }
 
                     }

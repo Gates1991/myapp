@@ -77,7 +77,6 @@ public class HelpCenterFragment extends BaseFragment implements AdapterView.OnIt
             public void onResponse(Call<HelpCenterBean> call, Response<HelpCenterBean> response) {
                 HelpCenterBean helpCenterBean = response.body();
                 parseRespomse(helpCenterBean);
-                System.out.println(helpCenterBean.toString());
             }
 
             @Override

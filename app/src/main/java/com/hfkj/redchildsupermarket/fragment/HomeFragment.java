@@ -38,8 +38,8 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     @Bind(R.id.rl)
     public RelativeLayout rl;//放viewpage的布局
 
-   /* @Bind(R.id.lv_home)
-    public ListView mLv;*/
+    /* @Bind(R.id.lv_home)
+     public ListView mLv;*/
     @Bind(R.id.rg)
     RadioGroup  mRg;
     @Bind(R.id.rb_1)
@@ -59,21 +59,21 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     public List<HomeVPBean.HomeTopicBean> mHomeTopicBeen = new ArrayList<>();
 
     private CustomScorollView mCustomScorollView;
-    private  List<String> infoList=new ArrayList<>();
+    private List<String> infoList = new ArrayList<>();
     private MyGridView mGridview;
-    private String mLogin_user_id;
-    private Long mLogin_token;
-    private View mView;
+    private String     mLogin_user_id;
+    private Long       mLogin_token;
+    private View       mView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_home, null);
-      //  mLv = (ListView) view.findViewById(R.id.lv_home);
+
         mGridview = (MyGridView) mView.findViewById(R.id.gridview);
 
         mCustomScorollView = (CustomScorollView) mView.findViewById(R.id.csv);
         ButterKnife.bind(this, mView);
-      mRg.setOnCheckedChangeListener(this);
+        mRg.setOnCheckedChangeListener(this);
         initView();
         initData();
         return mView;
@@ -92,7 +92,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         infoList.add("欢迎领导光临红孩子商城");
         infoList.add("喜迎国庆欢乐大酬宾");
         infoList.add("更多活动敬请关注红孩子商城");
-         mCustomScorollView.setList(infoList);
+        mCustomScorollView.setList(infoList);
         mCustomScorollView.startScroll();
         mGridview.setAdapter(new MyGridAdapter(mContext));
         getNetData();
@@ -201,7 +201,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
             case 5:
                 mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
                 mLogin_token = SpUtil.getLonginfo(mContext, "login_token", 0);
-                if (TextUtils.isEmpty(mLogin_user_id) || mLogin_token==0) {
+                if (TextUtils.isEmpty(mLogin_user_id) || mLogin_token == 0) {
                     mMainActivity.addToBackStack(new UserLoginFrament());
                 } else {
                     Toast.makeText(mContext, "已经登录了", Toast.LENGTH_SHORT).show();
@@ -219,9 +219,9 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                   mViewPage.start();
+                        mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
             case R.id.rb_2:
                 mViewPage.setCurrentItem(1);
@@ -231,47 +231,47 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
                     public void run() {
                         mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
             case R.id.rb_3:
-                mViewPage.setCurrentItem(2,false);
+                mViewPage.setCurrentItem(2, false);
                 mViewPage.mHandler.removeCallbacksAndMessages(null);
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
             case R.id.rb_4:
-                mViewPage.setCurrentItem(3,false);
+                mViewPage.setCurrentItem(3, false);
                 mViewPage.mHandler.removeCallbacksAndMessages(null);
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
             case R.id.rb_5:
-                mViewPage.setCurrentItem(4,false);
+                mViewPage.setCurrentItem(4, false);
                 mViewPage.mHandler.removeCallbacksAndMessages(null);
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
             case R.id.rb_6:
-                mViewPage.setCurrentItem(5,false);
+                mViewPage.setCurrentItem(5, false);
                 mViewPage.mHandler.removeCallbacksAndMessages(null);
                 mViewPage.mHandler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mViewPage.start();
                     }
-                },3000);
+                }, 3000);
                 break;
         }
     }
