@@ -380,8 +380,8 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
     private void processLoginBean(SaveAddBean saveAddBean) {
 
         if (TextUtils.equals("error", saveAddBean.response)) {
-            Toast.makeText(mContext, "ERRORCODE:" + saveAddBean.error + "MSG:" + saveAddBean.error.msg, Toast.LENGTH_SHORT).show();
-
+           // Toast.makeText(mContext, "ERRORCODE:" + saveAddBean.error + "MSG:" + saveAddBean.error.msg, Toast.LENGTH_SHORT).show();
+            mMainActivity.popBackStack();
         } else {
             //获取地址
            // id_get = saveAddBean.getAddressList().get(0).getId();
