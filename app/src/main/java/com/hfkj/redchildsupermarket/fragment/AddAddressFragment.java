@@ -293,9 +293,6 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
                             if (TextUtils.equals("error", getAddBean.response)) {
                                 Toast.makeText(mContext, "ERRORCODE:" + getAddBean.error + "MSG:" + getAddBean.error.msg, Toast.LENGTH_SHORT).show();
                             } else {
-                                System.out.println("获取地址成功");
-                                //TODO
-                                System.out.println(getAddBean.getAddress());
                             }
 
                         } else {
@@ -312,15 +309,6 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
 
     }
 
-//    private String getUrlDecode(String string) {
-//        try {
-//            output = URLDecoder.decode(string, "UTF-8");
-//        } catch (UnsupportedEncodingException e) {
-//            e.printStackTrace();
-//        }
-//        return output;
-//
-//    }
 
     @Override
     public void onDestroyView() {
@@ -346,12 +334,6 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
 
             @Override
             public void selected(boolean selected) {
-                System.out.println("selected: " + selected);
-                System.out.println("selected_code: " + cityPicker.getCity_code_string());
-                System.out.println("selected_str: " + cityPicker.getCity_string());
-                System.out.println(mprovincePicker.getSelectedText());
-                System.out.println(mcityPicker.getSelectedText());
-                System.out.println(mcounyPicker.getSelectedText());
                 pro = mprovincePicker.getSelectedText();
                 cit = mcityPicker.getSelectedText();
                 con = mcounyPicker.getSelectedText();

@@ -117,7 +117,6 @@ public class HomeViewPage extends ViewPager {
         } else {
             mHomeVPAdapter.notifyDataSetChanged();
         }
-        System.out.println("9999");
        mHandler.sendEmptyMessageDelayed(0,0);
 
     }

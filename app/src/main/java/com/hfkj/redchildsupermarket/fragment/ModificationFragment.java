@@ -176,9 +176,7 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                             if (TextUtils.equals("error", getAddBean.response)) {
                                 Toast.makeText(mContext, "ERRORCODE:" + getAddBean.error + "MSG:" + getAddBean.error.msg, Toast.LENGTH_SHORT).show();
                             } else {
-                                System.out.println("获取地址成功");
-                                //TODO
-                                System.out.println(getAddBean.getAddress());
+
                                 /**
                                 //拿到地址薄id,给默认地址接口使用
                                  */
@@ -267,7 +265,6 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
                     Toast.makeText(mContext, "请填写完整信息", Toast.LENGTH_SHORT).show();
                 } else {
                    saveAddress();
-                    System.out.println("能不能保存");
                 }
                 break;
             case R.id.bt_setDefu:
@@ -424,12 +421,7 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
 
             @Override
             public void selected(boolean selected) {
-                System.out.println("selected: " + selected);
-                System.out.println("selected_code: " + cityPicker.getCity_code_string());
-                System.out.println("selected_str: " + cityPicker.getCity_string());
-                System.out.println(mprovincePicker.getSelectedText());
-                System.out.println(mcityPicker.getSelectedText());
-                System.out.println(mcounyPicker.getSelectedText());
+
                 pro = mprovincePicker.getSelectedText();
                 cit = mcityPicker.getSelectedText();
                 con = mcounyPicker.getSelectedText();
@@ -448,7 +440,6 @@ public class ModificationFragment extends BaseFragment implements View.OnClickLi
     public void setitemBean(MyAddressBean.AddressListBean addressListBean) {
 
         this.addresslistBean = addressListBean;
-        System.out.println("12133131");
     }
 }
 

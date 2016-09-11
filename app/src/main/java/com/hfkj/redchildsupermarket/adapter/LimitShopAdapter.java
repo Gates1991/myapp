@@ -60,7 +60,6 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
         viewHolder.bt_limitshoping.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("呵呵哒");
                 DetailsFragment detailsFragment = new DetailsFragment();
                 ( (MainActivity) mContext).addToBackStack(detailsFragment,131);
             }
@@ -78,7 +77,6 @@ public class LimitShopAdapter extends CommonAdapter<LimitShopintBean.ProductList
     }
 
     public String getTimeFromInt(long time) {
-     //  System.out.println(time);
         time=time/1000;
         if (time <= 0) { return "已结束"; }
         long day = time / (1 * 60 * 60 * 24);

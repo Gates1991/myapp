@@ -221,7 +221,6 @@ public class MyIndentFragment extends BaseFragment implements RadioGroup.OnCheck
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         IndentBean.OrderListBean orderListBean= (IndentBean.OrderListBean) parent.getItemAtPosition(position);
-        System.out.println("orderListBean.getCarts().size()"+orderListBean.getCarts().size());
         UnfinishOrderDetailFragement unfinishOrderDetailFragement = new UnfinishOrderDetailFragement();
         mMainActivity.addToBackStack(unfinishOrderDetailFragement);
         unfinishOrderDetailFragement.setitemBean(orderListBean);

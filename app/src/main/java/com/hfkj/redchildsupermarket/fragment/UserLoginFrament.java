@@ -135,7 +135,6 @@ public class UserLoginFrament extends BaseFragment {
                     public void onResponse(Call<LoginBean> call, Response<LoginBean> response) {
                         if (response.isSuccessful()) {
                             LoginBean loginBean = response.body();
-                            System.out.println(loginBean);
                             processLoginBean(loginBean);
                         }
                     }
@@ -155,8 +154,6 @@ public class UserLoginFrament extends BaseFragment {
         if (TextUtils.equals("error", loginBean.response)) {
             Toast.makeText(mContext, "ERRORCODE:" + loginBean.error.code + "MSG:" + loginBean.error.msg, Toast.LENGTH_SHORT).show();
         } else {
-            System.out.println(loginBean.toString());
-
             SpUtil.saveinfo(mContext,"login_user_id",userInfo.getUser_id());
             SpUtil.saveLonginfo(mContext,"login_token",userInfo.getToken());
 

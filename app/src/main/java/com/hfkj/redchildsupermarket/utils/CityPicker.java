@@ -103,7 +103,6 @@ public class CityPicker extends LinearLayout {
 				province_list_code.add(entry.getKey());
 				list.add(cityinfo);
 			}
-			System.out.println(province_list_code.size());
 			return list;
 		}
 
@@ -158,11 +157,10 @@ public class CityPicker extends LinearLayout {
 			@Override
 			public void endSelect(int id, String text) {
 				// TODO Auto-generated method stub
-				System.out.println("id-->" + id + "text----->" + text);
+
 				if (text.equals("") || text == null)
 					return;
 				if (tempProvinceIndex != id) {
-					System.out.println("endselect");
 					String selectDay = cityPicker.getSelectedText();
 					if (selectDay == null || selectDay.equals(""))
 						return;
