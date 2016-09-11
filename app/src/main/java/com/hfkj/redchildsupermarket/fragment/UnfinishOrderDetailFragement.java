@@ -215,7 +215,8 @@ public class UnfinishOrderDetailFragement extends BaseFragment implements View.O
 
         mProductPrice = 0;
         for (int i = 0; i < mCarts.size(); i++) {
-            mProductPrice += Integer.valueOf(mCarts.get(i).getProductPrice());
+
+            mProductPrice += Integer.valueOf(mCarts.get(i).getProductPrice())*mCarts.get(i).getPnum();
         }
 
         mTvName.setText("8888");

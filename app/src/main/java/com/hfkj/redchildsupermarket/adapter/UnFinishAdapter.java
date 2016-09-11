@@ -45,6 +45,7 @@ public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.Cart
         //viewHolder.mIvGoodsIcon
         Glide.with(mContext).load(Constant.BASE_URL+cartsBean.getProductImageUrl()).into(viewHolder.mIvGoodsIcon);
         viewHolder.mTvNowPrice.setText("商品价格 ¥："+cartsBean.getProductPrice());
+        viewHolder.mTvAppraise.setText("商品数量："+cartsBean.getPnum());
         return convertView;
     }
 
@@ -57,6 +58,7 @@ public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.Cart
         TextView  mTvNowPrice;
         @Bind(R.id.tv_appraise)
         TextView  mTvAppraise;
+
 
         ViewHolder(View view) {
             ButterKnife.bind(this, view);

@@ -146,10 +146,7 @@ public class UserInformationFragment extends BaseFragment {
             couponid = userInfo.getCouponid();
             //数据展示
             ininViewShow();
-
         }
-
-
 
     }
 
@@ -171,9 +168,6 @@ public class UserInformationFragment extends BaseFragment {
 
         TextView tv_my_favorite = (TextView) mView.findViewById(R.id.tv_my_favorite);
         tv_my_favorite.setText("我的收藏夹("+favoritesCount+")");
-
-
-
 
     }
 
