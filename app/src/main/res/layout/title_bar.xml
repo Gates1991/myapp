@@ -28,6 +28,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:text="主頁"
+            android:textSize="22sp"
             android:textAppearance="?android:textAppearanceMedium"
             android:textColor="@android:color/white"/>
 
