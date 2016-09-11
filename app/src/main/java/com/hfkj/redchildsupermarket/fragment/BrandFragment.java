@@ -58,7 +58,7 @@ public class BrandFragment extends BaseFragment implements AdapterView.OnItemCli
 
         ButterKnife.bind(this, view);
         initData();
-
+        mMainActivity.isMainFrament=1;
         mTvTitleName.setText("商品分类");
         return view;
     }

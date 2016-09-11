@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
         mView = inflater.inflate(R.layout.fragment_home, null);
 
         mGridview = (MyGridView) mView.findViewById(R.id.gridview);
-
+        mMainActivity.isMainFrament=1;
         mCustomScorollView = (CustomScorollView) mView.findViewById(R.id.csv);
         ButterKnife.bind(this, mView);
         mRg.setOnCheckedChangeListener(this);

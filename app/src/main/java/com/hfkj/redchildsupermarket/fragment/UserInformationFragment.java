@@ -74,12 +74,8 @@ public class UserInformationFragment extends BaseFragment {
         mTv_title_left.setText("返回");
         supportFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
         ButterKnife.bind(this, mView);
-
-        /**
-         * 这个放哪?????
-         */
+        mMainActivity.isMainFrament=2;
         getdata();
-
         return mView;
 
     }

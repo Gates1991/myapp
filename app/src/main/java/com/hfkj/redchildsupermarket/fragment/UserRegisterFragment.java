@@ -70,6 +70,7 @@ public class UserRegisterFragment extends BaseFragment {
         mView = inflater.inflate(R.layout.fragment_userregister, null);
         ButterKnife.bind(this, mView);
         initViewTitle();
+        mMainActivity.isMainFrament=3;
         getFgmanager();
 
 

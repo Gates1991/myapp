@@ -67,7 +67,7 @@ public class SearchFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_search, null);
-
+        mMainActivity.isMainFrament=1;
         ButterKnife.bind(this, view);
         getsearchwords();
         initData();
