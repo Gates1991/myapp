@@ -47,6 +47,8 @@ public class FavoriteBean extends BaseResponse {
 
     private List<ProductListBean> productList;
 
+
+
     public int getTotal() {
         return total;
     }
@@ -94,6 +96,7 @@ public class FavoriteBean extends BaseResponse {
         public int getBuyLimit() {
             return buyLimit;
         }
+
 
         public void setBuyLimit(int buyLimit) {
             this.buyLimit = buyLimit;

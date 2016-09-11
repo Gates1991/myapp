@@ -91,13 +91,11 @@ public class MyFavoriteFragment extends BaseFragment implements AdapterView.OnIt
     public void getNetData() {
         new Retrofit.Builder().baseUrl(Constant.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
                 .create(HttpApi.class).getFavoriteData("1","10",mLogin_token,mLogin_user_id).enqueue(new Callback<FavoriteBean>() {
-
             @Override
             public void onResponse(retrofit2.Call<FavoriteBean> call, Response<FavoriteBean> response) {
                 FavoriteBean favoriteBean = response.body();
                 List<FavoriteBean.ProductListBean> productList = favoriteBean.getProductList();
                 mLv.setAdapter(new FavoriteAdapter(mContext,productList));
-
             }
 
             @Override

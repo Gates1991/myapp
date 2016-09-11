@@ -38,8 +38,10 @@ import com.hfkj.redchildsupermarket.adapter.shangPingAdapter;
 import com.hfkj.redchildsupermarket.bean.BaseResponse;
 import com.hfkj.redchildsupermarket.bean.CommentBean;
 import com.hfkj.redchildsupermarket.bean.DetailsBean;
+import com.hfkj.redchildsupermarket.bean.FavoriteBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.utils.Constant;
+import com.hfkj.redchildsupermarket.utils.GetFavoriteData;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
 import java.util.ArrayList;
@@ -104,7 +106,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
     private Button mButton;
     private RelativeLayout mRl_sc;
     private TextView mTv_sc;
-    private boolean isCollect = false;
+    private boolean isCollect =false;
     private boolean mLoding;
 
     @Nullable
@@ -117,8 +119,14 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         Bundle bundle = getArguments();
         mMainActivity.isMainFrament = 3;
         mPid = bundle.getInt("id");
-        initData();
+
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
     }
 
     private void initView(View view) {
@@ -132,14 +140,37 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
 
 
         mBtTitleLeft.setVisibility(View.VISIBLE);
+
         mTvTitleName.setText("商品详情");
         mButton.setOnClickListener(this);
+
     }
 
     @Override
     public void initData() {
         getNetData();
         mLoding = isLoding();
+        if (mLoding) {
+            GetFavoriteData getFavoriteData = new GetFavoriteData(mLogin_user_id, mLogin_token);
+            getFavoriteData.getNetData();
+            getFavoriteData.setOnComplateListener(new GetFavoriteData.OnComplateListener() {
+                @Override
+                public void OnComplated(List<FavoriteBean.ProductListBean> productList) {
+                    for (int i = 0; i < productList.size(); i++) {
+
+                        if (productList.get(i).getId() == mId) {
+                            mButton.setBackgroundResource(R.drawable.ysc);
+                            isCollect = true;
+                        }
+                    }
+                }
+
+                @Override
+                public void OnFailed() {
+                }
+            });
+
+        }
 
 
     }
@@ -319,22 +350,26 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
                 }
                 break;
             case R.id.bt_right:
-                if (!isCollect) {
+                if (isCollect) {
+                    if (mLoding){
+                        mButton.setBackgroundResource(R.drawable.sc);
+                        //mTv_sc.setText("收藏");
+                        Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
+                        isCollect = false;
+                    }
+                } else {
+
                     mButton.setBackgroundResource(R.drawable.ysc);
-                   // mTv_sc.setText("已收藏");
+                    // mTv_sc.setText("已收藏");
                     if (mLoding){
                         postCollectData(mId,mLogin_token,mLogin_user_id);
                         showDialog2();
+                        isCollect = true;
                     }else {
                         mMainActivity.addToBackStack(new UserLoginFrament());
                     }
 
-                    isCollect = true;
-                } else {
-                    mButton.setBackgroundResource(R.drawable.sc);
-                    //mTv_sc.setText("收藏");
-                    Toast.makeText(mContext, "取消收藏", Toast.LENGTH_SHORT).show();
-                    isCollect = false;
+
                 }
 
                 break;
@@ -394,8 +429,12 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
 
             @Override
             public void onClick(DialogInterface dialog, int which) {
+               if (mLoding){
+                   mMainActivity.addToBackStack(new MyFavoriteFragment());
+               }else {
+                   mMainActivity.addToBackStack(new UserLoginFrament());
+               }
 
-                mMainActivity.addToBackStack(new MyFavoriteFragment());
             }
         })
                 .setNegativeButton("继续购物", new DialogInterface.OnClickListener() {
