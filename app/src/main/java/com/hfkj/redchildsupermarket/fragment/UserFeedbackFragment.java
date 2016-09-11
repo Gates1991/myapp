@@ -29,6 +29,9 @@ public class UserFeedbackFragment extends  BaseFragment implements View.OnClickL
     private Button mBt_title_right;
     private EditText mEt_feedback;
     private EditText mEt_tel;
+    private Button button_quit;
+    private Button button_fankui;
+    private Dialog dialog;
 
     @Nullable
     @Override
@@ -57,9 +60,10 @@ public class UserFeedbackFragment extends  BaseFragment implements View.OnClickL
         mEt_feedback = (EditText) mView.findViewById(R.id.et_feedback);
         mEt_tel = (EditText) mView.findViewById(R.id.et_tel);
 
-
         mBt_title_left.setOnClickListener(this);
         mBt_title_right.setOnClickListener(this);
+
+
 
     }
 
@@ -74,16 +78,30 @@ public class UserFeedbackFragment extends  BaseFragment implements View.OnClickL
                 mMainActivity.popBackStack();
                 break;
             case R.id.bt_title_right:
-                if (mEt_feedback.getText().toString().isEmpty()&&mEt_tel.getText().toString().isEmpty()) {
+
+                if (mEt_feedback.getText().toString().isEmpty() && mEt_tel.getText().toString().isEmpty()) {
 
                     Toast.makeText(mContext, "评价或者联系方式不能为空", Toast.LENGTH_SHORT).show();
-                }
-                Dialog dialog = new Dialog(mContext);
+                } else {
+                    dialog = new Dialog(mContext);
                 dialog.setContentView(R.layout.dialog_view);
                 dialog.show();
-                Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
+                button_quit = (Button) dialog.findViewById(R.id.button_quit);
+                button_fankui = (Button) dialog.findViewById(R.id.button_fankui);
+
+                button_fankui.setOnClickListener(this);
+                button_quit.setOnClickListener(this);
+
+                }
+                break;
+            case R.id.button_fankui:
+                dialog.dismiss();
                 break;
 
+            case R.id.button_quit:
+                mMainActivity.popBackStack();
+                dialog.dismiss();
+                break;
             default:
                 break;
         }

@@ -127,7 +127,7 @@ public class UserRegisterFragment extends BaseFragment {
                 break;
             case R.id.imgbtn_left://返回键
                 //TODO:退栈返回到更多页面,动画效果
-                clearBackStack();
+                mMainActivity.popBackStack();
                 break;
 
         }
@@ -194,7 +194,8 @@ public class UserRegisterFragment extends BaseFragment {
 
     //邮箱格式判断
     private boolean isEmail(String strEmail) {
-        String regEx = "^[a-zA-Z0-9][a-zA-Z0-9_@.]{4,15}$";
+        //String regEx = "^[a-zA-Z0-9][a-zA-Z0-9_@.]{4,15}$";
+        String regEx = "^(\\w)+(\\.\\w+)*@(\\w)+((\\.\\w{2,3}){1,3})$";
        // String regEx = "^[a-zA-Z][\\w\\.-]*[a-zA-Z0-9]@[a-zA-Z0-9][\\w\\.-]*[a-zA-Z0-9]\\.[a-zA-Z][a-zA-Z\\.]*[a-zA-Z]$";
         Pattern p = Pattern.compile(regEx);
         Matcher m = p.matcher(strEmail);
@@ -203,22 +204,6 @@ public class UserRegisterFragment extends BaseFragment {
     }
 
 
-    public void initData() {
-
-    }
-
-    /**
-     * 清空栈
-     */
-    public void clearBackStack(){
-        supportFragmentManager.popBackStack(null,1);//参数为0，清除栈顶的Fragment，参数为1，清空栈
-    }
-
-   /* public interface HttpApi {
-        @FormUrlEncoded //进行url表单编码
-        @POST("register")
-        Call<RegisterBean> register(@Field("username") String a, @Field("password") String b);
-    }*/
 
 
 

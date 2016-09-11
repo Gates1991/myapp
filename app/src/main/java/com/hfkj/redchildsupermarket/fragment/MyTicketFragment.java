@@ -53,12 +53,6 @@ public class MyTicketFragment extends BaseFragment {
         TextView mTv_title_layout = (TextView) mView.findViewById(R.id.tv_title_layout);
         mTv_title_layout.setText("我的优惠券");
     }
-
-
-    public void initData() {
-
-    }
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

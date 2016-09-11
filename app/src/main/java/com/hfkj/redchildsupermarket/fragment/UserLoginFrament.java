@@ -1,9 +1,7 @@
 package com.hfkj.redchildsupermarket.fragment;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.bean.LoginBean;
 import com.hfkj.redchildsupermarket.gson.GsonConverterFactory;
 import com.hfkj.redchildsupermarket.http.HttpApi;
@@ -68,7 +65,10 @@ public class UserLoginFrament extends BaseFragment {
     public void onResume() {
         //注册页面退栈返回,email回显
         String emailVlaue = SpUtil.getinfo(mContext, "register_Email", null);
-        mEmail.setText(emailVlaue);
+        if (!TextUtils.isEmpty(emailVlaue)) {
+            mEmail.setText(emailVlaue);
+
+        }
         super.onResume();
     }
 
@@ -115,7 +115,7 @@ public class UserLoginFrament extends BaseFragment {
             case R.id.bt_register://注册
                 //点击跳转注册页面
 
-                addToBackStack(new UserRegisterFragment());
+                mMainActivity.addToBackStack(new UserRegisterFragment());
                 break;
             case R.id.imgbtn_left://返回按钮
                 // 退栈,添加动画效果
@@ -158,7 +158,6 @@ public class UserLoginFrament extends BaseFragment {
             System.out.println(loginBean.toString());
 
             SpUtil.saveinfo(mContext,"login_user_id",userInfo.getUser_id());
-//            SpUtil.saveinfo(mContext,"login_token", String.valueOf(userInfo.getToken()));
             SpUtil.saveLonginfo(mContext,"login_token",userInfo.getToken());
 
 
@@ -170,23 +169,6 @@ public class UserLoginFrament extends BaseFragment {
     }
 
 
-    /**
-     * 添加Fragment到回退栈,并且添加动画
-     *
-     * @param fragment
-     */
-
-    public void addToBackStack(Fragment fragment){
-        supportFragmentManager = ((MainActivity)mContext).getSupportFragmentManager();
-        FragmentTransaction transaction= supportFragmentManager.beginTransaction();
-        /*transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in,R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in,R.anim.fragment_slide_right_out
-        );*/
-        transaction.replace(R.id.fl_content,fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
 
 

@@ -5,9 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +15,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hfkj.redchildsupermarket.R;
-import com.hfkj.redchildsupermarket.activity.MainActivity;
 import com.hfkj.redchildsupermarket.utils.Constant;
 import com.hfkj.redchildsupermarket.utils.SpUtil;
 
@@ -171,36 +167,21 @@ public class MoreFragment extends BaseFragment {
 
     private void islogin() {
         //拿sp中的login时的token值
+
         String login_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
         long login_token = SpUtil.getLonginfo(mContext, "login_token", 0);
         if (login_user_id.isEmpty() || login_token == 0) {
             //跳转到登录界面
-            addToBackStack(new UserLoginFrament());
+            mMainActivity.addToBackStack(new UserLoginFrament());
         } else {
             //跳转到用户信息界面
-            addToBackStack(new UserInformationFragment());
+            mMainActivity.addToBackStack(new UserInformationFragment());
         }
 
 
     }
 
-    /**
-     * 添加Fragment到回退栈,并且添加动画
-     *
-     * @param fragment
-     */
 
-    public void addToBackStack(Fragment fragment) {
-        FragmentManager supportFragmentManager = ((MainActivity) mContext).getSupportFragmentManager();
-        FragmentTransaction transaction = supportFragmentManager.beginTransaction();
-        transaction.setCustomAnimations(
-                R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
-                R.anim.fragment_slide_left_in, R.anim.fragment_slide_right_out
-        );
-        transaction.replace(R.id.fl_content, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
 
 
 }

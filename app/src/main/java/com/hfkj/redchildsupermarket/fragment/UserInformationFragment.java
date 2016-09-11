@@ -88,8 +88,6 @@ public class UserInformationFragment extends BaseFragment {
 
         String userid = SpUtil.getinfo(mContext, "login_user_id", "");
         long token = SpUtil.getLonginfo(mContext, "login_token", 0);
-     //   System.out.println(tokenString);
-     //  long token = Long.parseLong(tokenString);
 
 
         //借口对接
@@ -98,12 +96,7 @@ public class UserInformationFragment extends BaseFragment {
                 .baseUrl(Constant.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        //实例化借口
         HttpApi httpApi = retrofit.create(HttpApi.class);
-       /* //调用借口的方法得到call
-        Map<Long,String> map = new HashMap<>();
-        map.put(token,userid);*/
-
         Call<InformationBean> call = httpApi.getInfoMsg(token,userid);
 
         call.enqueue(new Callback<InformationBean>() {
@@ -222,8 +215,8 @@ public class UserInformationFragment extends BaseFragment {
                 //点击退栈,到登录界面,接口对接,清空sp
                 Cancel();
                 //退栈清空
-                SpUtil.clearData(mContext);
-                mMainActivity.popBackStack();
+
+         //       mMainActivity.popBackStack();
                 break;
         }
     }
@@ -242,7 +235,13 @@ public class UserInformationFragment extends BaseFragment {
                             if (TextUtils.equals("error", cancelBean.response)) {
 
                             } else {
+                                //清空sp中的数据
+                         //       SpUtil.clearData(mContext);
+                                SpUtil.saveinfo(mContext,"login_user_id",null);
+                                SpUtil.saveLonginfo(mContext,"login_token",0);
 
+                                //退栈
+                                mMainActivity.popBackStack();
 
                             }
 

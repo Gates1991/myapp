@@ -270,20 +270,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
         } else {
             //获取地址
             id_get = saveAddBean.getAddressList().get(0).getId();
-//            List<Integer>  id=new ArrayList<>();
-//            id.add(id_get);
-//            String id_Str = String.valueOf(id_get);
-//            System.out.println(id_Str);
-//            SpUtil.saveinfo(mContext,"id_address",id_Str);
-//
 
-          //  token_get = Long.parseLong(login_token);
-            //String id_String = String.valueOf(id);
-           // SpUtil.saveinfo(mContext,"addressid",id_String);
-            // System.out.println("保存能走到?");
-
-            //获取地址接口
-          //  getAddDatas();
             mMainActivity.addToBackStack(new AddressManagerFragment());
 
 
