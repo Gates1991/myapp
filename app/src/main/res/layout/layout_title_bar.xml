@@ -13,6 +13,7 @@
         android:layout_height="wrap_content">
 
         <ImageButton
+            android:paddingLeft="7dp"
             android:id="@+id/imgbtn_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,19 +50,21 @@
             android:singleLine="true"
             android:text="标题"
             android:textColor="#fff"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
     </RelativeLayout>
 
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+
+        android:layout_weight="1"
+        android:layout_width="0dp"
         android:layout_height="wrap_content">
 
         <ImageButton
-
+            android:layout_centerInParent="true"
             android:id="@+id/btn_right"
-            android:layout_width="wrap_content"
+            android:layout_width="66dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
@@ -70,6 +73,7 @@
             android:visibility="invisible" />
 
         <TextView
+
             android:textColor="#fff"
             android:layout_centerInParent="true"
             android:id="@+id/tv_title_right"

@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.fragment;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -77,6 +78,9 @@ public class UserFeedbackFragment extends  BaseFragment implements View.OnClickL
 
                     Toast.makeText(mContext, "评价或者联系方式不能为空", Toast.LENGTH_SHORT).show();
                 }
+                Dialog dialog = new Dialog(mContext);
+                dialog.setContentView(R.layout.dialog_view);
+                dialog.show();
                 Toast.makeText(mContext, "提交成功", Toast.LENGTH_SHORT).show();
                 break;
 

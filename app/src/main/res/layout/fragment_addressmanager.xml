@@ -4,6 +4,8 @@
     android:layout_height="match_parent">
     <include layout="@layout/layout_title_bar"/>
     <ListView
+        android:divider="@color/white"
+        android:dividerHeight="9dp"
         android:scrollbars="none"
         android:layout_marginRight="12dp"
         android:layout_marginLeft="12dp"
