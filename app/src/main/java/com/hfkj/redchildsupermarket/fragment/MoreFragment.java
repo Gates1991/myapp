@@ -59,6 +59,7 @@ public class MoreFragment extends BaseFragment {
         //标题textview
         TextView mTvTitleLayout = (TextView) view.findViewById(R.id.tv_title_layout);
         mTvTitleLayout.setText("更多");
+        mMainActivity.isMainFrament=1;
         initData();
         mContext = getActivity();
 
