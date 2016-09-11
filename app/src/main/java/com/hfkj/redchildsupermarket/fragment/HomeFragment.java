@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hfkj.redchildsupermarket.R;
@@ -62,19 +63,27 @@ public class HomeFragment extends BaseFragment implements AdapterView.OnItemClic
     private MyGridView mGridview;
     private String mLogin_user_id;
     private Long mLogin_token;
+    private View mView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home, null);
+        mView = inflater.inflate(R.layout.fragment_home, null);
       //  mLv = (ListView) view.findViewById(R.id.lv_home);
-        mGridview = (MyGridView) view.findViewById(R.id.gridview);
+        mGridview = (MyGridView) mView.findViewById(R.id.gridview);
 
-        mCustomScorollView = (CustomScorollView) view.findViewById(R.id.csv);
-        ButterKnife.bind(this, view);
+        mCustomScorollView = (CustomScorollView) mView.findViewById(R.id.csv);
+        ButterKnife.bind(this, mView);
       mRg.setOnCheckedChangeListener(this);
+        initView();
         initData();
-        return view;
+        return mView;
     }
+
+    private void initView() {
+        TextView tv_title_name = (TextView) mView.findViewById(R.id.tv_title_name);
+        tv_title_name.setText("红孩子商城");
+    }
+
     /**
      * 初始化数据
      */

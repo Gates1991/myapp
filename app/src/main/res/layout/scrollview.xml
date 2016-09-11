@@ -35,7 +35,7 @@
         android:layout_toRightOf="@+id/view_divider"
         android:ellipsize="end"
         android:singleLine="true"
-        android:textColor="#D8D800"
+        android:textColor="#f00"
         android:text="欢迎领导光临红孩子商城" />
 
     <TextView
@@ -45,7 +45,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/view_divider"
         android:ellipsize="end"
-        android:textColor="#D8D800"
+        android:textColor="#f00"
         android:singleLine="true"
         android:text="喜迎国庆欢乐大酬宾" />
 </RelativeLayout>
