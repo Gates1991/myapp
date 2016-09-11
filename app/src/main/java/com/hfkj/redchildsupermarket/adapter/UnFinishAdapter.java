@@ -48,7 +48,6 @@ public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.Cart
         viewHolder.mTvAppraise.setText("商品数量："+cartsBean.getPnum());
         return convertView;
     }
-
     static class ViewHolder {
         @Bind(R.id.iv_goods_icon)
         ImageView mIvGoodsIcon;
@@ -58,8 +57,6 @@ public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.Cart
         TextView  mTvNowPrice;
         @Bind(R.id.tv_appraise)
         TextView  mTvAppraise;
-
-
         ViewHolder(View view) {
             ButterKnife.bind(this, view);
         }
