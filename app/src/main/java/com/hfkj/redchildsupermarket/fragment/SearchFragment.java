@@ -78,7 +78,7 @@ public class SearchFragment extends BaseFragment {
         searchOld = new LinkedList<>();
         sp_keyword = SpUtil.getinfo(mContext, Constant.SEARCH_KEYWORD, "");
         if (TextUtils.isEmpty(sp_keyword)) {
-                // TODO: 2016/9/10
+
         } else {
             String[] split = sp_keyword.split(regex);
             for (int i = 0; i < split.length; i++) {
@@ -122,7 +122,6 @@ public class SearchFragment extends BaseFragment {
             public boolean onChildClick(ExpandableListView parent, View v,
                                         int groupPosition, int childPosition, long id) {
 
-                Toast.makeText(mContext, "点击了子条目", Toast.LENGTH_SHORT).show();
                 if (childPosition < mData.size()) {
 
                     etSearch.setText(mData.get(childPosition));

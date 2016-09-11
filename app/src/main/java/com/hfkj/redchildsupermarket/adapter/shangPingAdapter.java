@@ -43,14 +43,14 @@ public class shangPingAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView view = new ImageView(mContext);
         String url = mPics.get(position);
-        System.out.println(url);
-        Glide.with(mContext).load(Constant.BASE_URL+url).into(view);
+
+        Glide.with(mContext).load(Constant.BASE_URL + url).into(view);
         container.addView(view);
         return view;
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-       container.removeView((View) object);
+        container.removeView((View) object);
     }
 }
