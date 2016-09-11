@@ -69,7 +69,7 @@ public class MyFavoriteFragment extends BaseFragment implements AdapterView.OnIt
         mLv = (ListView) mView.findViewById(R.id.lv_favorite);
     }
 
-    @Override
+
     public void initData() {
         mLogin_user_id = SpUtil.getinfo(mContext, "login_user_id", "");
         mLogin_token = String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));

@@ -194,4 +194,8 @@ public interface HttpApi {
     @GET("addressdelete")
     Call<DelAddBean>  getdelAdd(@Query("id") int id,@Query("token") Long token,@Query("userid") String userid);
 
+    @FormUrlEncoded
+    @POST("orderlist")
+    Call<IndentBean> getUnfinishOrderDetailData(@Field("userid") String userid, @Field("token") Long token,@Field("page") Integer pagenum, @Field("pageNum") Integer pagesize,@Field("type") Integer type);
+
 }

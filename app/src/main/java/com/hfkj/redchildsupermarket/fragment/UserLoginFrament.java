@@ -63,29 +63,19 @@ public class UserLoginFrament extends BaseFragment {
     private String mEmailValue;
     private String mPasswordValue;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     @Override
     public void onResume() {
         //注册页面退栈返回,email回显
         String emailVlaue = SpUtil.getinfo(mContext, "register_Email", null);
         mEmail.setText(emailVlaue);
-
         super.onResume();
     }
 
-    public void initData() {
-
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_userlogin, null);
         //标题textview
         TextView mTvTitleLayout = (TextView) view.findViewById(R.id.tv_title_layout);
@@ -94,7 +84,6 @@ public class UserLoginFrament extends BaseFragment {
         mImgbtn_left.setVisibility(View.VISIBLE);
         TextView mTv_title_left = (TextView) view.findViewById(R.id.tv_title_left);
         mTv_title_left.setText("返回");
-
         mMainActivity.isMainFrament=2;
 
         mContext = getActivity();
@@ -171,11 +160,10 @@ public class UserLoginFrament extends BaseFragment {
             SpUtil.saveinfo(mContext,"login_user_id",userInfo.getUser_id());
 //            SpUtil.saveinfo(mContext,"login_token", String.valueOf(userInfo.getToken()));
             SpUtil.saveLonginfo(mContext,"login_token",userInfo.getToken());
-            System.out.println(userInfo.getUser_id()+"lo");
-            System.out.println(userInfo.getToken()+"lo");
+
 
             Toast.makeText(mContext, "LOGIN", Toast.LENGTH_SHORT).show();
-            addToBackStack(new UserInformationFragment());
+            mMainActivity.popBackStack();
         }
 
 

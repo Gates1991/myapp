@@ -146,7 +146,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
 
     }
 
-    @Override
+
     public void initData() {
         getNetData();
         mLoding = isLoding();

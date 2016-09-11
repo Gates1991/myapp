@@ -122,7 +122,7 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
 
     }
 
-    @Override
+
     public void initData() {
 
     }

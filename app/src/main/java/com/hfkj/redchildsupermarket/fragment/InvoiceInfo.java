@@ -68,7 +68,7 @@ public class InvoiceInfo extends BaseFragment  {
         return view;
     }
 
-    @Override
+
     public void initData() {
         list.clear();
         final InvoiceInfoBean invoiceInfoBean = new InvoiceInfoBean();

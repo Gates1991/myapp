@@ -101,7 +101,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
     }
 
 
-    @Override
+
     public void initData() {
 
 
@@ -162,7 +162,9 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
             System.out.println("能走过来?");
             System.out.println(myAddressBean);
             mLv_address.setAdapter(new AddressAdapter(mContext, myAddressBean.getAddressList()));
-            addressListBean = myAddressBean.getAddressList().get(0);
+            if (myAddressBean.getAddressList() != null && myAddressBean.getAddressList().size() > 0) {
+                addressListBean = myAddressBean.getAddressList().get(0);
+            }
 
             System.out.println("abcdf");
         }
@@ -196,7 +198,6 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         //TODO 跳转到条目编辑界面 modification
         boolean isOrderPage = SpUtil.getBoolean(mContext, "isOrderPage", false);
         if (isOrderPage) {
-            Toast.makeText(mContext,"订单页面跳转",Toast.LENGTH_SHORT).show();
             Collections.reverse(mMyAddressBean.getAddressList());
             MyAddressBean.AddressListBean addressListBean = mMyAddressBean.getAddressList().get(position);
             //携带此对象到订单页面
@@ -227,6 +228,7 @@ public class AddressManagerFragment extends BaseFragment implements View.OnClick
         i.putExtra("name",addressListBean.getName());
         i.putExtra("phone",addressListBean.getPhoneNumber());
         i.putExtra("address",addressListBean.getAddressDetail());
+        i.putExtra("addressid",addressListBean.getId());
         getTargetFragment().onActivityResult(AccountFragment.REQUEST_CODE2,RESPONSE_CODE,i);
         ((MainActivity)mContext).popBackStack();
     }

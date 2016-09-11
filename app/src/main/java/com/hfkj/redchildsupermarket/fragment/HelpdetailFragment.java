@@ -65,7 +65,7 @@ public class HelpdetailFragment extends BaseFragment implements View.OnClickList
         mBt_back.setOnClickListener(this);
     }
 
-    @Override
+
     public void initData() {
         new Retrofit
                 .Builder()

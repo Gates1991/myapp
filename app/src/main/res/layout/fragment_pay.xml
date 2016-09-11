@@ -41,6 +41,7 @@
             android:layout_height="wrap_content"
             android:text="订单金额"/>
         <TextView
+            android:id="@+id/order_money"
             android:textSize="16sp"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"

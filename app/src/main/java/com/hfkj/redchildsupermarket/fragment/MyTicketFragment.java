@@ -54,7 +54,7 @@ public class MyTicketFragment extends BaseFragment {
         mTv_title_layout.setText("我的优惠券");
     }
 
-    @Override
+
     public void initData() {
 
     }

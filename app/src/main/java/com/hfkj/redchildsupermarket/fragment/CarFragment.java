@@ -76,7 +76,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     private LinearLayout    mLl_hasShopping;
     private LinearLayout    mLl_noShopping;
     private int             mTotalNum;
-    private boolean hasShopping = false;
 
 
 
@@ -84,7 +83,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         mUserid = SpUtil.getinfo(mContext, "login_user_id", "");
-        mTokenString = SpUtil.getinfo(mContext, "login_token", "");
+        mTokenString =String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
         //long token = Long.parseLong(tokenString);
         final View view = inflater.inflate(R.layout.fragment_hasshopping, null);
         ButterKnife.bind(this, view);
