@@ -33,7 +33,7 @@ import retrofit2.http.POST;
 /**
  * Created by 栁年 on 2016/9/10.
  */
-public class SuccessIndentContentFragment extends BaseFragment implements View.OnClickListener {
+public class CancelIndentContentFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
     private IndentBean bean;
@@ -54,6 +54,7 @@ public class SuccessIndentContentFragment extends BaseFragment implements View.O
     private TextView mContainShip;
     private RelativeLayout mRlContinue;
     private IndentBean.OrderListBean orderListBean;
+    private TextView mIndentCondition;
 
 
     @Nullable
@@ -84,6 +85,8 @@ public class SuccessIndentContentFragment extends BaseFragment implements View.O
         });
 
         mIndentNum = (TextView) view.findViewById(R.id.indent_num);
+        mIndentCondition = (TextView) view.findViewById(R.id.indent_condition);
+        mIndentCondition.setText("已取消");
 
         mtv_name = (TextView) view.findViewById(R.id.tv_name);
         TextView mtv_telephone = (TextView) view.findViewById(R.id.tv_telephone);

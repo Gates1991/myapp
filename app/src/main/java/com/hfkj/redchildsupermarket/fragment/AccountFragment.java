@@ -42,11 +42,11 @@ import retrofit2.http.POST;
  */
 public class AccountFragment extends BaseFragment implements View.OnClickListener {
     @Bind(R.id.tv_name)
-    TextView       mTvName;
+    TextView mTvName;
     @Bind(R.id.tv_telephone)
-    TextView       mTvTelephone;
+    TextView mTvTelephone;
     @Bind(R.id.tv_address_detial)
-    TextView       mTvAddressDetial;
+    TextView mTvAddressDetial;
     @Bind(R.id.rl_address)
     RelativeLayout mRlAddress;
     @Bind(R.id.rl_pay_way)
@@ -62,18 +62,18 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Bind(R.id.tv_invoice_content)
     TextView       mTvInvoiceContent;*/
     @Bind(R.id.lv_deail_shopping)
-    ListView       mLvDeailShopping;
+    ListView mLvDeailShopping;
     @Bind(R.id.tv_pay_total)
-    TextView       mTvPayTotal;
+    TextView mTvPayTotal;
     @Bind(R.id.contain_ship)
-    TextView       mContainShip;
+    TextView mContainShip;
     private View mIv_submit;
     private TextView mTv_title_name;
     private Bundle mBundle;
     private ArrayList mList;
     private int mTotalPay;
     private ArrayList<String> payWayData = new ArrayList();
-    private ArrayList<String> deliverData  = new ArrayList();
+    private ArrayList<String> deliverData = new ArrayList();
     private ShowPayWayDialog showPayWayDialog;
     private ShowPayWayDialog showDeliverDialog;
     private TextView mTv_deliver_time;
@@ -86,7 +86,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     private TextView mTv_invoice_rise;
     private TextView mTv_invoice_content;
     private AddressManagerFragment mAddressManagerFragment;
-    private int  mAddressid;
+    private int mAddressid;
     private int mPayWay;
     private int mDeliverTime;
     private InvoiceInfoBean mBean;
@@ -127,20 +127,21 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
         mBundle = getArguments();
         mList = (ArrayList) mBundle.getSerializable("list");
         mTotalPay = mBundle.getInt("data");
-        mLvDeailShopping.setAdapter(new ShopCarShowAdapter(mContext,mList));
+        mLvDeailShopping.setAdapter(new ShopCarShowAdapter(mContext, mList));
         setListViewHeightBasedOnChildren(mLvDeailShopping);
         fillBottom(mTotalPay);
     }
 
 
     private void fillBottom(int mTotalPay) {
-        mTvPayTotal.setText("应付金额:￥"+mTotalPay+".0");
+        mTvPayTotal.setText("应付金额:￥" + mTotalPay + ".0");
         mTvPayTotal.setTextColor(Color.RED);
-        mContainShip.setText("含运费:￥"+(0.0));
+        mContainShip.setText("含运费:￥" + (0.0));
     }
 
     private void setListViewHeightBasedOnChildren(ListView listView) {
-        if(listView == null) return;
+        if (listView == null)
+            return;
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
             return;
@@ -171,9 +172,9 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 if (mAddressManagerFragment == null) {
                     mAddressManagerFragment = new AddressManagerFragment();
                 }
-                mAddressManagerFragment.setTargetFragment(AccountFragment.this,REQUEST_CODE2);
-                ((MainActivity)mContext).addToBackStack(mAddressManagerFragment,AccountFragment.this);
-                SpUtil.saveBoolean(mContext,"isOrderPage",true);
+                mAddressManagerFragment.setTargetFragment(AccountFragment.this, REQUEST_CODE2);
+                ((MainActivity) mContext).addToBackStack(mAddressManagerFragment, AccountFragment.this);
+                SpUtil.saveBoolean(mContext, "isOrderPage", true);
                 break;
             case R.id.rl_pay_way:
                 if (showPayWayDialog == null) {
@@ -184,31 +185,31 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                     @Override
                     public void onItemSelectItem(int position) {
                         mPayWay = position + 1;
-                        mTv_payway.setText("配送方式 :  "+payWayData.get(position));
+                        mTv_payway.setText("配送方式 :  " + payWayData.get(position));
                         showPayWayDialog.dismiss();
                     }
                 });
                 break;
             case R.id.rl_deliver:
                 if (showDeliverDialog == null) {
-                    showDeliverDialog =  new ShowPayWayDialog(mContext,deliverData);
+                    showDeliverDialog = new ShowPayWayDialog(mContext, deliverData);
                 }
                 showDeliverDialog.show();
                 showDeliverDialog.setOnItemSelectItem(new ShowPayWayDialog.OnItemSelectedItem() {
                     @Override
                     public void onItemSelectItem(int position) {
                         mDeliverTime = position + 1;
-                        mTv_deliver_time.setText("送货时间 :  "+deliverData.get(position));
+                        mTv_deliver_time.setText("送货时间 :  " + deliverData.get(position));
                         showDeliverDialog.dismiss();
                     }
                 });
                 break;
             case R.id.rl_invoice:
                 if (invoiceInfo == null) {
-                   // invoiceInfo = new InvoiceInfo();
-                     invoiceInfo = InvoiceInfo.newInstance();
+                    // invoiceInfo = new InvoiceInfo();
+                    invoiceInfo = InvoiceInfo.newInstance();
                 }
-                invoiceInfo.setTargetFragment(AccountFragment.this,REQUEST_CODE1);
+                invoiceInfo.setTargetFragment(AccountFragment.this, REQUEST_CODE1);
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.setCustomAnimations(
                         R.anim.fragment_slide_right_in, R.anim.fragment_slide_left_out,
@@ -220,39 +221,39 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                         .commit();
                 break;
             case R.id.iv_submit:
-                if("姓名:".equals(mTvName.getText()) || "电话:".equals(mTvTelephone.getText()) ||
+                if ("姓名:".equals(mTvName.getText()) || "电话:".equals(mTvTelephone.getText()) ||
                         "详细地址:".equals(mTvAddressDetial.getText())) {
-                    Toast.makeText(mContext,"地址信息不能为空",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "地址信息不能为空", Toast.LENGTH_SHORT).show();
                 } else {
                     String useid = SpUtil.getinfo(mContext, "login_user_id", "");
                     String token = String.valueOf(SpUtil.getLonginfo(mContext, "login_token", 0));
                     String cids = "";
                     for (int i = 0; i < mList.size(); i++) {
-                        cids = cids + ((ShoppingCarBean.CartBean)mList.get(i)).getId() + "-";
+                        cids = cids + ((ShoppingCarBean.CartBean) mList.get(i)).getId() + "-";
                     }
-                    cids = cids.substring(0,cids.length() - 1);
+                    cids = cids.substring(0, cids.length() - 1);
                     int paymentType = mPayWay;
                     int deliveryType = mDeliverTime;
                     int invoiceType = 0;
                     if ("电子发票".equals(mBean.invoiceType)) {
                         invoiceType = 1;
-                    }else if ("普通发票".equals(mBean.invoiceType)) {
+                    } else if ("普通发票".equals(mBean.invoiceType)) {
                         invoiceType = 2;
                     }
                     String invoiceTitle = mBean.invoiceTop;
                     String invoiceContent = mBean.invoiceContent;
                     int couponid = 1;
-                    postOrderInfo2Server(cids,token,useid,mAddressid,paymentType,
-                            deliveryType,invoiceType,invoiceTitle,invoiceContent,couponid);
-                    ((MainActivity) mContext).addToBackStack(PayFragment.newInstance(),mTotalPay);
-                    Toast.makeText(mContext,"订单提交成功",Toast.LENGTH_SHORT).show();
+                    postOrderInfo2Server(cids, token, useid, mAddressid, paymentType,
+                            deliveryType, invoiceType, invoiceTitle, invoiceContent, couponid);
+                    ((MainActivity) mContext).addToBackStack(PayFragment.newInstance(), mTotalPay);
+                    Toast.makeText(mContext, "订单提交成功", Toast.LENGTH_SHORT).show();
                 }
         }
 
     }
 
-    private void postOrderInfo2Server(String s1,String s2,String s3,int s4,int s5,int s6,
-                                      int s7,String s8,String s9,int s10) {
+    private void postOrderInfo2Server(String s1, String s2, String s3, int s4, int s5, int s6,
+                                      int s7, String s8, String s9, int s10) {
 
         new Retrofit
                 .Builder()
@@ -260,7 +261,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(HttpApi.class)
-                .postOrderInfo(s1,s2,s3,s4,s5,s6,s7,s8,s9,s10)
+                .postOrderInfo(s1, s2, s3, s4, s5, s6, s7, s8, s9, s10)
                 .enqueue(new Callback<SubmitOrder>() {
                     @Override
                     public void onResponse(Call<SubmitOrder> call, Response<SubmitOrder> response) {
@@ -277,7 +278,7 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data == null) {
+        if (data == null) {
             return;
         }
         if (requestCode == REQUEST_CODE1) {
@@ -288,13 +289,14 @@ public class AccountFragment extends BaseFragment implements View.OnClickListene
             mTv_invoice_content.setText("发票内容:\t" + mBean.invoiceContent);
         }
         if (requestCode == REQUEST_CODE2) {
-            mTvName.setText("姓名:\t"+data.getStringExtra("name"));
-            mTvTelephone.setText("电话:\t"+data.getStringExtra("phone"));
-            mTvAddressDetial.setText("详细地址:\t"+data.getStringExtra("address"));
-            mAddressid = data.getIntExtra("addressid",1);
+            mTvName.setText("姓名:\t" + data.getStringExtra("name"));
+            mTvTelephone.setText("电话:\t" + data.getStringExtra("phone"));
+            mTvAddressDetial.setText("详细地址:\t" + data.getStringExtra("address"));
+            mAddressid = data.getIntExtra("addressid", 1);
 
         }
     }
+
     public interface HttpApi {
         @FormUrlEncoded  //进行表单url编码
         @POST(Constant.URL_ORDER_SUMBIT)

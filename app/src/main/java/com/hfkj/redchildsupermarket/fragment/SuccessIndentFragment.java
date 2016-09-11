@@ -48,6 +48,8 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
     private int pageSzie;
 
     private int type;
+    private IndentBean indentBean;
+    private long token1;
 
     @Nullable
     @Override
@@ -67,7 +69,7 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
         //userid 值
         userid = SpUtil.getinfo(mContext, "login_user_id", "");
         //token  值
-        long token = SpUtil.getLonginfo(mContext, "login_token", 0);
+        token1 = SpUtil.getLonginfo(mContext, "login_token", 0);
   //      token = Long.parseLong(login_token);
         //pagenum 值
         pageNum = 1;
@@ -81,12 +83,12 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
                 .create(HttpApi.class)
-                .orderlist(userid, token, pageNum, pageSzie, type)
+                .orderlist(userid, token1, pageNum, pageSzie, type)
                 .enqueue(new Callback<IndentBean>() {
                     @Override
                     public void onResponse(Call<IndentBean> call, Response<IndentBean> response) {
                         if (response.isSuccessful()) {
-                            IndentBean indentBean = response.body();
+                            indentBean = response.body();
                             System.out.println(indentBean.response);
                             if (TextUtils.equals("error", indentBean.response)) {
                                 Toast.makeText(mContext, "ERROECODE:" + indentBean.error.code + "MSG:" + indentBean.error.msg,
@@ -130,7 +132,7 @@ public class SuccessIndentFragment extends BaseFragment implements AdapterView.O
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         SuccessIndentContentFragment fragment = new SuccessIndentContentFragment();
-        IndentBean indentBean = new IndentBean();
+
         mMainActivity.addToBackStack2(fragment,indentBean,position);
     }
 }

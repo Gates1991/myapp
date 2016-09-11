@@ -131,7 +131,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/rl_invoice"
+
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -139,6 +139,7 @@
                 android:clickable="true">
 
                 <TextView
+                    android:id="@+id/tv_invoice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -151,7 +152,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="75dp"
-                android:layout_marginTop="10dp"
+
                 android:background="#229c9c9c"
                 android:orientation="vertical"
                 >
@@ -274,7 +275,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:src="@drawable/shape_shop_remove_big"/>
+                android:src="@drawable/selector_delete_order_btn"/>
 
             <TextView
                 android:id="@+id/tv_delete"
@@ -283,6 +284,7 @@
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
                 android:text="删除订单"
+                android:textColor="#fff"
                 android:textSize="16sp"/>
         </RelativeLayout>
 

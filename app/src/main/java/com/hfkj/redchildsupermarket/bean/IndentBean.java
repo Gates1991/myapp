@@ -21,7 +21,8 @@ public class IndentBean extends BaseResponse implements Serializable{
     private int total;
     /**
      * addressid : 145
-     * carts : [{"id":53,"orderid":"201609080154241","pid":1,"pnum":2,"ppid":0,"productImageUrl":"/images/topic/product/1.jpg","productName":"灰色孕妇服","productPrice":"50","state":2,"user_id":"147323808575613"}]
+     * carts : [{"id":53,"orderid":"201609080154241","pid":1,"pnum":2,"ppid":0,"productImageUrl":"/images/topic/product/1.jpg",
+     * "productName":"灰色孕妇服","productPrice":"50","state":2,"user_id":"147323808575613"}]
      * couponid : 1
      * deliveryType : 1
      * id : 37

@@ -38,93 +38,95 @@ import retrofit2.Retrofit;
  */
 public class CancelIndentFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
-        private List<IndentBean.OrderListBean> mShowList = new ArrayList<>();
+    private List<IndentBean.OrderListBean> mShowList = new ArrayList<>();
 
-        private String userid;
-        private long token;
-        private int pageNum;
-        private int pageSzie;
+    private String userid;
+    private long token;
+    private int pageNum;
+    private int pageSzie;
 
-        @Bind(R.id.lv_succeed_indent)
-        ListView lvSucceedIndent;
-        private int type;
+    @Bind(R.id.lv_succeed_indent)
+    ListView lvSucceedIndent;
+    private int type;
+    private IndentBean indentBean;
 
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstnceState) {
-            View view = inflater.inflate(R.layout.fragment_succeedindent, null);
-            ButterKnife.bind(this, view);
-            lvSucceedIndent.setOnItemClickListener(this);
-            getIndentData();
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstnceState) {
+        View view = inflater.inflate(R.layout.fragment_succeedindent, null);
+        ButterKnife.bind(this, view);
+        lvSucceedIndent.setOnItemClickListener(this);
+        getIndentData();
 
-            return view;
-        }
+        return view;
+    }
 
-        private void getIndentData() {
+    private void getIndentData() {
 
-            //userid 值
-            userid = SpUtil.getinfo(mContext, "login_user_id", "");
-            //token  值
-            long token = SpUtil.getLonginfo(mContext, "login_token", 0);
-//            token = Long.parseLong(login_token);
-            //pagenum 值
-            pageNum = 1;
-            //pagesize值
-            pageSzie = 10;
-            //type
-            type = 2;
+        //userid 值
+        userid = SpUtil.getinfo(mContext, "login_user_id", "");
+        //token  值
+        long token = SpUtil.getLonginfo(mContext, "login_token", 0);
+        //            token = Long.parseLong(login_token);
+        //pagenum 值
+        pageNum = 1;
+        //pagesize值
+        pageSzie = 10;
+        //type
+        type = 2;
 
-            new Retrofit.Builder()
-                    .baseUrl(Constant.BASE_URL)
-                    .addConverterFactory(GsonConverterFactory.create())
-                    .build()
-                    .create(HttpApi.class)
-                    .orderlist(userid,token,pageNum,pageSzie,type)
-                    .enqueue(new Callback<IndentBean>() {
-                        @Override
-                        public void onResponse(Call<IndentBean> call, Response<IndentBean> response) {
-                            if (response.isSuccessful()) {
-                                IndentBean indentBean = response.body();
-                                System.out.println(indentBean.response);
-                                if (TextUtils.equals("error", indentBean.response)) {
-                                    Toast.makeText(mContext, "ERROECODE:" + indentBean.error.code + "MSG:" + indentBean.error.msg,
-                                            Toast.LENGTH_SHORT).show();
-                                    return;
-                                } else {
+        new Retrofit.Builder()
+                .baseUrl(Constant.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(HttpApi.class)
+                .orderlist(userid, token, pageNum, pageSzie, type)
+                .enqueue(new Callback<IndentBean>() {
+                    @Override
+                    public void onResponse(Call<IndentBean> call, Response<IndentBean> response) {
+                        if (response.isSuccessful()) {
+                            indentBean = response.body();
+                            System.out.println(indentBean.response);
+                            if (TextUtils.equals("error", indentBean.response)) {
+                                Toast.makeText(mContext, "ERROECODE:" + indentBean.error.code + "MSG:" + indentBean.error.msg,
+                                        Toast.LENGTH_SHORT).show();
+                                return;
+                            } else {
 
-//                                if (indentBean.getOrderList().size() > 0) {
-                                    System.out.println("数据到这");
-                                    lvSucceedIndent.setAdapter(new IndentAdapter(mContext,indentBean.getOrderList()));
-//                                } else {
-//
-//                                }
-
-                                }
+                                //                                if (indentBean.getOrderList().size() > 0) {
+                                System.out.println("数据到这");
+                                lvSucceedIndent.setAdapter(new IndentAdapter(mContext, indentBean.getOrderList()));
+                                //                                } else {
+                                //
+                                //                                }
 
                             }
+
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<IndentBean> call, Throwable throwable) {
-                            Toast.makeText(mContext, "获取数据失败",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        }
+                    @Override
+                    public void onFailure(Call<IndentBean> call, Throwable throwable) {
+                        Toast.makeText(mContext, "获取数据失败",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
 
 
-        public void initData() {
+    public void initData() {
 
-        }
+    }
 
-        @Override
-        public void onDestroyView() {
-            super.onDestroyView();
-            ButterKnife.unbind(this);
-        }
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        ButterKnife.unbind(this);
+    }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(mContext,"能跳",Toast.LENGTH_SHORT).show();
+        CancelIndentContentFragment cancelIndentContentFragment = new CancelIndentContentFragment();
+        mMainActivity.addToBackStack2(cancelIndentContentFragment, indentBean, position);
     }
 }

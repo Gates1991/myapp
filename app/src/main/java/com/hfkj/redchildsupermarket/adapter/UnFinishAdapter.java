@@ -44,7 +44,7 @@ public class UnFinishAdapter extends CommonAdapter<IndentBean.OrderListBean.Cart
         viewHolder.mTvTitle.setText(cartsBean.getProductName());
         //viewHolder.mIvGoodsIcon
         Glide.with(mContext).load(Constant.BASE_URL+cartsBean.getProductImageUrl()).into(viewHolder.mIvGoodsIcon);
-        viewHolder.mTvNowPrice.setText("商品价格"+cartsBean.getProductPrice()+"¥");
+        viewHolder.mTvNowPrice.setText("商品价格 ¥："+cartsBean.getProductPrice());
         return convertView;
     }
 
