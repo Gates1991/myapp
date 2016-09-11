@@ -51,7 +51,7 @@ public class MyFavoriteFragment extends BaseFragment implements AdapterView.OnIt
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle
             savedInstanceState) {
         mView = inflater.inflate(R.layout.fragment_myfavorite, null);
-        mMainActivity.isMainFrament = 2;
+        mMainActivity.isMainFrament = 3;
         initTitleView();
         ButterKnife.bind(this, mView);
         initData();

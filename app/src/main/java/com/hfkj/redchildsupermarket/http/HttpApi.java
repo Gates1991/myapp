@@ -1,5 +1,6 @@
 package com.hfkj.redchildsupermarket.http;
 
+import com.hfkj.redchildsupermarket.bean.BaseResponse;
 import com.hfkj.redchildsupermarket.bean.CancelBean;
 import com.hfkj.redchildsupermarket.bean.DefuAddrBean;
 import com.hfkj.redchildsupermarket.bean.DelAddBean;
@@ -198,4 +199,8 @@ public interface HttpApi {
     @POST("orderlist")
     Call<IndentBean> getUnfinishOrderDetailData(@Field("userid") String userid, @Field("token") Long token,@Field("page") Integer pagenum, @Field("pageNum") Integer pagesize,@Field("type") Integer type);
 
+
+    @FormUrlEncoded
+    @POST("ordercancel")
+    Call<BaseResponse> cancelList(@Field("orderid") String orderid, @Field("userid") String userid, @Field("token") Long token);
 }

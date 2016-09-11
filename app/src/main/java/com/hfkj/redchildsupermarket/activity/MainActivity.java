@@ -261,10 +261,10 @@ public class MainActivity extends FragmentActivity {
             }
         }else if(isMainFrament ==2) {
             popBackStack();
-            isMainFrament = 1;
-        }else if(isMainFrament ==3){
+            //isMainFrament = 1;
+        }else if(isMainFrament >2){
             popBackStack2();
-            isMainFrament = 2;
+            //isMainFrament = 2;
         }
 
     }
@@ -272,4 +272,6 @@ public class MainActivity extends FragmentActivity {
     public  void popBackStack2() {
         supportFragmentManager.popBackStack(null,0);//参数为0，清除栈顶的Fragment，参数为1，清空栈
     }
+
+
 }

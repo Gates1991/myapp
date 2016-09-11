@@ -120,6 +120,7 @@ public class ShangPingFragment extends BaseFragment implements View.OnClickListe
         mMainActivity.isMainFrament = 3;
         mPid = bundle.getInt("id");
 
+
         return view;
     }
 
