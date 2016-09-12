@@ -199,7 +199,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if ("".equals(mUserid) || "".equals(mTokenString) || mTotalNum ==0) {
+                if ("".equals(mUserid) || "".equals(mTokenString) || mTotalNum == 0) {
                     //显示空购物车界面
                     showNonShoppingView(view);
                 } else {
@@ -211,7 +211,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
                 }
             }
-        }, 200);
+        }, 150);
 
         return view;
     }
@@ -310,7 +310,6 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
 
         Object tag = v.getTag();
         switch (v.getId()) {
-
             case R.id.iv_button_add:
                 if (tag != null && tag instanceof Integer) {
                     int position = (int) tag;
@@ -324,9 +323,7 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
-                     //   mShopCarFinishAdapter.notifyDataSetChanged();
-                        mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext, mList));
-                        Toast.makeText(mContext, "添加成功", Toast.LENGTH_SHORT).show();
+                        mLvShopCarFinish.setSelection(position);
                     }else {
                         Toast.makeText(mContext,"超过该商品的最大购买数量",Toast.LENGTH_SHORT).show();
                     }
@@ -345,13 +342,17 @@ public class CarFragment extends BaseFragment implements View.OnClickListener,Ad
                                 cartBean.getId());
                         mList.get(position).setPnum(num);
                         fillData(mList);
-                   //     mShopCarFinishAdapter.notifyDataSetChanged();
-                        mLvShopCarFinish.setAdapter(new ShopCarFinishAdapter(mContext,mList));
+                        mLvShopCarFinish.setSelection(position);
                     }
-                    Toast.makeText(mContext,"删减成功",Toast.LENGTH_SHORT).show();
                 }
+
                 break;
         }
+        ShopCarFinishAdapter addAdapter = new ShopCarFinishAdapter(mContext,mList);
+        mLvShopCarFinish.setAdapter(addAdapter);
+        addAdapter.setOnAddNum(this);
+        addAdapter.setOnSubNum(this);
+
     }
 
     private void postData2Server(String s, String s1, int num, int pid, int id) {
