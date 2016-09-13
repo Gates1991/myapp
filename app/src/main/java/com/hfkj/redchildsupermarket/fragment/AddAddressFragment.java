@@ -268,8 +268,10 @@ public class AddAddressFragment extends BaseFragment implements View.OnClickList
             Toast.makeText(mContext, "ERRORCODE:" + saveAddBean.error + "MSG:" + saveAddBean.error.msg, Toast.LENGTH_SHORT).show();
 
         } else {
+            mMainActivity.popBackStack();
             //获取地址
             id_get = saveAddBean.getAddressList().get(0).getId();
+
 
             mMainActivity.addToBackStack(new AddressManagerFragment());
 
